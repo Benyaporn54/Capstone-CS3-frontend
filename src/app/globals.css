@@ -1,26 +1,139 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Color tokens (Light) ---------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #ffffff;
+  --surface: #fafafa;
+  --hover: #f2f2f3;
+  --border: #e6e6e8;
+  --border-strong: #8b8b93;
+  --fg: #1a1a1c; /* token "text" in design system */
+  --fg-muted: #6b6b72; /* token "text-muted" */
+
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-fg: #ffffff;
+  --accent-soft: #eff4ff;
+
+  --signature: #e86a00;
+  --signature-text: #b34a00;
+  --signature-soft: #fff3e8;
+
+  --success: #15803d;
+  --success-soft: #ecfdf3;
+  --warning: #b45309;
+  --warning-soft: #fffbeb;
+  --error: #c81e1e;
+  --error-soft: #fef2f2;
+
+  --shadow-pop: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
+/* ---------- Color tokens (Dark) ---------- */
+.dark {
+  --bg: #0f1011;
+  --surface: #17181a;
+  --hover: #1f2023;
+  --border: #2a2b2f;
+  --border-strong: #6c6d75;
+  --fg: #ededef;
+  --fg-muted: #9a9aa3;
+
+  --accent: #5b8def;
+  --accent-hover: #7ba4f4;
+  --accent-fg: #0f1011;
+  --accent-soft: #17223b;
+
+  --signature: #f5851f;
+  --signature-text: #ffa559;
+  --signature-soft: #2e1d0e;
+
+  --success: #4ade80;
+  --success-soft: #10261a;
+  --warning: #fbbf24;
+  --warning-soft: #2a2110;
+  --error: #f87171;
+  --error-soft: #2b1414;
+
+  --shadow-pop: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Map tokens -> Tailwind classes ---------- */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* colors: bg-bg, bg-surface, text-fg, border-border, bg-accent ... */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-hover: var(--hover);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+
+  --color-signature: var(--signature);
+  --color-signature-text: var(--signature-text);
+  --color-signature-soft: var(--signature-soft);
+
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-error: var(--error);
+  --color-error-soft: var(--error-soft);
+
+  /* fonts (variables come from next/font in layout.tsx) */
+  --font-sans: var(--font-en), var(--font-th), system-ui, sans-serif;
+
+  /* shadow: shadow-pop */
+  --shadow-pop: var(--shadow-pop);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  /* typography: text-h1, text-h2, text-h3, text-body-lg, text-body, text-label, text-caption */
+  --text-h1: 32px;
+  --text-h1--line-height: 40px;
+  --text-h1--font-weight: 600;
+  --text-h1--letter-spacing: -0.02em;
+
+  --text-h2: 24px;
+  --text-h2--line-height: 32px;
+  --text-h2--font-weight: 600;
+  --text-h2--letter-spacing: -0.01em;
+
+  --text-h3: 20px;
+  --text-h3--line-height: 28px;
+  --text-h3--font-weight: 600;
+
+  --text-body-lg: 16px;
+  --text-body-lg--line-height: 26px;
+
+  --text-body: 14px;
+  --text-body--line-height: 22px;
+
+  --text-label: 13px;
+  --text-label--line-height: 20px;
+  --text-label--font-weight: 500;
+
+  --text-caption: 12px;
+  --text-caption--line-height: 18px;
+
+  /* radius: rounded-sm, rounded-md, rounded-lg, rounded-full */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* spacing: Tailwind default is already 4px-based
+     space-1 = p-1 (4px), space-4 = p-4 (16px), space-12 = p-12 (48px) */
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-body text-fg;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
