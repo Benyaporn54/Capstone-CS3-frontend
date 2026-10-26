@@ -40,20 +40,20 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Environment Variables
 
-| Variable | Description |
-| --- | --- |
+| Variable           | Description                                                                                          |
+| ------------------ | ---------------------------------------------------------------------------------------------------- |
 | `API_INTERNAL_URL` | Backend URL for server-side calls (`http://localhost:8080` locally, `http://backend:8080` in Docker) |
 
 Auth variables will be added when login is implemented. Never commit `.env.local`.
 
 ## Scripts
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start dev server |
-| `npm run build` | Production build |
-| `npm run start` | Run production build |
-| `npm run lint` | Run ESLint |
+| Command          | Description               |
+| ---------------- | ------------------------- |
+| `npm run dev`    | Start dev server          |
+| `npm run build`  | Production build          |
+| `npm run start`  | Run production build      |
+| `npm run lint`   | Run ESLint                |
 | `npm run format` | Format code with Prettier |
 
 ## Project Structure
@@ -91,6 +91,7 @@ Defined in `src/app/globals.css` (from the planIT design system). Use these clas
 ## Conventions
 
 **Branches** (GitHub Flow)
+
 - `main` – always working, deployed to SIT VM
 - `feature/SCRUM-<id>-short-name` – one branch per Jira task, PR into `main` (1 approval + CI pass)
 - Each sprint ends with a tag, e.g. `v0.1-sprint1`
@@ -99,6 +100,7 @@ Defined in `src/app/globals.css` (from the planIT design system). Use these clas
 `feat:`, `fix:`, `chore:`, `refactor:`, `style:`, `docs:`
 
 **Code**
+
 - Feature-specific code goes in `src/features/<feature>/`; only truly shared UI goes in `src/components/`
 - Add `"use client"` only to components that need state, effects, or event handlers
 - UI text in Thai; course codes, credits and track names in English
