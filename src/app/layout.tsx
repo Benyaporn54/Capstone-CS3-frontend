@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Sans_Thai } from "next/font/google";
 import "./globals.css";
-
+import Navbar from "@/components/ui/Navbar";
 const fontEn = Inter({
   subsets: ["latin"],
   variable: "--font-en",
@@ -23,7 +23,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="th" className={`${fontEn.variable} ${fontTh.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        <Navbar />
+        {children}      
+      </body>
     </html>
   );
 }
