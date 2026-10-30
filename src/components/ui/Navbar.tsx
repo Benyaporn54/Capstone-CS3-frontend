@@ -51,7 +51,7 @@ function Navbar() {
 
       <div className="ml-auto">
         <Link
-          href="/login"
+          href="/login" 
           className="border-fg-muted bg-accent-fg text-fg hover:bg-hover hover:text-fg hover:border-fg mx-15 flex items-center gap-2 rounded-md border px-5 py-2 font-bold"
         >
           เข้าสู่ระบบ
