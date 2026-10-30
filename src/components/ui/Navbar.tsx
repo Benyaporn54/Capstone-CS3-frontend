@@ -9,9 +9,9 @@ function Navbar() {
   const pathname = usePathname();
 
   const navItems = [
-    { name: "รายวิชา", href: "/course" },
-    { name: "Track", href: "/track" },
-    { name: "แผนการเรียน", href: "/curriculum" },
+    { name: "รายวิชา", href: "/courses" },
+    { name: "Track", href: "/tracks" },
+    { name: "แผนการเรียน", href: "/curriculums" },
   ];
 
   return (
