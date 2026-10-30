@@ -20,14 +20,14 @@ function LoginContent() {
   return (
     <div className="bg-bg border-border flex w-full max-w-[420px] flex-col items-center rounded-2xl border p-8 text-center">
       {/* Logo */}
-        <Image
-          src="/smallLogo.png"
-          alt="planIT logo"
-          width={70}
-          height={30}
-          className="w-auto"
-          priority
-        />
+      <Image
+        src="/smallLogo.png"
+        alt="planIT logo"
+        width={70}
+        height={30}
+        className="w-auto"
+        priority
+      />
 
       {/* Title */}
       <h1 className="text-h2 text-fg">เข้าสู่ระบบ planIT</h1>
@@ -45,7 +45,7 @@ function LoginContent() {
       {/* Login Button */}
       <button
         onClick={handleMicrosoftLogin}
-        className="border-fg bg-bg text-label text-fg hover:bg-hover mt-6 flex w-full items-center cursor-pointer  justify-center gap-3 rounded-md border px-4 py-2.5 font-medium transition-colors"
+        className="border-fg bg-bg text-label text-fg hover:bg-hover mt-6 flex w-full cursor-pointer items-center justify-center gap-3 rounded-md border px-4 py-2.5 font-medium transition-colors"
       >
         <svg className="h-4 w-4 shrink-0" viewBox="0 0 23 23">
           <path fill="#f35325" d="M1 1h10v10H1z" />

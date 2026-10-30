@@ -20,13 +20,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // เมื่อทำการ Login ผ่าน Provider สำเร็จ ให้ยิงไป Sync กับ Backend
       if (account && account.access_token) {
         try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/sync`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${account.access_token}`,
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/sync`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${account.access_token}`,
+              },
             },
-          });
+          );
 
           if (response.ok) {
             const userData = await response.json();
