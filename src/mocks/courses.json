@@ -1,0 +1,2569 @@
+[
+  {
+    "id": 1,
+    "courseCode": "CSC200",
+    "nameTh": "นวัตกรรมและการคอมพิวเตอร์ด้วยความรับผิดชอบ",
+    "nameEn": "Innovation and Responsible Computing",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 28,
+        "code": "ELEC_CS",
+        "nameTh": "วิชาเลือก สาขาวิชาวิทยาการคอมพิวเตอร์",
+        "nameEn": "Electives - Computer Science"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "courseCode": "CSC233",
+    "nameTh": "รูปแบบการโปรแกรม",
+    "nameEn": "Programming Paradigms",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 28,
+        "code": "ELEC_CS",
+        "nameTh": "วิชาเลือก สาขาวิชาวิทยาการคอมพิวเตอร์",
+        "nameEn": "Electives - Computer Science"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "courseCode": "CSC234",
+    "nameTh": "การพัฒนาแอปพลิเคชันบนอุปกรณ์พกพาโดยมีผู้ใช้เป็นศูนย์กลาง",
+    "nameEn": "User-Centered Mobile Application Development",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 28,
+        "code": "ELEC_CS",
+        "nameTh": "วิชาเลือก สาขาวิชาวิทยาการคอมพิวเตอร์",
+        "nameEn": "Electives - Computer Science"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "courseCode": "CSC332",
+    "nameTh": "วิทยาการการรู้เบื้องต้น",
+    "nameEn": "Introduction to Cognitive Science",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 28,
+        "code": "ELEC_CS",
+        "nameTh": "วิชาเลือก สาขาวิชาวิทยาการคอมพิวเตอร์",
+        "nameEn": "Electives - Computer Science"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "courseCode": "CSC335",
+    "nameTh": "คอมพิวเตอร์กราฟิกส์",
+    "nameEn": "Computer Graphics",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 28,
+        "code": "ELEC_CS",
+        "nameTh": "วิชาเลือก สาขาวิชาวิทยาการคอมพิวเตอร์",
+        "nameEn": "Electives - Computer Science"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "courseCode": "CSC344",
+    "nameTh": "โมเดลเพื่อการวิเคราะห์และตัดสินใจในระบบธุรกิจ",
+    "nameEn": "Analytic and Decision Models in Business Systems",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 28,
+        "code": "ELEC_CS",
+        "nameTh": "วิชาเลือก สาขาวิชาวิทยาการคอมพิวเตอร์",
+        "nameEn": "Electives - Computer Science"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "courseCode": "CSC371",
+    "nameTh": "ระบบแบบกระจายและการประมวลผลแบบขนานเบื้องต้น",
+    "nameEn": "Introduction to Distributed Systems and Parallel Computing",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 28,
+        "code": "ELEC_CS",
+        "nameTh": "วิชาเลือก สาขาวิชาวิทยาการคอมพิวเตอร์",
+        "nameEn": "Electives - Computer Science"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "courseCode": "CSC536",
+    "nameTh": "ความรู้เบื้องต้นเกี่ยวกับการประมวลผลภาพและการแสดงภาพ",
+    "nameEn": "Introduction to Image Processing and Visualization",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 28,
+        "code": "ELEC_CS",
+        "nameTh": "วิชาเลือก สาขาวิชาวิทยาการคอมพิวเตอร์",
+        "nameEn": "Electives - Computer Science"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "courseCode": "CSC561",
+    "nameTh": "การประมวลผลการเงินและวิศวกรรมการเงินเบื้องต้น",
+    "nameEn": "Introduction to Computational Finance and Financial Engineering",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 28,
+        "code": "ELEC_CS",
+        "nameTh": "วิชาเลือก สาขาวิชาวิทยาการคอมพิวเตอร์",
+        "nameEn": "Electives - Computer Science"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "courseCode": "DSI106",
+    "nameTh": "ศิลปะดิจิทัล",
+    "nameEn": "Digital Arts",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 29,
+        "code": "ELEC_DSI",
+        "nameTh": "วิชาเลือก สาขาวิชานวัตกรรมบริการดิจิทัล",
+        "nameEn": "Electives - Digital Service Innovation"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "courseCode": "DSI111",
+    "nameTh": "การเปลี่ยนแปลงสู่ดิจิทัล",
+    "nameEn": "Digital Transformation",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 29,
+        "code": "ELEC_DSI",
+        "nameTh": "วิชาเลือก สาขาวิชานวัตกรรมบริการดิจิทัล",
+        "nameEn": "Electives - Digital Service Innovation"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "courseCode": "DSI112",
+    "nameTh": "การออกแบบบริการดิจิทัล",
+    "nameEn": "Digital Service Design",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 29,
+        "code": "ELEC_DSI",
+        "nameTh": "วิชาเลือก สาขาวิชานวัตกรรมบริการดิจิทัล",
+        "nameEn": "Electives - Digital Service Innovation"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "courseCode": "DSI113",
+    "nameTh": "การจัดการความรู้",
+    "nameEn": "Knowledge Management",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 29,
+        "code": "ELEC_DSI",
+        "nameTh": "วิชาเลือก สาขาวิชานวัตกรรมบริการดิจิทัล",
+        "nameEn": "Electives - Digital Service Innovation"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "courseCode": "DSI117",
+    "nameTh": "การวิเคราะห์ข้อมูลเพื่อธุรกิจ",
+    "nameEn": "Business Analytics",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 29,
+        "code": "ELEC_DSI",
+        "nameTh": "วิชาเลือก สาขาวิชานวัตกรรมบริการดิจิทัล",
+        "nameEn": "Electives - Digital Service Innovation"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "courseCode": "DSI205",
+    "nameTh": "การตลาดดิจิทัล",
+    "nameEn": "Digital Marketing",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 29,
+        "code": "ELEC_DSI",
+        "nameTh": "วิชาเลือก สาขาวิชานวัตกรรมบริการดิจิทัล",
+        "nameEn": "Electives - Digital Service Innovation"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "courseCode": "DSI206",
+    "nameTh": "การวิจัยการตลาด",
+    "nameEn": "Marketing Research",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 29,
+        "code": "ELEC_DSI",
+        "nameTh": "วิชาเลือก สาขาวิชานวัตกรรมบริการดิจิทัล",
+        "nameEn": "Electives - Digital Service Innovation"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "courseCode": "DSI207",
+    "nameTh": "การบริหารงานบุคคล",
+    "nameEn": "Personnel Management",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 29,
+        "code": "ELEC_DSI",
+        "nameTh": "วิชาเลือก สาขาวิชานวัตกรรมบริการดิจิทัล",
+        "nameEn": "Electives - Digital Service Innovation"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "courseCode": "DSI208",
+    "nameTh": "เศรษฐศาสตร์ธุรกิจ",
+    "nameEn": "Business Economics",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 29,
+        "code": "ELEC_DSI",
+        "nameTh": "วิชาเลือก สาขาวิชานวัตกรรมบริการดิจิทัล",
+        "nameEn": "Electives - Digital Service Innovation"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "courseCode": "DSI209",
+    "nameTh": "การจัดการการเงิน",
+    "nameEn": "Financial Management",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 29,
+        "code": "ELEC_DSI",
+        "nameTh": "วิชาเลือก สาขาวิชานวัตกรรมบริการดิจิทัล",
+        "nameEn": "Electives - Digital Service Innovation"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "courseCode": "DSI210",
+    "nameTh": "การบัญชีสำหรับธุรกิจขนาดเล็กและขนาดกลาง",
+    "nameEn": "Accounting for Small and Medium Enterprises",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 29,
+        "code": "ELEC_DSI",
+        "nameTh": "วิชาเลือก สาขาวิชานวัตกรรมบริการดิจิทัล",
+        "nameEn": "Electives - Digital Service Innovation"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "courseCode": "GEN111",
+    "nameTh": "มนุษย์กับหลักจริยศาสตร์เพื่อการดำเนินชีวิต",
+    "nameEn": "Man and Ethics of Living",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 2,
+        "code": "GE_ETHICS",
+        "nameTh": "กลุ่มวิชาคุณธรรม จริยธรรมในการดำเนินชีวิต",
+        "nameEn": "Morality and Ethics in Life"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "courseCode": "GEN121",
+    "nameTh": "ทักษะการเรียนรู้และการแก้ปัญหา",
+    "nameEn": "Learning and Problem Solving Skills",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 3,
+        "code": "GE_LIFELONG",
+        "nameTh": "กลุ่มวิชาการเรียนรู้ตลอดชีวิต",
+        "nameEn": "Lifelong Learning"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "courseCode": "GEN231",
+    "nameTh": "มหัศจรรย์แห่งความคิด",
+    "nameEn": "Miracle of Thinking",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 4,
+        "code": "GE_SYSTEMS",
+        "nameTh": "กลุ่มวิชาการคิดอย่างมีระบบ",
+        "nameEn": "Systematic Thinking"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "courseCode": "GEN241",
+    "nameTh": "ความงดงามแห่งชีวิต",
+    "nameEn": "Beauty of Life",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 5,
+        "code": "GE_AESTHETICS",
+        "nameTh": "กลุ่มวิชาคุณค่าและความงาม",
+        "nameEn": "Value and Aesthetics"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "courseCode": "GEN351",
+    "nameTh": "การบริหารจัดการยุคใหม่และภาวะผู้นำ",
+    "nameEn": "Modern Management and Leadership",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 6,
+        "code": "GE_TECHMGMT",
+        "nameTh": "กลุ่มวิชาเทคโนโลยี นวัตกรรมและการจัดการ",
+        "nameEn": "Technology, Innovation and Management"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "courseCode": "INT100",
+    "nameTh": "การคิดเชิงออกแบบ",
+    "nameEn": "Design Thinking",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 10,
+        "code": "FND_IT",
+        "nameTh": "เทคโนโลยีสารสนเทศ",
+        "nameEn": "Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "courseCode": "INT101",
+    "nameTh": "คณิตศาสตร์ดิสครีต",
+    "nameEn": "Discrete Mathematics",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 10,
+        "code": "FND_IT",
+        "nameTh": "เทคโนโลยีสารสนเทศ",
+        "nameEn": "Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "courseCode": "INT102",
+    "nameTh": "สถิติสำหรับเทคโนโลยีสารสนเทศ",
+    "nameEn": "Statistics for Information Technology",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 10,
+        "code": "FND_IT",
+        "nameTh": "เทคโนโลยีสารสนเทศ",
+        "nameEn": "Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "courseCode": "INT105",
+    "nameTh": "สัมมนาเทคโนโลยีสารสนเทศ",
+    "nameEn": "Information Technology Seminar",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 10,
+        "code": "FND_IT",
+        "nameTh": "เทคโนโลยีสารสนเทศ",
+        "nameEn": "Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "courseCode": "INT110",
+    "nameTh": "การคิดเชิงธุรกิจ",
+    "nameEn": "Business Thinking",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 11,
+        "code": "FND_BUSINESS",
+        "nameTh": "ธุรกิจและความเป็นมืออาชีพ",
+        "nameEn": "Business and Professionalism"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "courseCode": "INT111",
+    "nameTh": "ระบบสารสนเทศเพื่อธุรกิจ",
+    "nameEn": "Business Information Systems",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 11,
+        "code": "FND_BUSINESS",
+        "nameTh": "ธุรกิจและความเป็นมืออาชีพ",
+        "nameEn": "Business and Professionalism"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "courseCode": "INT115",
+    "nameTh": "การปฏิบัติอย่างนักเทคโนโลยีสารสนเทศมืออาชีพ",
+    "nameEn": "Information Technology Professional Practices",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 11,
+        "code": "FND_BUSINESS",
+        "nameTh": "ธุรกิจและความเป็นมืออาชีพ",
+        "nameEn": "Business and Professionalism"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "courseCode": "INT116",
+    "nameTh": "ประเด็นทางกฎหมายและจริยธรรมในเทคโนโลยีสารสนเทศ",
+    "nameEn": "Legal and Ethical Issues in Information Technology",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 11,
+        "code": "FND_BUSINESS",
+        "nameTh": "ธุรกิจและความเป็นมืออาชีพ",
+        "nameEn": "Business and Professionalism"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "courseCode": "INT120",
+    "nameTh": "พื้นฐานการออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
+    "nameEn": "UX/UI Design Fundamentals",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 12,
+        "code": "FND_UX",
+        "nameTh": "การออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
+        "nameEn": "UX/UI Design"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "courseCode": "INT130",
+    "nameTh": "พื้นฐานแพลตฟอร์มคอมพิวเตอร์",
+    "nameEn": "Computing Platform Basics",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 13,
+        "code": "FND_INFRA",
+        "nameTh": "โครงสร้างพื้นฐานของระบบ",
+        "nameEn": "System Infrastructure"
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "courseCode": "INT131",
+    "nameTh": "หลักการแพลตฟอร์มคอมพิวเตอร์",
+    "nameEn": "Computing Platform Principles",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 13,
+        "code": "FND_INFRA",
+        "nameTh": "โครงสร้างพื้นฐานของระบบ",
+        "nameEn": "System Infrastructure"
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "courseCode": "INT132",
+    "nameTh": "พื้นฐานลินุกซ์และการเขียนเชลล์สคริปต์",
+    "nameEn": "Linux Fundamentals and Shell Scripting",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 13,
+        "code": "FND_INFRA",
+        "nameTh": "โครงสร้างพื้นฐานของระบบ",
+        "nameEn": "System Infrastructure"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "courseCode": "INT133",
+    "nameTh": "เครือข่ายคอมพิวเตอร์",
+    "nameEn": "Computer Networks",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 13,
+        "code": "FND_INFRA",
+        "nameTh": "โครงสร้างพื้นฐานของระบบ",
+        "nameEn": "System Infrastructure"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "courseCode": "INT134",
+    "nameTh": "การติดตั้งระบบ",
+    "nameEn": "System Deployment",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 13,
+        "code": "FND_INFRA",
+        "nameTh": "โครงสร้างพื้นฐานของระบบ",
+        "nameEn": "System Infrastructure"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "courseCode": "INT135",
+    "nameTh": "ความมั่นคงขั้นพื้นฐาน",
+    "nameEn": "Basic Security",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 13,
+        "code": "FND_INFRA",
+        "nameTh": "โครงสร้างพื้นฐานของระบบ",
+        "nameEn": "System Infrastructure"
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "courseCode": "INT136",
+    "nameTh": "ความมั่นคงทางไซเบอร์",
+    "nameEn": "Cyber Security",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 13,
+        "code": "FND_INFRA",
+        "nameTh": "โครงสร้างพื้นฐานของระบบ",
+        "nameEn": "System Infrastructure"
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "courseCode": "INT140",
+    "nameTh": "การคิดเชิงคอมพิวเตอร์",
+    "nameEn": "Computational Thinking",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 14,
+        "code": "FND_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์",
+        "nameEn": "Software Development"
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "courseCode": "INT141",
+    "nameTh": "การเขียนโปรแกรมเบื้องต้น",
+    "nameEn": "Basic Programming",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 14,
+        "code": "FND_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์",
+        "nameEn": "Software Development"
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "courseCode": "INT142",
+    "nameTh": "เครื่องมือการพัฒนาซอฟต์แวร์",
+    "nameEn": "Software Development Tools",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 14,
+        "code": "FND_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์",
+        "nameEn": "Software Development"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "courseCode": "INT143",
+    "nameTh": "พื้นฐานกระบวนการพัฒนาซอฟต์แวร์",
+    "nameEn": "Software Process Fundamentals",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 14,
+        "code": "FND_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์",
+        "nameEn": "Software Development"
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "courseCode": "INT144",
+    "nameTh": "การพัฒนาซอฟต์แวร์แบบอไจล์ 1",
+    "nameEn": "Agile Software Development I",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 14,
+        "code": "FND_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์",
+        "nameEn": "Software Development"
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "courseCode": "INT145",
+    "nameTh": "การวิเคราะห์และออกแบบซอฟต์แวร์",
+    "nameEn": "Software Analysis and Design",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 14,
+        "code": "FND_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์",
+        "nameEn": "Software Development"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "courseCode": "INT146",
+    "nameTh": "การทดสอบซอฟต์แวร์",
+    "nameEn": "Software Testing",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 14,
+        "code": "FND_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์",
+        "nameEn": "Software Development"
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "courseCode": "INT147",
+    "nameTh": "การพัฒนาซอฟต์แวร์แบบอไจล์ 2",
+    "nameEn": "Agile Software Development II",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 14,
+        "code": "FND_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์",
+        "nameEn": "Software Development"
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "courseCode": "INT150",
+    "nameTh": "เทคโนโลยีเว็บ",
+    "nameEn": "Web Technology",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 14,
+        "code": "FND_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์",
+        "nameEn": "Software Development"
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "courseCode": "INT151",
+    "nameTh": "การพัฒนาฟรอนเอนด์พื้นฐาน",
+    "nameEn": "Basic Frontend Development",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 14,
+        "code": "FND_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์",
+        "nameEn": "Software Development"
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "courseCode": "INT161",
+    "nameTh": "การพัฒนาแบ็กเอนด์พื้นฐาน",
+    "nameEn": "Basic Backend Development",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 14,
+        "code": "FND_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์",
+        "nameEn": "Software Development"
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "courseCode": "INT180",
+    "nameTh": "ความสามารถด้านข้อมูล",
+    "nameEn": "Data Literacy",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 15,
+        "code": "FND_DATA",
+        "nameTh": "ข้อมูลและวิทยาการข้อมูล",
+        "nameEn": "Data and Data Science"
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "courseCode": "INT182",
+    "nameTh": "พื้นฐานวิทยาการข้อมูลและปัญญาประดิษฐ์",
+    "nameEn": "Data Science and Artificial Intelligence Fundamentals",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 15,
+        "code": "FND_DATA",
+        "nameTh": "ข้อมูลและวิทยาการข้อมูล",
+        "nameEn": "Data and Data Science"
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "courseCode": "INT185",
+    "nameTh": "การแสดงผลข้อมูลด้วยภาพเบื้องต้น",
+    "nameEn": "Basic Data Visualization",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 15,
+        "code": "FND_DATA",
+        "nameTh": "ข้อมูลและวิทยาการข้อมูล",
+        "nameEn": "Data and Data Science"
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "courseCode": "INT189",
+    "nameTh": "การกำกับดูแลข้อมูล",
+    "nameEn": "Data Governance",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 15,
+        "code": "FND_DATA",
+        "nameTh": "ข้อมูลและวิทยาการข้อมูล",
+        "nameEn": "Data and Data Science"
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "courseCode": "INT190",
+    "nameTh": "เอสคิวแอลพื้นฐาน",
+    "nameEn": "Basic SQL",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 16,
+        "code": "FND_DB",
+        "nameTh": "ฐานข้อมูล",
+        "nameEn": "Database"
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "courseCode": "INT191",
+    "nameTh": "แนวคิดและการออกแบบฐานข้อมูลเชิงสัมพันธ์",
+    "nameEn": "Relational Database Concepts and Design",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 16,
+        "code": "FND_DB",
+        "nameTh": "ฐานข้อมูล",
+        "nameEn": "Database"
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "courseCode": "INT220",
+    "nameTh": "การออกแบบประสบการณ์ของผู้ใช้",
+    "nameEn": "UX Design",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 19,
+        "code": "ADV_UX",
+        "nameTh": "การออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน (วิชาเชิงลึก)",
+        "nameEn": "UX/UI Design (Advanced)"
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "courseCode": "INT221",
+    "nameTh": "การออกแบบส่วนต่อประสาน",
+    "nameEn": "UI Design",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 19,
+        "code": "ADV_UX",
+        "nameTh": "การออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน (วิชาเชิงลึก)",
+        "nameEn": "UX/UI Design (Advanced)"
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "courseCode": "INT222",
+    "nameTh": "การวัดและวิเคราะห์ประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
+    "nameEn": "UX/UI Measurement and Analysis",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 19,
+        "code": "ADV_UX",
+        "nameTh": "การออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน (วิชาเชิงลึก)",
+        "nameEn": "UX/UI Design (Advanced)"
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "courseCode": "INT240",
+    "nameTh": "แนวคิดการเขียนโปรแกรมขั้นสูง",
+    "nameEn": "Advanced Programming Concepts",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 20,
+        "code": "ADV_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์ (วิชาเชิงลึก)",
+        "nameEn": "Software Development (Advanced)"
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "courseCode": "INT241",
+    "nameTh": "โครงสร้างข้อมูลและอัลกอริทึม",
+    "nameEn": "Data Structures and Algorithms",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 20,
+        "code": "ADV_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์ (วิชาเชิงลึก)",
+        "nameEn": "Software Development (Advanced)"
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "courseCode": "INT242",
+    "nameTh": "การเขียนโปรแกรมจาวา",
+    "nameEn": "Java Programming",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 20,
+        "code": "ADV_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์ (วิชาเชิงลึก)",
+        "nameEn": "Software Development (Advanced)"
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "courseCode": "INT243",
+    "nameTh": "การเขียนโปรแกรมไพทอน",
+    "nameEn": "Python Programming",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 20,
+        "code": "ADV_SWDEV",
+        "nameTh": "การพัฒนาซอฟต์แวร์ (วิชาเชิงลึก)",
+        "nameEn": "Software Development (Advanced)"
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "courseCode": "INT250",
+    "nameTh": "ซีเอสเอสเฟรมเวิร์ก",
+    "nameEn": "CSS Framework",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 21,
+        "code": "ADV_FE",
+        "nameTh": "การพัฒนาฟรอนเอนด์",
+        "nameEn": "Frontend Development"
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "courseCode": "INT251",
+    "nameTh": "เฟรมเวิร์กสำหรับการพัฒนาฟรอนเอนด์",
+    "nameEn": "Frontend Development Framework",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 21,
+        "code": "ADV_FE",
+        "nameTh": "การพัฒนาฟรอนเอนด์",
+        "nameEn": "Frontend Development"
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "courseCode": "INT261",
+    "nameTh": "เฟรมเวิร์กสำหรับการพัฒนาแบ็กเอนด์",
+    "nameEn": "Backend Development Framework",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 22,
+        "code": "ADV_BE",
+        "nameTh": "การพัฒนาแบ็กเอนด์",
+        "nameEn": "Backend Development"
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "courseCode": "INT270",
+    "nameTh": "คณิตศาสตร์สำหรับปัญญาประดิษฐ์",
+    "nameEn": "Mathematics for Artificial Intelligence",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 23,
+        "code": "ADV_AI",
+        "nameTh": "ปัญญาประดิษฐ์",
+        "nameEn": "Artificial Intelligence"
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "courseCode": "INT271",
+    "nameTh": "การเรียนรู้ของเครื่อง",
+    "nameEn": "Machine Learning",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 23,
+        "code": "ADV_AI",
+        "nameTh": "ปัญญาประดิษฐ์",
+        "nameEn": "Artificial Intelligence"
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "courseCode": "INT272",
+    "nameTh": "เครือข่ายประสาทประดิษฐ์และการเรียนรู้เชิงลึก",
+    "nameEn": "Artificial Neural Networks and Deep Learning",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 23,
+        "code": "ADV_AI",
+        "nameTh": "ปัญญาประดิษฐ์",
+        "nameEn": "Artificial Intelligence"
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "courseCode": "INT273",
+    "nameTh": "การเรียนรู้เชิงลึกแบบก่อกำเนิด",
+    "nameEn": "Generative Deep Learning",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 23,
+        "code": "ADV_AI",
+        "nameTh": "ปัญญาประดิษฐ์",
+        "nameEn": "Artificial Intelligence"
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "courseCode": "INT282",
+    "nameTh": "สถิติสำหรับวิทยาการข้อมูล",
+    "nameEn": "Statistics for Data Science",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 24,
+        "code": "ADV_DS",
+        "nameTh": "วิทยาการข้อมูล",
+        "nameEn": "Data Science"
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "courseCode": "INT285",
+    "nameTh": "การแสดงผลข้อมูลด้วยภาพขั้นสูง",
+    "nameEn": "Advanced Data Visualization",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 24,
+        "code": "ADV_DS",
+        "nameTh": "วิทยาการข้อมูล",
+        "nameEn": "Data Science"
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "courseCode": "INT290",
+    "nameTh": "เอสคิวแอลขั้นสูง",
+    "nameEn": "Advanced SQL",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 25,
+        "code": "ADV_DBDE",
+        "nameTh": "ฐานข้อมูลและวิศวกรรมข้อมูล",
+        "nameEn": "Database and Data Engineering"
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "courseCode": "INT291",
+    "nameTh": "แนวคิดและการออกแบบฐานข้อมูลเชิงกายภาพ",
+    "nameEn": "Physical Database Concepts and Design",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 25,
+        "code": "ADV_DBDE",
+        "nameTh": "ฐานข้อมูลและวิศวกรรมข้อมูล",
+        "nameEn": "Database and Data Engineering"
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "courseCode": "INT292",
+    "nameTh": "แนวคิดการประมวลผลคิวรี",
+    "nameEn": "Query Processing Concepts",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 25,
+        "code": "ADV_DBDE",
+        "nameTh": "ฐานข้อมูลและวิศวกรรมข้อมูล",
+        "nameEn": "Database and Data Engineering"
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "courseCode": "INT293",
+    "nameTh": "การประมวลผลทรานแซกชัน",
+    "nameEn": "Transaction Processing",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 25,
+        "code": "ADV_DBDE",
+        "nameTh": "ฐานข้อมูลและวิศวกรรมข้อมูล",
+        "nameEn": "Database and Data Engineering"
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "courseCode": "INT294",
+    "nameTh": "คลังข้อมูลและการประมวลผลเชิงวิเคราะห์แบบออนไลน์",
+    "nameEn": "Data Warehouse and OLAP",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 25,
+        "code": "ADV_DBDE",
+        "nameTh": "ฐานข้อมูลและวิศวกรรมข้อมูล",
+        "nameEn": "Database and Data Engineering"
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "courseCode": "INT295",
+    "nameTh": "การระบุตัวตนและการอนุญาตใช้งานฐานข้อมูล",
+    "nameEn": "Database Authentication and Authorization",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 25,
+        "code": "ADV_DBDE",
+        "nameTh": "ฐานข้อมูลและวิศวกรรมข้อมูล",
+        "nameEn": "Database and Data Engineering"
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "courseCode": "INT296",
+    "nameTh": "สถาปัตยกรรมข้อมูลขนาดใหญ่",
+    "nameEn": "Big Data Architecture",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 25,
+        "code": "ADV_DBDE",
+        "nameTh": "ฐานข้อมูลและวิศวกรรมข้อมูล",
+        "nameEn": "Database and Data Engineering"
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "courseCode": "INT297",
+    "nameTh": "ฐานข้อมูลโนเอสคิวแอล",
+    "nameEn": "NoSQL Database",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 25,
+        "code": "ADV_DBDE",
+        "nameTh": "ฐานข้อมูลและวิศวกรรมข้อมูล",
+        "nameEn": "Database and Data Engineering"
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "courseCode": "INT300",
+    "nameTh": "ระเบียบวิธีวิจัย",
+    "nameEn": "Research Methodology",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 84,
+    "courseCode": "INT301",
+    "nameTh": "ระบบสารสนเทศเพื่อการจัดการ",
+    "nameEn": "Management Information Systems",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "courseCode": "INT302",
+    "nameTh": "การบริหารบริการเทคโนโลยีสารสนเทศ",
+    "nameEn": "Information Technology Services Management",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "courseCode": "INT310",
+    "nameTh": "การจัดการกระบวนการทางธุรกิจ",
+    "nameEn": "Business Process Management",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "courseCode": "INT311",
+    "nameTh": "ผู้ประกอบการเทคโนโลยีสารสนเทศ",
+    "nameEn": "Information Technology Entrepreneurship",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "courseCode": "INT312",
+    "nameTh": "ปฏิบัติการระบบวางแผนทรัพยากรวิสาหกิจ",
+    "nameEn": "Enterprise Resource Planning Workshop",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "courseCode": "INT313",
+    "nameTh": "ปฏิบัติการการจัดการแบบซัพพลายเชน",
+    "nameEn": "Supply Chain Management Workshop",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "courseCode": "INT330",
+    "nameTh": "หลักการและแนวปฏิบัติของเดฟออปส์",
+    "nameEn": "DevOps: Principles and Practices",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 91,
+    "courseCode": "INT331",
+    "nameTh": "การพัฒนาแอปพลิเคชันแบบคลาวด์เนทีฟ",
+    "nameEn": "Cloud Native Application Development",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "courseCode": "INT332",
+    "nameTh": "การพัฒนาและติดตั้งระบบเทคโนโลยีสารสนเทศ",
+    "nameEn": "Information Technology System Implementation",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "courseCode": "INT333",
+    "nameTh": "บล็อกเชนเบื้องต้น",
+    "nameEn": "Introduction to Blockchain",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "courseCode": "INT334",
+    "nameTh": "การบริหารโครงสร้างพื้นฐานเทคโนโลยีสารสนเทศ",
+    "nameEn": "Information Technology Infrastructure Management",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "courseCode": "INT341",
+    "nameTh": "การบริหารโครงการซอฟต์แวร์",
+    "nameEn": "Software Project Management",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "courseCode": "INT342",
+    "nameTh": "การพัฒนาซอฟต์แวร์แบบกระจาย",
+    "nameEn": "Distributed Software Development",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "courseCode": "INT343",
+    "nameTh": "ปฏิบัติการพัฒนาโมไบล์แอปพลิเคชันแบบผสม",
+    "nameEn": "Hybrid Mobile Application Development Workshop",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "courseCode": "INT344",
+    "nameTh": "การพัฒนาระบบอินเทอร์เน็ตแห่งสรรพสิ่ง",
+    "nameEn": "Internet of Things Development",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 99,
+    "courseCode": "INT370",
+    "nameTh": "การประมวลผลภาษาธรรมชาติประยุกต์",
+    "nameEn": "Applied Natural Language Processing",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "courseCode": "INT371",
+    "nameTh": "คอมพิวเตอร์วิชันประยุกต์",
+    "nameEn": "Applied Computer Vision",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 101,
+    "courseCode": "INT380",
+    "nameTh": "การวิเคราะห์ข้อมูลขนาดใหญ่",
+    "nameEn": "Big Data Analytics",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "courseCode": "INT381",
+    "nameTh": "ธุรกิจอัจฉริยะ",
+    "nameEn": "Business Intelligence",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "courseCode": "INT390",
+    "nameTh": "ปฏิบัติการการโปรแกรมฐานข้อมูล",
+    "nameEn": "Database Programming Workshop",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "courseCode": "INT401",
+    "nameTh": "หัวข้อพิเศษทางเทคโนโลยีสารสนเทศ",
+    "nameEn": "Special Topic in Information Technology",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "courseCode": "INT402",
+    "nameTh": "หัวข้อพิเศษทางเทคโนโลยีสารสนเทศ",
+    "nameEn": "Special Topic in Information Technology",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 106,
+    "courseCode": "INT403",
+    "nameTh": "หัวข้อพิเศษทางเทคโนโลยีสารสนเทศ",
+    "nameEn": "Special Topic in Information Technology",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "courseCode": "INT407",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางเทคโนโลยีสารสนเทศ",
+    "nameEn": "Independent Study in Information Technology",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "courseCode": "INT408",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางเทคโนโลยีสารสนเทศ",
+    "nameEn": "Independent Study in Information Technology",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 109,
+    "courseCode": "INT409",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางเทคโนโลยีสารสนเทศ",
+    "nameEn": "Independent Study in Information Technology",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "courseCode": "INT421",
+    "nameTh": "หัวข้อพิเศษทางการออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
+    "nameEn": "Special Topic in UX/UI Design",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "courseCode": "INT422",
+    "nameTh": "หัวข้อพิเศษทางการออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
+    "nameEn": "Special Topic in UX/UI Design",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 112,
+    "courseCode": "INT423",
+    "nameTh": "หัวข้อพิเศษทางการออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
+    "nameEn": "Special Topic in UX/UI Design",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "courseCode": "INT427",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางการออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
+    "nameEn": "Independent Study in UX/UI Design",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 114,
+    "courseCode": "INT428",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางการออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
+    "nameEn": "Independent Study in UX/UI Design",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "courseCode": "INT429",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางการออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
+    "nameEn": "Independent Study in UX/UI Design",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 116,
+    "courseCode": "INT441",
+    "nameTh": "หัวข้อพิเศษทางการพัฒนาซอฟต์แวร์",
+    "nameEn": "Special Topic in Software Development",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 117,
+    "courseCode": "INT442",
+    "nameTh": "หัวข้อพิเศษทางการพัฒนาซอฟต์แวร์",
+    "nameEn": "Special Topic in Software Development",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "courseCode": "INT443",
+    "nameTh": "หัวข้อพิเศษทางการพัฒนาซอฟต์แวร์",
+    "nameEn": "Special Topic in Software Development",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 119,
+    "courseCode": "INT447",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางการพัฒนาซอฟต์แวร์",
+    "nameEn": "Independent Study in Software Development",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 120,
+    "courseCode": "INT448",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางการพัฒนาซอฟต์แวร์",
+    "nameEn": "Independent Study in Software Development",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 121,
+    "courseCode": "INT449",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางการพัฒนาซอฟต์แวร์",
+    "nameEn": "Independent Study in Software Development",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 122,
+    "courseCode": "INT471",
+    "nameTh": "หัวข้อพิเศษทางปัญญาประดิษฐ์",
+    "nameEn": "Special Topic in Artificial Intelligence",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 123,
+    "courseCode": "INT472",
+    "nameTh": "หัวข้อพิเศษทางปัญญาประดิษฐ์",
+    "nameEn": "Special Topic in Artificial Intelligence",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 124,
+    "courseCode": "INT473",
+    "nameTh": "หัวข้อพิเศษทางปัญญาประดิษฐ์",
+    "nameEn": "Special Topic in Artificial Intelligence",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 125,
+    "courseCode": "INT477",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางปัญญาประดิษฐ์",
+    "nameEn": "Independent Study in Artificial Intelligence",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 126,
+    "courseCode": "INT478",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางปัญญาประดิษฐ์",
+    "nameEn": "Independent Study in Artificial Intelligence",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 127,
+    "courseCode": "INT479",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางปัญญาประดิษฐ์",
+    "nameEn": "Independent Study in Artificial Intelligence",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 128,
+    "courseCode": "INT481",
+    "nameTh": "หัวข้อพิเศษทางวิทยาการข้อมูล",
+    "nameEn": "Special Topic in Data Science",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 129,
+    "courseCode": "INT482",
+    "nameTh": "หัวข้อพิเศษทางวิทยาการข้อมูล",
+    "nameEn": "Special Topic in Data Science",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 130,
+    "courseCode": "INT483",
+    "nameTh": "หัวข้อพิเศษทางวิทยาการข้อมูล",
+    "nameEn": "Special Topic in Data Science",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 131,
+    "courseCode": "INT487",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางวิทยาการข้อมูล",
+    "nameEn": "Independent Study in Data Science",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 132,
+    "courseCode": "INT488",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางวิทยาการข้อมูล",
+    "nameEn": "Independent Study in Data Science",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 133,
+    "courseCode": "INT489",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางวิทยาการข้อมูล",
+    "nameEn": "Independent Study in Data Science",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 134,
+    "courseCode": "INT491",
+    "nameTh": "หัวข้อพิเศษทางฐานข้อมูล/วิศวกรรมข้อมูล",
+    "nameEn": "Special Topic in Database/Data Engineering",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 135,
+    "courseCode": "INT492",
+    "nameTh": "หัวข้อพิเศษทางฐานข้อมูล/วิศวกรรมข้อมูล",
+    "nameEn": "Special Topic in Database/Data Engineering",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 136,
+    "courseCode": "INT493",
+    "nameTh": "หัวข้อพิเศษทางฐานข้อมูล/วิศวกรรมข้อมูล",
+    "nameEn": "Special Topic in Database/Data Engineering",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 137,
+    "courseCode": "INT497",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางฐานข้อมูล/วิศวกรรมข้อมูล",
+    "nameEn": "Independent Study in Database/Data Engineering",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 138,
+    "courseCode": "INT498",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางฐานข้อมูล/วิศวกรรมข้อมูล",
+    "nameEn": "Independent Study in Database/Data Engineering",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 139,
+    "courseCode": "INT499",
+    "nameTh": "การศึกษาค้นคว้าอิสระทางฐานข้อมูล/วิศวกรรมข้อมูล",
+    "nameEn": "Independent Study in Database/Data Engineering",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 27,
+        "code": "ELEC_IT",
+        "nameTh": "วิชาเลือก สาขาวิชาเทคโนโลยีสารสนเทศ",
+        "nameEn": "Electives - Information Technology"
+      }
+    ]
+  },
+  {
+    "id": 140,
+    "courseCode": "INT504",
+    "nameTh": "โครงงานบูรณาการ",
+    "nameEn": "Integrated Project",
+    "credits": 2,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 30,
+        "code": "PROJECT",
+        "nameTh": "การเรียนรู้ผ่านการทำโครงงานหรือประสบการณ์การทำงาน",
+        "nameEn": "Project-based and Work Experience Learning"
+      }
+    ]
+  },
+  {
+    "id": 141,
+    "courseCode": "INT505",
+    "nameTh": "โครงงานรวบยอด 1",
+    "nameEn": "Capstone Project I",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 30,
+        "code": "PROJECT",
+        "nameTh": "การเรียนรู้ผ่านการทำโครงงานหรือประสบการณ์การทำงาน",
+        "nameEn": "Project-based and Work Experience Learning"
+      }
+    ]
+  },
+  {
+    "id": 142,
+    "courseCode": "INT506",
+    "nameTh": "โครงงานรวบยอด 2",
+    "nameEn": "Capstone Project II",
+    "credits": 5,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 30,
+        "code": "PROJECT",
+        "nameTh": "การเรียนรู้ผ่านการทำโครงงานหรือประสบการณ์การทำงาน",
+        "nameEn": "Project-based and Work Experience Learning"
+      }
+    ]
+  },
+  {
+    "id": 143,
+    "courseCode": "INT507",
+    "nameTh": "โครงงานวิจัย 1",
+    "nameEn": "Research Project I",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 30,
+        "code": "PROJECT",
+        "nameTh": "การเรียนรู้ผ่านการทำโครงงานหรือประสบการณ์การทำงาน",
+        "nameEn": "Project-based and Work Experience Learning"
+      }
+    ]
+  },
+  {
+    "id": 144,
+    "courseCode": "INT508",
+    "nameTh": "โครงงานวิจัย 2",
+    "nameEn": "Research Project II",
+    "credits": 5,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 30,
+        "code": "PROJECT",
+        "nameTh": "การเรียนรู้ผ่านการทำโครงงานหรือประสบการณ์การทำงาน",
+        "nameEn": "Project-based and Work Experience Learning"
+      }
+    ]
+  },
+  {
+    "id": 145,
+    "courseCode": "INT509",
+    "nameTh": "การเรียนรู้ผ่านประสบการณ์การทำงาน",
+    "nameEn": "Experiential Learning",
+    "credits": 6,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 30,
+        "code": "PROJECT",
+        "nameTh": "การเรียนรู้ผ่านการทำโครงงานหรือประสบการณ์การทำงาน",
+        "nameEn": "Project-based and Work Experience Learning"
+      }
+    ]
+  },
+  {
+    "id": 146,
+    "courseCode": "LNG202",
+    "nameTh": "การอ่านพื้นฐานทางวิทยาศาสตร์และเทคโนโลยี",
+    "nameEn": "Basic Reading for Science and Technology",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 7,
+        "code": "GE_LANG",
+        "nameTh": "กลุ่มวิชาภาษาและการสื่อสาร",
+        "nameEn": "Language and Communication"
+      }
+    ]
+  },
+  {
+    "id": 147,
+    "courseCode": "LNG220",
+    "nameTh": "ภาษาอังกฤษเชิงวิชาการ",
+    "nameEn": "Academic English",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 7,
+        "code": "GE_LANG",
+        "nameTh": "กลุ่มวิชาภาษาและการสื่อสาร",
+        "nameEn": "Language and Communication"
+      }
+    ]
+  },
+  {
+    "id": 148,
+    "courseCode": "LNG304",
+    "nameTh": "การประชุมและการสนทนา",
+    "nameEn": "Meetings and Discussions",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 7,
+        "code": "GE_LANG",
+        "nameTh": "กลุ่มวิชาภาษาและการสื่อสาร",
+        "nameEn": "Language and Communication"
+      }
+    ]
+  },
+  {
+    "id": 149,
+    "courseCode": "LNG308",
+    "nameTh": "การเขียนรายงานด้านวิทยาศาสตร์และเทคโนโลยี",
+    "nameEn": "Technical Report Writing",
+    "credits": 1,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 7,
+        "code": "GE_LANG",
+        "nameTh": "กลุ่มวิชาภาษาและการสื่อสาร",
+        "nameEn": "Language and Communication"
+      }
+    ]
+  },
+  {
+    "id": 150,
+    "courseCode": "LNG320",
+    "nameTh": "การเรียนภาษาอังกฤษโดยเน้นเนื้อหา",
+    "nameEn": "Content-Based Language Learning",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 7,
+        "code": "GE_LANG",
+        "nameTh": "กลุ่มวิชาภาษาและการสื่อสาร",
+        "nameEn": "Language and Communication"
+      }
+    ]
+  },
+  {
+    "id": 151,
+    "courseCode": "LNG332",
+    "nameTh": "ภาษาอังกฤษธุรกิจ",
+    "nameEn": "Business English",
+    "credits": 3,
+    "isActive": true,
+    "tags": [],
+    "categories": [
+      {
+        "categoryId": 7,
+        "code": "GE_LANG",
+        "nameTh": "กลุ่มวิชาภาษาและการสื่อสาร",
+        "nameEn": "Language and Communication"
+      }
+    ]
+  }
+]
