@@ -1,0 +1,70 @@
+{
+  "GEN111": {
+    "summary": {
+      "averageRating": 4.3,
+      "reviewCount": 128,
+      "ratingCounts": [2, 5, 12, 35, 74],
+      "averageDifficulty": 2.1,
+      "averageWorkload": 3.4,
+      "tags": ["Onsite", "สอนเป็นเพื่อน", "งานมาก"]
+    },
+    "reviews": [
+      {
+        "id": 1,
+        "displayName": "นักศึกษาปี 3",
+        "initials": "ป3",
+        "writtenAt": "1/2568",
+        "relativeTime": "2 เดือนที่แล้ว",
+        "rating": 5,
+        "comment": "เนื้อหาไม่ยาก ส่วนใหญ่เป็นกรณีศึกษาให้คิดไปตามตัวเอง มีรายงานกลุ่มครั้งหนึ่งช่วงกลางภาค สอบปลายภาคเป็นข้อเขียน ก็ไม่ยาก สบายเลย เขียนเยอะไม่ได้หรอก",
+        "difficulty": 2,
+        "workload": 3
+      },
+      {
+        "id": 2,
+        "displayName": "ฝกย",
+        "initials": "ฝกย",
+        "writtenAt": "3/2567",
+        "relativeTime": "8 เดือนที่แล้ว",
+        "rating": 5,
+        "comment": "ชอบที่อาจารย์สอนเพื่อนช่วยเหลือ งานไม่เยอะ เหมาะสำหรับคนที่หาเวลาอ่านนอกเวลา",
+        "difficulty": 1,
+        "workload": 2,
+        "verified": true
+      },
+      {
+        "id": 3,
+        "displayName": "นักศึกษาปี 2",
+        "initials": "ป2",
+        "writtenAt": "1/2567",
+        "relativeTime": "1 ปีที่แล้ว",
+        "rating": 4,
+        "comment": "เนื้อหาโอเค แต่รายงานค่อนข้างเยอะพอสมควรที่ต้อง เลื่อนอ่านไปช่วงก่อนสอบจริง",
+        "difficulty": 3,
+        "workload": 4
+      },
+      {
+        "id": 4,
+        "displayName": "นักศึกษาปี 4",
+        "initials": "ป4",
+        "writtenAt": "2/2567",
+        "relativeTime": "10 เดือนที่แล้ว",
+        "rating": 4,
+        "comment": "วิชานี้ช่วยจัดความคิดเรื่องจริยธรรมได้ดี งานกลุ่มมีบ้าง แต่ยังตามทันได้ถ้าเข้าเรียนสม่ำเสมอ",
+        "difficulty": 2,
+        "workload": 3
+      },
+      {
+        "id": 5,
+        "displayName": "นักศึกษาปี 1",
+        "initials": "ป1",
+        "writtenAt": "1/2568",
+        "relativeTime": "3 เดือนที่แล้ว",
+        "rating": 3,
+        "comment": "เนื้อหาเข้าใจง่าย แต่ช่วงส่งรายงานชนกับวิชาอื่น ถ้าแบ่งเวลามาก่อนจะไม่หนัก",
+        "difficulty": 2,
+        "workload": 4
+      }
+    ]
+  }
+}
