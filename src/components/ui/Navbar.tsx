@@ -1,4 +1,5 @@
-"use client"; 
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -29,8 +30,7 @@ function Navbar() {
 
         <div className="flex items-center gap-8">
           {navItems.map((item) => {
-            const isActive =
-              pathname === item.href || pathname.startsWith(`${item.href}/`);
+            const isActive = pathname === item.href;
 
             return (
               <Link

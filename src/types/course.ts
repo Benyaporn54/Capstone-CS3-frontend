@@ -17,11 +17,3 @@ export type CourseListItem = {
   tags: string[];
   categories: CourseCategory[];
 };
-
-/** GET /v1/courses/{courseCode} */
-export type CourseDetail = CourseListItem & {
-  descriptionTh: string;
-  descriptionEn: string;
-  createdAt?: string;
-  updatedAt?: string;
-};
