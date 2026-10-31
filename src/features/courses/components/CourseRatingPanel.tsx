@@ -25,7 +25,8 @@ export default function CourseRatingPanel({ summary }: CourseRatingPanelProps) {
       <ul className="flex flex-col gap-1.5">
         {[5, 4, 3, 2, 1].map((star) => {
           const count = summary.ratingCounts[star - 1];
-          const width = summary.reviewCount === 0 ? 0 : (count / maxCount) * 100;
+          const width =
+            summary.reviewCount === 0 ? 0 : (count / maxCount) * 100;
 
           return (
             <li key={star} className="flex items-center gap-2">

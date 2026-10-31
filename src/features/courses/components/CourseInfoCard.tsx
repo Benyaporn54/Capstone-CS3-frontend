@@ -15,9 +15,7 @@ function InfoRow({ label, value }: { label: string; value: string }) {
 
 export default function CourseInfoCard({ course }: CourseInfoCardProps) {
   const category = course.categories[0];
-  const teachingMode = course.tags.find((tag) =>
-    /onsite|online/i.test(tag),
-  );
+  const teachingMode = course.tags.find((tag) => /onsite|online/i.test(tag));
 
   return (
     <section className="border-border flex flex-col gap-3 rounded-lg border p-5">

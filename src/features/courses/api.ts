@@ -47,7 +47,9 @@ export async function getCourseByCode(
   }
 
   try {
-    return await apiGet<CourseDetail>(`/v1/courses/${encodeURIComponent(code)}`);
+    return await apiGet<CourseDetail>(
+      `/v1/courses/${encodeURIComponent(code)}`,
+    );
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) return null;
     throw error;

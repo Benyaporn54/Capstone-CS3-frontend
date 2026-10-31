@@ -7,7 +7,10 @@ type DisplayStarsProps = {
 
 export default function DisplayStars({ value, size = 16 }: DisplayStarsProps) {
   return (
-    <span className="inline-flex items-center" aria-label={`${value} จาก 5 ดาว`}>
+    <span
+      className="inline-flex items-center"
+      aria-label={`${value} จาก 5 ดาว`}
+    >
       {Array.from({ length: 5 }).map((_, index) => {
         const filled = index < Math.round(value);
         return (

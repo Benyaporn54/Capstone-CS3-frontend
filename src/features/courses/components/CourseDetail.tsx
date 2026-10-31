@@ -56,9 +56,11 @@ export default async function CourseDetail({ params }: CourseDetailProps) {
       <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2">
-            <span className="text-label text-fg-muted">{course.courseCode}</span>
+            <span className="text-label text-fg-muted">
+              {course.courseCode}
+            </span>
             {isRecommended && (
-              <span className="bg-signature-soft text-signature-text rounded-sm px-2 py-0.5 text-caption">
+              <span className="bg-signature-soft text-signature-text text-caption rounded-sm px-2 py-0.5">
                 วิชาแนะนำ
               </span>
             )}
