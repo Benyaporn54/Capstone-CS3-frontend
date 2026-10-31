@@ -26,9 +26,9 @@ export default function RootLayout({
   return (
     <html lang="th" className={`${fontEn.variable} ${fontTh.variable}`}>
       <body className="font-sans antialiased">
-      <Providers>
-        <Navbar />
-        {children}
+        <Providers>
+          <Navbar />
+          {children}
         </Providers>
       </body>
     </html>

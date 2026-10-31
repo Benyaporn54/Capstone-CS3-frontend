@@ -13,10 +13,10 @@ function LoginContent() {
   const callbackUrl = searchParams.get("callbackUrl") || "/";
   const message = searchParams.get("message");
   const error = searchParams.get("error");
-const alert =
-  error === "AccessDenied"
-    ? "กรุณาเข้าสู่ระบบด้วยบัญชี @ad.sit.kmutt.ac.th เท่านั้น"
-    : message;
+  const alert =
+    error === "AccessDenied"
+      ? "กรุณาเข้าสู่ระบบด้วยบัญชี @ad.sit.kmutt.ac.th เท่านั้น"
+      : message;
 
   const handleMicrosoftLogin = () => {
     signIn("microsoft-entra-id", { callbackUrl });
