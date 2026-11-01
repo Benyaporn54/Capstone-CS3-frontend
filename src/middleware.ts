@@ -6,7 +6,9 @@ export default auth((req) => {
   const { pathname, search } = req.nextUrl;
 
   const isStudentRoute =
-    pathname.startsWith("/student") || pathname.startsWith("/planner");
+    pathname.startsWith("/student") ||
+    pathname.startsWith("/planner") ||
+    pathname.startsWith("/profile");
 
   if (isStudentRoute && !isLoggedIn) {
     const callbackUrl = encodeURIComponent(`${pathname}${search}`);

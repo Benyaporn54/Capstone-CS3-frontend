@@ -1,8 +1,11 @@
 "use client";
+
 import React, { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
+import Avatar from "@/components/ui/Avatar";
 
 // 1. แยกส่วนที่ใช้ usePathname() ออกมาเป็น Component ย่อย
 function NavLinks() {
@@ -42,6 +45,38 @@ function NavLinks() {
   );
 }
 
+// Logged in → avatar linking to /profile, otherwise the login button
+function UserMenu() {
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <div className="bg-hover h-9 w-9 animate-pulse rounded-full" />;
+  }
+
+  if (session?.user) {
+    const name = session.user.displayName ?? session.user.name;
+    return (
+      <Link
+        href="/profile"
+        aria-label="โปรไฟล์"
+        title={name ?? "โปรไฟล์"}
+        className="focus-visible:ring-accent block rounded-full transition-opacity hover:opacity-80 focus-visible:ring-2 focus-visible:outline-none"
+      >
+        <Avatar name={name} />
+      </Link>
+    );
+  }
+
+  return (
+    <Link
+      href="/login"
+      className="border-fg-muted bg-accent-fg text-fg hover:bg-hover hover:text-fg hover:border-fg flex items-center gap-2 rounded-md border px-5 py-2 font-bold"
+    >
+      เข้าสู่ระบบ
+    </Link>
+  );
+}
+
 // 2. Component หลัก หุ้มด้วย Suspense
 function Navbar() {
   return (
@@ -64,13 +99,8 @@ function Navbar() {
         </Suspense>
       </div>
 
-      <div className="ml-auto">
-        <Link
-          href="/login"
-          className="border-fg-muted bg-accent-fg text-fg hover:bg-hover hover:text-fg hover:border-fg mx-15 flex items-center gap-2 rounded-md border px-5 py-2 font-bold"
-        >
-          เข้าสู่ระบบ
-        </Link>
+      <div className="mx-15 ml-auto">
+        <UserMenu />
       </div>
     </nav>
   );
