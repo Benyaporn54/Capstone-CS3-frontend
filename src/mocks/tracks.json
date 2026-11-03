@@ -1,0 +1,119 @@
+[
+  {
+    "id": 1,
+    "code": "",
+    "nameTh": "Full-Stack Developer",
+    "nameEn": "",
+    "description": "Develop both client and server sides and deliver complete systems end to end.",
+    "isUserTrack": false,
+    "group": {
+      "id": 1,
+      "nameTh": "ทั่วไป",
+      "nameEn": "General"
+    }
+  },
+  {
+    "id": 2,
+    "code": "",
+    "nameTh": "Backend Developer",
+    "nameEn": "",
+    "description": "Design APIs, server-side systems and the data handling behind applications.",
+    "isUserTrack": false,
+    "group": {
+      "id": 1,
+      "nameTh": "ทั่วไป",
+      "nameEn": "General"
+    }
+  },
+  {
+    "id": 3,
+    "code": "",
+    "nameTh": "Frontend Developer",
+    "nameEn": "",
+    "description": "Build web pages and interactive apps, focusing on UI, client-side logic and web performance.",
+    "isUserTrack": false,
+    "group": {
+      "id": 1,
+      "nameTh": "ทั่วไป",
+      "nameEn": "General"
+    }
+  },
+  {
+    "id": 4,
+    "code": "",
+    "nameTh": "Database Administrator",
+    "nameEn": "",
+    "description": "Keep databases stable, secure and fast.",
+    "isUserTrack": false,
+    "group": {
+      "id": 1,
+      "nameTh": "ทั่วไป",
+      "nameEn": "General"
+    }
+  },
+  {
+    "id": 5,
+    "code": "",
+    "nameTh": "Data Engineer",
+    "nameEn": "",
+    "description": "Design data pipelines and warehouses that keep large volumes of data ready to use.",
+    "isUserTrack": false,
+    "group": {
+      "id": 1,
+      "nameTh": "ทั่วไป",
+      "nameEn": "General"
+    }
+  },
+  {
+    "id": 6,
+    "code": "",
+    "nameTh": "Data Analyst",
+    "nameEn": "",
+    "description": "Analyse data and build dashboards that support business decisions.",
+    "isUserTrack": false,
+    "group": {
+      "id": 1,
+      "nameTh": "ทั่วไป",
+      "nameEn": "General"
+    }
+  },
+  {
+    "id": 7,
+    "code": "",
+    "nameTh": "Data Scientist",
+    "nameEn": "",
+    "description": "Use statistics and models to answer questions with data, run experiments and communicate results.",
+    "isUserTrack": false,
+    "group": {
+      "id": 1,
+      "nameTh": "ทั่วไป",
+      "nameEn": "General"
+    }
+  },
+  {
+    "id": 8,
+    "code": "",
+    "nameTh": "AI Developer",
+    "nameEn": "",
+    "description": "Build machine learning models and put them to work in real systems.",
+    "isUserTrack": false,
+    "group": {
+      "id": 1,
+      "nameTh": "ทั่วไป",
+      "nameEn": "General"
+    }
+  },
+  {
+    "id": 9,
+    "code": "",
+    "nameTh": "UX/UI Designer",
+    "nameEn": "",
+    "description": "Research users, design easy-to-use experiences and interfaces, and measure them to improve.",
+    "isUserTrack": false,
+    "group": {
+      "id": 1,
+      "nameTh": "ทั่วไป",
+      "nameEn": "General"
+    }
+  }
+]
