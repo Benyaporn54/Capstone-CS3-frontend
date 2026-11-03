@@ -22,6 +22,7 @@ export type TrackCourse = {
   credits: number;
   isRequired: boolean;
   rating?: number | null;
+  choiceGroup?: number | null;
 };
 
 export type SemesterCourses = {
