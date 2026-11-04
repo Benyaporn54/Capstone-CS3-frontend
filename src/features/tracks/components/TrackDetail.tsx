@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTrackById } from "@/features/tracks/api";
+import type { TrackCourse } from "@/types/track";
 
 type TrackDetailProps = {
   params: Promise<{ id: string }>;
@@ -14,7 +15,6 @@ const CATEGORY_COLORS = [
   "bg-signature",
 ];
 
-// Icon ข้อมูล (Information Circle)
 function InfoIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -41,7 +41,26 @@ export default async function TrackDetail({ params }: TrackDetailProps) {
 
   if (!track) notFound();
 
-  // ดึงหน่วยกิตหมวดวิชาเชิงลึกจาก curriculumSummary (Default = 21)
+  // 1. คำนวณหน่วยกิตบังคับแท้จริง (Required Credits + 1 วิชาจาก Choice Group)
+  let actualRequiredCredits = 0;
+  const countedChoiceGroups = new Set<number>();
+
+  track.semesters?.forEach((sem) => {
+    sem.courses?.forEach((course) => {
+      if (course.isRequired) {
+        actualRequiredCredits += course.credits;
+      } else if (
+        course.choiceGroup &&
+        !countedChoiceGroups.has(course.choiceGroup)
+      ) {
+        // นับเฉพาะวิชาแรกของกลุ่มทางเลือกเป็นตัวแทน (เช่น 3 หน่วยกิต)
+        actualRequiredCredits += course.credits;
+        countedChoiceGroups.add(course.choiceGroup);
+      }
+    });
+  });
+
+  // 2. ดึงหน่วยกิตหมวดวิชาเชิงลึก (MAJOR_ADVANCED = 21)
   const advancedCategory = track.curriculumSummary?.categories?.find(
     (cat) =>
       cat.key === "MAJOR_ADVANCED" ||
@@ -49,13 +68,10 @@ export default async function TrackDetail({ params }: TrackDetailProps) {
   );
   const advancedCategoryCredits = advancedCategory?.credits ?? 21;
 
-  // ดึงหน่วยกิตบังคับเลือกของ Track นี้ ( totalCredits )
-  const requiredCredits = track.totalCredits ?? 0;
-
-  // คำนวณหน่วยกิตวิชาเลือกที่ต้องเก็บเพิ่มอัตโนมัติ
+  // 3. คำนวณหน่วยกิตวิชาเลือกที่ต้องเก็บเพิ่มจากหมวดเชิงลึก
   const remainingCredits = Math.max(
     0,
-    advancedCategoryCredits - requiredCredits,
+    advancedCategoryCredits - actualRequiredCredits,
   );
 
   return (
@@ -88,81 +104,158 @@ export default async function TrackDetail({ params }: TrackDetailProps) {
         </button>
       </header>
 
-      {/* Grid Layout: Main content & Sidebar */}
+      {/* Grid Layout */}
       <div className="grid grid-cols-1 gap-8 pt-4 lg:grid-cols-3">
-        {/* Left Column: Course List grouped by Semester */}
+        {/* Left Column */}
         <div className="flex flex-col gap-6 lg:col-span-2">
           <div>
             <h2 className="text-h3 text-fg font-bold">
               วิชาบังคับเลือกของ Track
             </h2>
-            <p className="text-caption text-fg-muted">
+            <p className="text-fg-muted">
               เรียนตามภาคเรียนที่กำหนด ระบบจะใส่ให้ในแผนอัตโนมัติเมื่อเลือก
               Track นี้
             </p>
           </div>
 
           <div className="flex flex-col gap-4">
-            {track.semesters?.map((sem) => (
-              <div
-                key={`${sem.year}-${sem.semester}`}
-                className="border-border bg-bg overflow-hidden rounded-xl border"
-              >
-                {/* Semester Header */}
-                <div className="border-border bg-bg flex items-center justify-between border-b px-5 py-3">
-                  <h3 className="text-body text-fg font-semibold">
-                    ปี {sem.year} ภาคเรียนที่ {sem.semester}
-                  </h3>
-                  <span className="text-caption text-fg-muted">
-                    {sem.totalCredits} หน่วยกิต
-                  </span>
-                </div>
+            {track.semesters?.map((sem) => {
+              // แยกรายวิชาบังคับปกติ และวิชาที่ต้องเลือกในกลุ่ม (choiceGroup)
+              const requiredCourses =
+                sem.courses?.filter((c) => c.isRequired) || [];
 
-                {/* Course List */}
-                <ul className="divide-border divide-y">
-                  {sem.courses?.map((course) => (
-                    <li
-                      key={course.id || course.courseCode}
-                      className="hover:bg-accent-soft flex items-center justify-between px-5 py-4 transition-colors"
-                    >
-                      <div className="flex items-center gap-4">
-                        <span className="text-caption text-fg-muted w-16 font-medium">
-                          {course.courseCode}
-                        </span>
-                        <span className="text-body text-fg font-medium">
-                          {course.nameEn || course.nameTh}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <span className="text-caption text-fg-muted">
-                          {course.credits} หน่วยกิต
-                        </span>
-                        {course.rating ? (
-                          <span className="text-caption flex items-center gap-1 font-semibold text-amber-500">
-                            ★{" "}
-                            <span className="text-fg">
-                              {course.rating.toFixed(1)}
-                            </span>
-                          </span>
-                        ) : (
-                          <span className="text-caption text-fg-muted">
-                            ยังไม่มีรีวิว
-                          </span>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              // จัดกลุ่มวิชาที่เป็น choiceGroup
+              const choiceGroupMap = new Map<number, TrackCourse[]>();
+              sem.courses
+                ?.filter((c) => !c.isRequired && c.choiceGroup)
+                .forEach((c) => {
+                  const group = choiceGroupMap.get(c.choiceGroup!) || [];
+                  group.push(c);
+                  choiceGroupMap.set(c.choiceGroup!, group);
+                });
+
+              return (
+                <div
+                  key={`${sem.year}-${sem.semester}`}
+                  className="border-border bg-bg overflow-hidden rounded-xl border"
+                >
+                  {/* Semester Header */}
+                  <div className="border-border bg-bg flex items-center justify-between border-b px-5 py-3">
+                    <h3 className="text-body text-fg font-semibold">
+                      ปี {sem.year} ภาคเรียนที่ {sem.semester}
+                    </h3>
+                    <span className="text-caption text-fg-muted">
+                      {sem.totalCredits} หน่วยกิตในภาคเรียนนี้
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col gap-4 p-5">
+                    {/* 1. รายการวิชาบังคับปกติ */}
+                    {requiredCourses.length > 0 && (
+                      <ul className="divide-border border-border divide-y overflow-hidden rounded-lg border">
+                        {requiredCourses.map((course) => (
+                          <li
+                            key={course.id || course.courseCode}
+                            className="hover:bg-accent-soft flex items-center justify-between px-5 py-4 transition-colors"
+                          >
+                            <div className="flex items-center gap-4">
+                              <span className="text-caption text-fg-muted w-16 font-medium">
+                                {course.courseCode}
+                              </span>
+                              <span className="text-body text-fg font-medium">
+                                {course.nameEn || course.nameTh}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-4">
+                              <span className="text-caption text-fg-muted">
+                                {course.credits} หน่วยกิต
+                              </span>
+                              {course.rating ? (
+                                <span className="text-caption flex items-center gap-1 font-semibold text-amber-500">
+                                  ★{" "}
+                                  <span className="text-fg">
+                                    {course.rating.toFixed(1)}
+                                  </span>
+                                </span>
+                              ) : (
+                                <span className="text-caption text-fg-muted">
+                                  ยังไม่มีรีวิว
+                                </span>
+                              )}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    {/* 2. รายการวิชาที่เป็นกลุ่มทางเลือก (Choice Group) */}
+                    {Array.from(choiceGroupMap.entries()).map(
+                      ([groupId, courses]) => (
+                        <div
+                          key={groupId}
+                          className="flex flex-col gap-2 rounded-xl border border-amber-500/30 bg-amber-500/5 p-4"
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className="text-caption rounded bg-amber-500/20 px-2 py-0.5 font-bold text-amber-600">
+                                เลือก 1 วิชาจากกลุ่มนี้
+                              </span>
+                              <span className="text-caption text-fg-muted">
+                                ({courses[0]?.credits || 3} หน่วยกิต)
+                              </span>
+                            </div>
+                          </div>
+
+                          <ul className="divide-border/60 border-border bg-bg divide-y overflow-hidden rounded-lg border">
+                            {courses.map((course) => (
+                              <li
+                                key={course.id || course.courseCode}
+                                className="hover:bg-accent-soft flex items-center justify-between px-5 py-3.5 transition-colors"
+                              >
+                                <div className="flex items-center gap-4">
+                                  <span className="text-caption text-fg-muted w-16 font-medium">
+                                    {course.courseCode}
+                                  </span>
+                                  <span className="text-body text-fg font-medium">
+                                    {course.nameEn || course.nameTh}
+                                  </span>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                  <span className="text-caption text-fg-muted">
+                                    {course.credits} หน่วยกิต
+                                  </span>
+                                  {course.rating ? (
+                                    <span className="text-caption flex items-center gap-1 font-semibold text-amber-500">
+                                      ★{" "}
+                                      <span className="text-fg">
+                                        {course.rating.toFixed(1)}
+                                      </span>
+                                    </span>
+                                  ) : (
+                                    <span className="text-caption text-fg-muted">
+                                      ยังไม่มีรีวิว
+                                    </span>
+                                  )}
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ),
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
-          {/* 🟢 Banner สรุปคำนวณหน่วยกิตอัตโนมัติ */}
+          {/* 🟢 Banner คำนวณหน่วยกิตอัตโนมัติ */}
           <div className="border-accent/20 bg-accent-soft text-fg flex items-center gap-3 rounded-xl border p-4">
             <InfoIcon className="text-accent h-5 w-5 shrink-0" />
             <p className="text-caption sm:text-body">
               วิชาบังคับเลือกรวม{" "}
-              <span className="font-semibold">{requiredCredits}</span> หน่วยกิต
+              <span className="font-semibold">{actualRequiredCredits}</span>{" "}
+              หน่วยกิต
               {remainingCredits > 0 && (
                 <>
                   {" "}
@@ -184,7 +277,7 @@ export default async function TrackDetail({ params }: TrackDetailProps) {
           </div>
         </div>
 
-        {/* Right Column: Sidebar (Curriculum Summary & Related Tracks) */}
+        {/* Right Column: Sidebar */}
         <aside className="flex flex-col gap-6">
           {/* Curriculum Summary Card */}
           {track.curriculumSummary && (
@@ -206,7 +299,6 @@ export default async function TrackDetail({ params }: TrackDetailProps) {
                 ))}
               </div>
 
-              {/* Curriculum Categories Breakdown */}
               <ul className="flex flex-col gap-2.5">
                 {track.curriculumSummary.categories?.map((cat, i) => {
                   const isAdvanced =
