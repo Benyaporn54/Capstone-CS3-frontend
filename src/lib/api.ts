@@ -34,3 +34,22 @@ export async function apiGet<T>(
 
   return (await res.json()) as T;
 }
+
+export async function apiPost<T>(
+  path: string,
+  body: unknown,
+  init?: RequestInit,
+): Promise<T> {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    ...init,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...init?.headers },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    throw new ApiError(res.status, `POST ${path} failed with ${res.status}`);
+  }
+
+  return (await res.json()) as T;
+}
