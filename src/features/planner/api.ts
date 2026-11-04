@@ -1,3 +1,6 @@
+import "server-only";
+
+import { auth } from "@/auth";
 import { ApiError, apiGet, apiPost } from "@/lib/api";
 import { getTracks } from "@/features/tracks/api";
 import plansMock from "@/mocks/plans.json";
@@ -10,12 +13,22 @@ import type {
 } from "@/types/plan";
 import type { TrackListItem } from "@/types/track";
 
-// Plan API (SCRUM-179, SCRUM-180) ยังไม่พร้อม และ FE ยังไม่มี token ส่งให้ BE
-// → ใช้ mock เป็นค่าเริ่มต้น ตั้ง USE_MOCK_PLANS=false เมื่อ BE + auth พร้อม
-const USE_MOCK =
-  process.env.USE_MOCK_API === "true" || process.env.USE_MOCK_PLANS !== "false";
+// USE_MOCK_PLANS=true → ใช้ mock ทั้งหมด (รายการแผน, สร้างแผน, รายละเอียดแผน)
+// เรียก BE จริงเป็นค่าเริ่มต้น: GET /v1/plans (SCRUM-179) ✓, POST /v1/plans (SCRUM-180),
+// GET /v1/plans/{id} (SCRUM-168)
+export const USE_MOCK_PLANS =
+  process.env.USE_MOCK_API === "true" || process.env.USE_MOCK_PLANS === "true";
 
 export const PLAN_NAME_MAX_LENGTH = 100;
+
+/** Authorization header จาก token ที่ BE ออกให้ตอน login (session.backendToken) */
+export async function authHeaders(): Promise<HeadersInit> {
+  const session = await auth();
+  if (!session?.backendToken) {
+    throw new ApiError(401, "No backend session token: sign in again");
+  }
+  return { Authorization: `Bearer ${session.backendToken}` };
+}
 
 // ---- mock store (อยู่ใน memory ของ server process, รีเซ็ตเมื่อ restart) ----
 const mockStore: PlanListResponse = structuredClone(
@@ -32,21 +45,21 @@ function sortPlans(plans: PlanSummary[]): PlanSummary[] {
 }
 
 export async function getPlans(): Promise<PlanListResponse> {
-  if (USE_MOCK) {
+  if (USE_MOCK_PLANS) {
     return { ...mockStore, plans: sortPlans(mockStore.plans) };
   }
 
-  // TODO: แนบ Authorization header เมื่อ auth ส่ง token ให้ BE ได้แล้ว
   const data = await apiGet<PlanListResponse>("/v1/plans", undefined, {
+    headers: await authHeaders(),
     cache: "no-store",
   });
-  return { ...data, plans: sortPlans(data.plans) };
+  return { maxPlans: data.maxPlans ?? 5, plans: sortPlans(data.plans ?? []) };
 }
 
 export async function createPlan(
   input: CreatePlanInput,
 ): Promise<CreatePlanResult> {
-  if (USE_MOCK) {
+  if (USE_MOCK_PLANS) {
     if (mockStore.plans.length >= mockStore.maxPlans) {
       return {
         ok: false,
@@ -81,8 +94,9 @@ export async function createPlan(
   }
 
   try {
-    // TODO: แนบ Authorization header เมื่อ auth ส่ง token ให้ BE ได้แล้ว
-    const plan = await apiPost<PlanSummary>("/v1/plans", input);
+    const plan = await apiPost<PlanSummary>("/v1/plans", input, {
+      headers: await authHeaders(),
+    });
     return { ok: true, plan };
   } catch (error) {
     if (error instanceof ApiError && error.status === 409) {
@@ -90,6 +104,9 @@ export async function createPlan(
     }
     if (error instanceof ApiError && error.status === 400) {
       return { ok: false, message: "ข้อมูลไม่ถูกต้อง ตรวจชื่อแผนและ Track" };
+    }
+    if (error instanceof ApiError && error.status === 401) {
+      return { ok: false, message: "เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่" };
     }
     console.error("Failed to create plan:", error);
     return { ok: false, message: "สร้างแผนไม่สำเร็จ ลองใหม่อีกครั้ง" };

@@ -18,7 +18,8 @@ export type PlanSummary = {
   isDefault: boolean;
   /** null = ยังไม่เลือก Track */
   track: PlanTrack | null;
-  curriculum: PlanCurriculum;
+  /** ยังไม่มีใน response ของ BE (SCRUM-179) — ถ้าไม่มีจะไม่แสดงบนการ์ด */
+  curriculum?: PlanCurriculum | null;
   /** ISO datetime */
   updatedAt: string;
 };

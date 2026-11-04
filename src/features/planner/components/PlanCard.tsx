@@ -24,7 +24,9 @@ export default function PlanCard({ plan }: PlanCardProps) {
 
       <div className="mt-3 flex flex-1 flex-col gap-3">
         <PlanTrackChip track={plan.track} />
-        <p className="text-caption text-fg-muted">{plan.curriculum.name}</p>
+        {plan.curriculum && (
+          <p className="text-caption text-fg-muted">{plan.curriculum.name}</p>
+        )}
       </div>
 
       <div className="border-border text-caption text-fg-muted mt-4 flex items-center justify-between gap-2 border-t pt-3">
