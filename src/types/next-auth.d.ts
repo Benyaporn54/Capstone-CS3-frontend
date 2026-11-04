@@ -1,15 +1,21 @@
 import type { DefaultSession } from "next-auth";
 import type { UserProfile } from "./auth";
 
-// Adds the backend profile to the NextAuth session and JWT types
 declare module "next-auth" {
+  interface User {
+    backendToken?: string;
+    profile?: UserProfile;
+  }
+
   interface Session {
-    user: DefaultSession["user"] & Partial<UserProfile>;
+    backendToken?: string;
+    user: DefaultSession["user"] & UserProfile;
   }
 }
 
-declare module "next-auth/jwt" {
+declare module "@auth/core/jwt" {
   interface JWT {
+    backendToken?: string;
     userProfile?: UserProfile;
   }
 }
