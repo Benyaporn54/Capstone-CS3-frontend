@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 type PlanListHeaderProps = {
   /** ตัวนับ + ปุ่มสร้างแผน (หรือ skeleton ตอนโหลด) */
-  actions: ReactNode;
+  actions?: ReactNode;
 };
 
 export default function PlanListHeader({ actions }: PlanListHeaderProps) {

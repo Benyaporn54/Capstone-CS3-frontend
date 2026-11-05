@@ -7,10 +7,26 @@ import PlanListHeader from "./PlanListHeader";
 export default async function PlanList() {
   // แผนเป็นข้อมูลของแต่ละ user และ "แก้ไขล่าสุด" ขึ้นกับเวลาปัจจุบัน → render ตอน request
   await connection();
-  const [{ plans, maxPlans }, trackOptions] = await Promise.all([
+  const [planList, trackOptions] = await Promise.all([
     getPlans(),
     getTrackOptions(),
   ]);
+
+  if (!planList) {
+    return (
+      <>
+        <PlanListHeader />
+        <div className="border-border bg-surface flex flex-col items-center gap-2 rounded-lg border px-6 py-12 text-center">
+          <p className="text-h3 text-fg">ไม่พบข้อมูลนักศึกษาในระบบทะเบียน</p>
+          <p className="text-body text-fg-muted">
+            แผนการเรียนใช้ได้เฉพาะบัญชีนักศึกษาที่มีข้อมูลการลงทะเบียน
+          </p>
+        </div>
+      </>
+    );
+  }
+
+  const { plans, maxPlans } = planList;
   const isFull = plans.length >= maxPlans;
 
   return (

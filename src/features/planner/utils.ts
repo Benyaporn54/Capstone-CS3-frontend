@@ -1,3 +1,5 @@
+import type { PlanSemester, PlanYear, TermStatus } from "@/types/plan";
+
 const UNITS: { limit: number; divisor: number; label: string }[] = [
   { limit: 60, divisor: 1, label: "นาที" },
   { limit: 60 * 24, divisor: 60, label: "ชั่วโมง" },
@@ -17,4 +19,26 @@ export function formatRelativeTime(
 
   const unit = UNITS.find((u) => minutes < u.limit) ?? UNITS[UNITS.length - 1];
   return `${Math.floor(minutes / unit.divisor)} ${unit.label}ที่แล้ว`;
+}
+
+// ---- Planner View ----
+
+/** จำนวนวิชาที่ทะเบียนจริงไม่ตรงแผน: ลงนอกแผน + วางแผนไว้แต่ไม่ได้ลง */
+export function countMismatch(semester: PlanSemester): number {
+  return semester.courses.filter(
+    (c) => c.source === "registrar" || c.status === "not_registered",
+  ).length;
+}
+
+export function yearHasMismatch(year: PlanYear): boolean {
+  return year.semesters.some((s) => countMismatch(s) > 0);
+}
+
+export const SEMESTER_STATUS_LABEL: Partial<Record<TermStatus, string>> = {
+  completed: "ผ่านแล้ว",
+  current: "กำลังเรียน",
+};
+
+export function yearAnchorId(year: number): string {
+  return `year-${year}`;
 }

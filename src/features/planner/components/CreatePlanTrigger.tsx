@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Lock, Plus } from "lucide-react";
 import Button from "@/components/ui/Button";
 import type { TrackListItem } from "@/types/track";
@@ -20,6 +21,7 @@ export default function CreatePlanTrigger({
   maxPlans,
   trackOptions,
 }: CreatePlanTriggerProps) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
   const remaining = Math.max(0, maxPlans - planCount);
@@ -33,7 +35,7 @@ export default function CreatePlanTrigger({
       remaining={remaining}
       maxPlans={maxPlans}
       trackOptions={trackOptions}
-      // TODO (SCRUM-169): พาไปหน้า Planner ของแผนใหม่ router.push(`/planner/${id}`)
+      onCreated={(id) => router.push(`/planner/${id}`)}
     />
   );
 

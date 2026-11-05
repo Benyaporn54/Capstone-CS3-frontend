@@ -6,23 +6,29 @@
       "planName": "แผนที่ 1",
       "isDefault": true,
       "track": {
-        "id": 1,
-        "nameTh": "นักพัฒนาฟรอนเอนด์",
-        "nameEn": "Frontend Developer"
+        "id": 8,
+        "nameTh": "นักพัฒนาปัญญาประดิษฐ์",
+        "nameEn": "AI Developer"
       },
-      "curriculum": { "id": 1, "name": "หลักสูตร IT 2567" },
+      "curriculum": {
+        "id": 1,
+        "name": "หลักสูตร IT 2567"
+      },
       "updatedAt": "2026-11-03T10:00:00+07:00"
     },
     {
       "studyPlanId": 2,
-      "planName": "ลองสาย UX/UI",
+      "planName": "ลองสาย Data Scientist",
       "isDefault": false,
       "track": {
-        "id": 9,
-        "nameTh": "นักออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
-        "nameEn": "UX/UI Designer"
+        "id": 7,
+        "nameTh": "นักวิทยาการข้อมูล",
+        "nameEn": "Data Scientist"
       },
-      "curriculum": { "id": 1, "name": "หลักสูตร IT 2567" },
+      "curriculum": {
+        "id": 1,
+        "name": "หลักสูตร IT 2567"
+      },
       "updatedAt": "2026-10-31T12:00:00+07:00"
     },
     {
@@ -30,7 +36,10 @@
       "planName": "ยังไม่ตัดสินใจ",
       "isDefault": false,
       "track": null,
-      "curriculum": { "id": 1, "name": "หลักสูตร IT 2567" },
+      "curriculum": {
+        "id": 1,
+        "name": "หลักสูตร IT 2567"
+      },
       "updatedAt": "2026-10-20T09:00:00+07:00"
     }
   ]

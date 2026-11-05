@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": 3,
     "nameTh": "นักพัฒนาฟรอนเอนด์",
     "nameEn": "Frontend Developer",
     "description": "",
@@ -22,7 +22,7 @@
     }
   },
   {
-    "id": 3,
+    "id": 1,
     "nameTh": "นักพัฒนาฟูลสแตก",
     "nameEn": "Full-Stack Developer",
     "description": "",
@@ -33,45 +33,69 @@
     }
   },
   {
-    "id": 4,
+    "id": 8,
     "nameTh": "นักพัฒนาปัญญาประดิษฐ์",
     "nameEn": "AI Developer",
     "description": "",
-    "group": { "id": 2, "nameTh": "สายข้อมูลและ AI", "nameEn": "Data and AI" }
+    "group": {
+      "id": 2,
+      "nameTh": "สายข้อมูลและ AI",
+      "nameEn": "Data and AI"
+    }
   },
   {
-    "id": 5,
+    "id": 7,
     "nameTh": "นักวิทยาการข้อมูล",
     "nameEn": "Data Scientist",
     "description": "",
-    "group": { "id": 2, "nameTh": "สายข้อมูลและ AI", "nameEn": "Data and AI" }
+    "group": {
+      "id": 2,
+      "nameTh": "สายข้อมูลและ AI",
+      "nameEn": "Data and AI"
+    }
   },
   {
     "id": 6,
     "nameTh": "นักวิเคราะห์ข้อมูล",
     "nameEn": "Data Analyst",
     "description": "",
-    "group": { "id": 2, "nameTh": "สายข้อมูลและ AI", "nameEn": "Data and AI" }
+    "group": {
+      "id": 2,
+      "nameTh": "สายข้อมูลและ AI",
+      "nameEn": "Data and AI"
+    }
   },
   {
-    "id": 7,
+    "id": 5,
     "nameTh": "วิศวกรข้อมูล",
     "nameEn": "Data Engineer",
     "description": "",
-    "group": { "id": 2, "nameTh": "สายข้อมูลและ AI", "nameEn": "Data and AI" }
+    "group": {
+      "id": 2,
+      "nameTh": "สายข้อมูลและ AI",
+      "nameEn": "Data and AI"
+    }
   },
   {
-    "id": 8,
+    "id": 4,
     "nameTh": "ผู้ดูแลฐานข้อมูล",
     "nameEn": "Database Administrator",
     "description": "",
-    "group": { "id": 2, "nameTh": "สายข้อมูลและ AI", "nameEn": "Data and AI" }
+    "group": {
+      "id": 2,
+      "nameTh": "สายข้อมูลและ AI",
+      "nameEn": "Data and AI"
+    }
   },
   {
     "id": 9,
     "nameTh": "นักออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
     "nameEn": "UX/UI Designer",
     "description": "",
-    "group": { "id": 3, "nameTh": "สายออกแบบ", "nameEn": "Design" }
+    "group": {
+      "id": 3,
+      "nameTh": "สายออกแบบ",
+      "nameEn": "Design"
+    }
   }
 ]

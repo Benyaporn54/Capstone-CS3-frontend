@@ -1,13 +1,16 @@
 import "server-only";
 
+import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { ApiError, apiGet, apiPost } from "@/lib/api";
 import { getTracks } from "@/features/tracks/api";
+import planDetailsMock from "@/mocks/planDetails.json";
 import plansMock from "@/mocks/plans.json";
 import trackOptionsMock from "@/mocks/planTrackOptions.json";
 import type {
   CreatePlanInput,
   CreatePlanResult,
+  PlanDetail,
   PlanListResponse,
   PlanSummary,
 } from "@/types/plan";
@@ -20,6 +23,15 @@ export const USE_MOCK_PLANS =
   process.env.USE_MOCK_API === "true" || process.env.USE_MOCK_PLANS === "true";
 
 export const PLAN_NAME_MAX_LENGTH = 100;
+
+/** session ไม่มี token ของ BE (login ไว้ก่อนมีระบบ token) หรือ token หมดอายุ → ให้ login ใหม่ */
+function redirectToLogin(callbackUrl: string): never {
+  const params = new URLSearchParams({
+    callbackUrl,
+    message: "เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่",
+  });
+  redirect(`/login?${params}`);
+}
 
 /** Authorization header จาก token ที่ BE ออกให้ตอน login (session.backendToken) */
 export async function authHeaders(): Promise<HeadersInit> {
@@ -44,16 +56,25 @@ function sortPlans(plans: PlanSummary[]): PlanSummary[] {
   );
 }
 
-export async function getPlans(): Promise<PlanListResponse> {
+/** null = BE ตอบ 404: บัญชีนี้ไม่มีในระบบทะเบียน (เช่น staff หรือรหัสที่ยังไม่มีใน registrar_students) */
+export async function getPlans(): Promise<PlanListResponse | null> {
   if (USE_MOCK_PLANS) {
     return { ...mockStore, plans: sortPlans(mockStore.plans) };
   }
 
-  const data = await apiGet<PlanListResponse>("/v1/plans", undefined, {
-    headers: await authHeaders(),
-    cache: "no-store",
-  });
-  return { maxPlans: data.maxPlans ?? 5, plans: sortPlans(data.plans ?? []) };
+  try {
+    const data = await apiGet<PlanListResponse>("/v1/plans", undefined, {
+      headers: await authHeaders(),
+      cache: "no-store",
+    });
+    return { maxPlans: data.maxPlans ?? 5, plans: sortPlans(data.plans ?? []) };
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 401) {
+      redirectToLogin("/planner");
+    }
+    if (error instanceof ApiError && error.status === 404) return null;
+    throw error;
+  }
 }
 
 export async function createPlan(
@@ -108,8 +129,80 @@ export async function createPlan(
     if (error instanceof ApiError && error.status === 401) {
       return { ok: false, message: "เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่" };
     }
+    if (error instanceof ApiError && error.status === 404) {
+      return { ok: false, message: "ไม่พบข้อมูลนักศึกษาในระบบทะเบียน" };
+    }
     console.error("Failed to create plan:", error);
     return { ok: false, message: "สร้างแผนไม่สำเร็จ ลองใหม่อีกครั้ง" };
+  }
+}
+
+const planDetailsStore = planDetailsMock as unknown as Record<
+  string,
+  PlanDetail
+>;
+
+/**
+ * mock: แผนที่สร้างใหม่ระหว่างทดสอบยังไม่มีรายละเอียดใน planDetails.json
+ * → ยืมเทอมที่ผ่านมาจากแผนแรก ตัดวิชาที่เพิ่มเองและวิชา track ออก (เหมือนแผนเปล่า)
+ * ไม่มีวิชาของ track ใหม่ เพราะ mock ไม่ได้คำนวณจากหลักสูตรจริง
+ */
+function mockDetailFromSummary(plan: PlanSummary): PlanDetail {
+  const base = structuredClone(Object.values(planDetailsStore)[0]);
+  const years = base.years.map((year) => {
+    const semesters = year.semesters.map((sem) => {
+      const courses = sem.courses.flatMap((c) => {
+        if (c.source === "user") return [];
+        if (c.source !== "track") return [c];
+        // วิชา track ของแผนต้นแบบ: ที่ลงจริงแล้วกลายเป็น "นอกแผน", ที่ยังไม่ลงตัดทิ้ง
+        if (c.status === "registered" || c.status === "withdrawn") {
+          return [{ ...c, source: "registrar" as const, locked: false }];
+        }
+        return [];
+      });
+      const totalCredits = courses
+        .filter((c) => c.status === "registered" || c.status === "planned")
+        .reduce((sum, c) => sum + c.credits, 0);
+      return { ...sem, courses, totalCredits };
+    });
+    return {
+      ...year,
+      semesters,
+      totalCredits: semesters.reduce((sum, s) => sum + s.totalCredits, 0),
+    };
+  });
+  return {
+    ...base,
+    studyPlanId: plan.studyPlanId,
+    planName: plan.planName,
+    isDefault: plan.isDefault,
+    track: plan.track,
+    years,
+  };
+}
+
+/** รายละเอียดแผน 1 แผน — คืน null เมื่อไม่พบ / ไม่ใช่แผนของ user นี้ (BE ตอบ 404) */
+export async function getPlanDetail(
+  planId: number,
+): Promise<PlanDetail | null> {
+  if (USE_MOCK_PLANS) {
+    const summary = mockStore.plans.find((p) => p.studyPlanId === planId);
+    if (!summary) return null;
+    const detail = planDetailsStore[String(planId)];
+    return detail ? structuredClone(detail) : mockDetailFromSummary(summary);
+  }
+
+  try {
+    return await apiGet<PlanDetail>(`/v1/plans/${planId}`, undefined, {
+      headers: await authHeaders(),
+      cache: "no-store",
+    });
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) return null;
+    if (error instanceof ApiError && error.status === 401) {
+      redirectToLogin(`/planner/${planId}`);
+    }
+    throw error;
   }
 }
 
