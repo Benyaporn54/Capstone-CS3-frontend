@@ -14,7 +14,7 @@ function NavLinks() {
   const navItems = [
     { name: "รายวิชา", href: "/courses" },
     { name: "Track", href: "/tracks" },
-    { name: "แผนการเรียน", href: "/curriculums" },
+    { name: "แผนการเรียน", href: "/planner" },
   ];
 
   return (

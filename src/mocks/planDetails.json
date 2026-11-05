@@ -1,0 +1,2941 @@
+{
+  "1": {
+    "studyPlanId": 1,
+    "planName": "แผนที่ 1",
+    "isDefault": true,
+    "student": {
+      "studentId": "67130500004",
+      "admissionYear": 2567,
+      "currentYear": 3,
+      "currentSemester": 1
+    },
+    "curriculum": {
+      "id": 1,
+      "name": "หลักสูตร IT 2567",
+      "totalCredits": 128
+    },
+    "track": {
+      "id": 8,
+      "nameTh": "นักพัฒนาปัญญาประดิษฐ์",
+      "nameEn": "AI Developer"
+    },
+    "years": [
+      {
+        "year": 1,
+        "academicYear": 2567,
+        "status": "completed",
+        "totalCredits": 34,
+        "semesters": [
+          {
+            "semester": 1,
+            "status": "completed",
+            "totalCredits": 17,
+            "courses": [
+              {
+                "courseId": 22,
+                "courseCode": "GEN121",
+                "nameTh": "ทักษะการเรียนรู้และการแก้ปัญหา",
+                "nameEn": "Learning and Problem Solving Skills",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 26,
+                "courseCode": "INT100",
+                "nameTh": "การคิดเชิงออกแบบ",
+                "nameEn": "Design Thinking",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 27,
+                "courseCode": "INT101",
+                "nameTh": "คณิตศาสตร์ดิสครีต",
+                "nameEn": "Discrete Mathematics",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 30,
+                "courseCode": "INT110",
+                "nameTh": "การคิดเชิงธุรกิจ",
+                "nameEn": "Business Thinking",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 34,
+                "courseCode": "INT120",
+                "nameTh": "พื้นฐานการออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
+                "nameEn": "UX/UI Design Fundamentals",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 35,
+                "courseCode": "INT130",
+                "nameTh": "พื้นฐานแพลตฟอร์มคอมพิวเตอร์",
+                "nameEn": "Computing Platform Basics",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 42,
+                "courseCode": "INT140",
+                "nameTh": "การคิดเชิงคอมพิวเตอร์",
+                "nameEn": "Computational Thinking",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 45,
+                "courseCode": "INT143",
+                "nameTh": "พื้นฐานกระบวนการพัฒนาซอฟต์แวร์",
+                "nameEn": "Software Process Fundamentals",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 53,
+                "courseCode": "INT180",
+                "nameTh": "ความสามารถด้านข้อมูล",
+                "nameEn": "Data Literacy",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          },
+          {
+            "semester": 2,
+            "status": "completed",
+            "totalCredits": 17,
+            "courses": [
+              {
+                "courseId": 36,
+                "courseCode": "INT131",
+                "nameTh": "หลักการแพลตฟอร์มคอมพิวเตอร์",
+                "nameEn": "Computing Platform Principles",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 37,
+                "courseCode": "INT132",
+                "nameTh": "พื้นฐานลินุกซ์และการเขียนเชลล์สคริปต์",
+                "nameEn": "Linux Fundamentals and Shell Scripting",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 38,
+                "courseCode": "INT133",
+                "nameTh": "เครือข่ายคอมพิวเตอร์",
+                "nameEn": "Computer Networks",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 40,
+                "courseCode": "INT135",
+                "nameTh": "ความมั่นคงขั้นพื้นฐาน",
+                "nameEn": "Basic Security",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 43,
+                "courseCode": "INT141",
+                "nameTh": "การเขียนโปรแกรมเบื้องต้น",
+                "nameEn": "Basic Programming",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 44,
+                "courseCode": "INT142",
+                "nameTh": "เครื่องมือการพัฒนาซอฟต์แวร์",
+                "nameEn": "Software Development Tools",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 50,
+                "courseCode": "INT150",
+                "nameTh": "เทคโนโลยีเว็บ",
+                "nameEn": "Web Technology",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 57,
+                "courseCode": "INT190",
+                "nameTh": "เอสคิวแอลพื้นฐาน",
+                "nameEn": "Basic SQL",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 147,
+                "courseCode": "LNG220",
+                "nameTh": "ภาษาอังกฤษเชิงวิชาการ",
+                "nameEn": "Academic English",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "year": 2,
+        "academicYear": 2568,
+        "status": "completed",
+        "totalCredits": 38,
+        "semesters": [
+          {
+            "semester": 1,
+            "status": "completed",
+            "totalCredits": 23,
+            "courses": [
+              {
+                "courseId": 38,
+                "courseCode": "INT133",
+                "nameTh": "เครือข่ายคอมพิวเตอร์",
+                "nameEn": "Computer Networks",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 39,
+                "courseCode": "INT134",
+                "nameTh": "การติดตั้งระบบ",
+                "nameEn": "System Deployment",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 46,
+                "courseCode": "INT144",
+                "nameTh": "การพัฒนาซอฟต์แวร์แบบอไจล์ 1",
+                "nameEn": "Agile Software Development I",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 51,
+                "courseCode": "INT151",
+                "nameTh": "การพัฒนาฟรอนเอนด์พื้นฐาน",
+                "nameEn": "Basic Frontend Development",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 52,
+                "courseCode": "INT161",
+                "nameTh": "การพัฒนาแบ็กเอนด์พื้นฐาน",
+                "nameEn": "Basic Backend Development",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 54,
+                "courseCode": "INT182",
+                "nameTh": "พื้นฐานวิทยาการข้อมูลและปัญญาประดิษฐ์",
+                "nameEn": "Data Science and Artificial Intelligence Fundamentals",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 58,
+                "courseCode": "INT191",
+                "nameTh": "แนวคิดและการออกแบบฐานข้อมูลเชิงสัมพันธ์",
+                "nameEn": "Relational Database Concepts and Design",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 140,
+                "courseCode": "INT504",
+                "nameTh": "โครงงานบูรณาการ",
+                "nameEn": "Integrated Project",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "PROJECT",
+                  "label": "โครงงาน"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 146,
+                "courseCode": "LNG202",
+                "nameTh": "การอ่านพื้นฐานทางวิทยาศาสตร์และเทคโนโลยี",
+                "nameEn": "Basic Reading for Science and Technology",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 164,
+                "courseCode": "GEN311",
+                "nameTh": "จริยศาสตร์ในสังคมฐานวิทยาศาสตร์",
+                "nameEn": "Ethics in Science-Based Society",
+                "credits": 3,
+                "source": "registrar",
+                "locked": false,
+                "category": {
+                  "code": "FREE_ELECTIVE",
+                  "label": "เลือกเสรี"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          },
+          {
+            "semester": 2,
+            "status": "completed",
+            "totalCredits": 15,
+            "courses": [
+              {
+                "courseId": 23,
+                "courseCode": "GEN231",
+                "nameTh": "มหัศจรรย์แห่งความคิด",
+                "nameEn": "Miracle of Thinking",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 28,
+                "courseCode": "INT102",
+                "nameTh": "สถิติสำหรับเทคโนโลยีสารสนเทศ",
+                "nameEn": "Statistics for Information Technology",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 31,
+                "courseCode": "INT111",
+                "nameTh": "ระบบสารสนเทศเพื่อธุรกิจ",
+                "nameEn": "Business Information Systems",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 55,
+                "courseCode": "INT185",
+                "nameTh": "การแสดงผลข้อมูลด้วยภาพเบื้องต้น",
+                "nameEn": "Basic Data Visualization",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "withdrawn",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 65,
+                "courseCode": "INT243",
+                "nameTh": "การเขียนโปรแกรมไพทอน",
+                "nameEn": "Python Programming",
+                "credits": 3,
+                "source": "track",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "AI Developer"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 69,
+                "courseCode": "INT270",
+                "nameTh": "คณิตศาสตร์สำหรับปัญญาประดิษฐ์",
+                "nameEn": "Mathematics for Artificial Intelligence",
+                "credits": 3,
+                "source": "track",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "AI Developer"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 148,
+                "courseCode": "LNG304",
+                "nameTh": "การประชุมและการสนทนา",
+                "nameEn": "Meetings and Discussions",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "year": 3,
+        "academicYear": 2569,
+        "status": "current",
+        "totalCredits": 33,
+        "semesters": [
+          {
+            "semester": 1,
+            "status": "current",
+            "totalCredits": 18,
+            "courses": [
+              {
+                "courseId": 21,
+                "courseCode": "GEN111",
+                "nameTh": "มนุษย์กับหลักจริยศาสตร์เพื่อการดำเนินชีวิต",
+                "nameEn": "Man and Ethics of Living",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 29,
+                "courseCode": "INT105",
+                "nameTh": "สัมมนาเทคโนโลยีสารสนเทศ",
+                "nameEn": "Information Technology Seminar",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 41,
+                "courseCode": "INT136",
+                "nameTh": "ความมั่นคงทางไซเบอร์",
+                "nameEn": "Cyber Security",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 47,
+                "courseCode": "INT145",
+                "nameTh": "การวิเคราะห์และออกแบบซอฟต์แวร์",
+                "nameEn": "Software Analysis and Design",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 55,
+                "courseCode": "INT185",
+                "nameTh": "การแสดงผลข้อมูลด้วยภาพเบื้องต้น",
+                "nameEn": "Basic Data Visualization",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 70,
+                "courseCode": "INT271",
+                "nameTh": "การเรียนรู้ของเครื่อง",
+                "nameEn": "Machine Learning",
+                "credits": 3,
+                "source": "track",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "AI Developer"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 71,
+                "courseCode": "INT272",
+                "nameTh": "เครือข่ายประสาทประดิษฐ์และการเรียนรู้เชิงลึก",
+                "nameEn": "Artificial Neural Networks and Deep Learning",
+                "credits": 2,
+                "source": "track",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "AI Developer"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 72,
+                "courseCode": "INT273",
+                "nameTh": "การเรียนรู้เชิงลึกแบบก่อกำเนิด",
+                "nameEn": "Generative Deep Learning",
+                "credits": 1,
+                "source": "track",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "AI Developer"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 149,
+                "courseCode": "LNG308",
+                "nameTh": "การเขียนรายงานด้านวิทยาศาสตร์และเทคโนโลยี",
+                "nameEn": "Technical Report Writing",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 101,
+                "courseCode": "INT380",
+                "nameTh": "การวิเคราะห์ข้อมูลขนาดใหญ่",
+                "nameEn": "Big Data Analytics",
+                "credits": 2,
+                "source": "registrar",
+                "locked": false,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "เชิงลึก"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          },
+          {
+            "semester": 2,
+            "status": "upcoming",
+            "totalCredits": 15,
+            "courses": [
+              {
+                "courseId": 25,
+                "courseCode": "GEN351",
+                "nameTh": "การบริหารจัดการยุคใหม่และภาวะผู้นำ",
+                "nameEn": "Modern Management and Leadership",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 33,
+                "courseCode": "INT116",
+                "nameTh": "ประเด็นทางกฎหมายและจริยธรรมในเทคโนโลยีสารสนเทศ",
+                "nameEn": "Legal and Ethical Issues in Information Technology",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 48,
+                "courseCode": "INT146",
+                "nameTh": "การทดสอบซอฟต์แวร์",
+                "nameEn": "Software Testing",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 56,
+                "courseCode": "INT189",
+                "nameTh": "การกำกับดูแลข้อมูล",
+                "nameEn": "Data Governance",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 63,
+                "courseCode": "INT241",
+                "nameTh": "โครงสร้างข้อมูลและอัลกอริทึม",
+                "nameEn": "Data Structures and Algorithms",
+                "credits": 3,
+                "source": "track",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "AI Developer"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 150,
+                "courseCode": "LNG320",
+                "nameTh": "การเรียนภาษาอังกฤษโดยเน้นเนื้อหา",
+                "nameEn": "Content-Based Language Learning",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 99,
+                "courseCode": "INT370",
+                "nameTh": "การประมวลผลภาษาธรรมชาติประยุกต์",
+                "nameEn": "Applied Natural Language Processing",
+                "credits": 3,
+                "source": "user",
+                "locked": false,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "เชิงลึก"
+                },
+                "status": "planned",
+                "studyPlanCourseId": 101
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "year": 4,
+        "academicYear": 2570,
+        "status": "upcoming",
+        "totalCredits": 19,
+        "semesters": [
+          {
+            "semester": 1,
+            "status": "upcoming",
+            "totalCredits": 13,
+            "courses": [
+              {
+                "courseId": 24,
+                "courseCode": "GEN241",
+                "nameTh": "ความงดงามแห่งชีวิต",
+                "nameEn": "Beauty of Life",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 32,
+                "courseCode": "INT115",
+                "nameTh": "การปฏิบัติอย่างนักเทคโนโลยีสารสนเทศมืออาชีพ",
+                "nameEn": "Information Technology Professional Practices",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 49,
+                "courseCode": "INT147",
+                "nameTh": "การพัฒนาซอฟต์แวร์แบบอไจล์ 2",
+                "nameEn": "Agile Software Development II",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 151,
+                "courseCode": "LNG332",
+                "nameTh": "ภาษาอังกฤษธุรกิจ",
+                "nameEn": "Business English",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 163,
+                "courseCode": "GEN301",
+                "nameTh": "การพัฒนาสุขภาพแบบองค์รวม",
+                "nameEn": "Holistic Health Development",
+                "credits": 3,
+                "source": "user",
+                "locked": false,
+                "category": {
+                  "code": "FREE_ELECTIVE",
+                  "label": "เลือกเสรี"
+                },
+                "status": "planned",
+                "studyPlanCourseId": 102
+              }
+            ]
+          },
+          {
+            "semester": 2,
+            "status": "upcoming",
+            "totalCredits": 6,
+            "courses": [
+              {
+                "courseId": 145,
+                "courseCode": "INT509",
+                "nameTh": "การเรียนรู้ผ่านประสบการณ์การทำงาน",
+                "nameEn": "Experiential Learning",
+                "credits": 6,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "PROJECT",
+                  "label": "โครงงาน"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "2": {
+    "studyPlanId": 2,
+    "planName": "ลองสาย Data Scientist",
+    "isDefault": false,
+    "student": {
+      "studentId": "67130500004",
+      "admissionYear": 2567,
+      "currentYear": 3,
+      "currentSemester": 1
+    },
+    "curriculum": {
+      "id": 1,
+      "name": "หลักสูตร IT 2567",
+      "totalCredits": 128
+    },
+    "track": {
+      "id": 7,
+      "nameTh": "นักวิทยาการข้อมูล",
+      "nameEn": "Data Scientist"
+    },
+    "years": [
+      {
+        "year": 1,
+        "academicYear": 2567,
+        "status": "completed",
+        "totalCredits": 34,
+        "semesters": [
+          {
+            "semester": 1,
+            "status": "completed",
+            "totalCredits": 17,
+            "courses": [
+              {
+                "courseId": 22,
+                "courseCode": "GEN121",
+                "nameTh": "ทักษะการเรียนรู้และการแก้ปัญหา",
+                "nameEn": "Learning and Problem Solving Skills",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 26,
+                "courseCode": "INT100",
+                "nameTh": "การคิดเชิงออกแบบ",
+                "nameEn": "Design Thinking",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 27,
+                "courseCode": "INT101",
+                "nameTh": "คณิตศาสตร์ดิสครีต",
+                "nameEn": "Discrete Mathematics",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 30,
+                "courseCode": "INT110",
+                "nameTh": "การคิดเชิงธุรกิจ",
+                "nameEn": "Business Thinking",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 34,
+                "courseCode": "INT120",
+                "nameTh": "พื้นฐานการออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
+                "nameEn": "UX/UI Design Fundamentals",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 35,
+                "courseCode": "INT130",
+                "nameTh": "พื้นฐานแพลตฟอร์มคอมพิวเตอร์",
+                "nameEn": "Computing Platform Basics",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 42,
+                "courseCode": "INT140",
+                "nameTh": "การคิดเชิงคอมพิวเตอร์",
+                "nameEn": "Computational Thinking",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 45,
+                "courseCode": "INT143",
+                "nameTh": "พื้นฐานกระบวนการพัฒนาซอฟต์แวร์",
+                "nameEn": "Software Process Fundamentals",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 53,
+                "courseCode": "INT180",
+                "nameTh": "ความสามารถด้านข้อมูล",
+                "nameEn": "Data Literacy",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          },
+          {
+            "semester": 2,
+            "status": "completed",
+            "totalCredits": 17,
+            "courses": [
+              {
+                "courseId": 36,
+                "courseCode": "INT131",
+                "nameTh": "หลักการแพลตฟอร์มคอมพิวเตอร์",
+                "nameEn": "Computing Platform Principles",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 37,
+                "courseCode": "INT132",
+                "nameTh": "พื้นฐานลินุกซ์และการเขียนเชลล์สคริปต์",
+                "nameEn": "Linux Fundamentals and Shell Scripting",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 38,
+                "courseCode": "INT133",
+                "nameTh": "เครือข่ายคอมพิวเตอร์",
+                "nameEn": "Computer Networks",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 40,
+                "courseCode": "INT135",
+                "nameTh": "ความมั่นคงขั้นพื้นฐาน",
+                "nameEn": "Basic Security",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 43,
+                "courseCode": "INT141",
+                "nameTh": "การเขียนโปรแกรมเบื้องต้น",
+                "nameEn": "Basic Programming",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 44,
+                "courseCode": "INT142",
+                "nameTh": "เครื่องมือการพัฒนาซอฟต์แวร์",
+                "nameEn": "Software Development Tools",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 50,
+                "courseCode": "INT150",
+                "nameTh": "เทคโนโลยีเว็บ",
+                "nameEn": "Web Technology",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 57,
+                "courseCode": "INT190",
+                "nameTh": "เอสคิวแอลพื้นฐาน",
+                "nameEn": "Basic SQL",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 147,
+                "courseCode": "LNG220",
+                "nameTh": "ภาษาอังกฤษเชิงวิชาการ",
+                "nameEn": "Academic English",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "year": 2,
+        "academicYear": 2568,
+        "status": "completed",
+        "totalCredits": 38,
+        "semesters": [
+          {
+            "semester": 1,
+            "status": "completed",
+            "totalCredits": 23,
+            "courses": [
+              {
+                "courseId": 38,
+                "courseCode": "INT133",
+                "nameTh": "เครือข่ายคอมพิวเตอร์",
+                "nameEn": "Computer Networks",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 39,
+                "courseCode": "INT134",
+                "nameTh": "การติดตั้งระบบ",
+                "nameEn": "System Deployment",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 46,
+                "courseCode": "INT144",
+                "nameTh": "การพัฒนาซอฟต์แวร์แบบอไจล์ 1",
+                "nameEn": "Agile Software Development I",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 51,
+                "courseCode": "INT151",
+                "nameTh": "การพัฒนาฟรอนเอนด์พื้นฐาน",
+                "nameEn": "Basic Frontend Development",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 52,
+                "courseCode": "INT161",
+                "nameTh": "การพัฒนาแบ็กเอนด์พื้นฐาน",
+                "nameEn": "Basic Backend Development",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 54,
+                "courseCode": "INT182",
+                "nameTh": "พื้นฐานวิทยาการข้อมูลและปัญญาประดิษฐ์",
+                "nameEn": "Data Science and Artificial Intelligence Fundamentals",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 58,
+                "courseCode": "INT191",
+                "nameTh": "แนวคิดและการออกแบบฐานข้อมูลเชิงสัมพันธ์",
+                "nameEn": "Relational Database Concepts and Design",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 140,
+                "courseCode": "INT504",
+                "nameTh": "โครงงานบูรณาการ",
+                "nameEn": "Integrated Project",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "PROJECT",
+                  "label": "โครงงาน"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 146,
+                "courseCode": "LNG202",
+                "nameTh": "การอ่านพื้นฐานทางวิทยาศาสตร์และเทคโนโลยี",
+                "nameEn": "Basic Reading for Science and Technology",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 164,
+                "courseCode": "GEN311",
+                "nameTh": "จริยศาสตร์ในสังคมฐานวิทยาศาสตร์",
+                "nameEn": "Ethics in Science-Based Society",
+                "credits": 3,
+                "source": "registrar",
+                "locked": false,
+                "category": {
+                  "code": "FREE_ELECTIVE",
+                  "label": "เลือกเสรี"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          },
+          {
+            "semester": 2,
+            "status": "completed",
+            "totalCredits": 15,
+            "courses": [
+              {
+                "courseId": 23,
+                "courseCode": "GEN231",
+                "nameTh": "มหัศจรรย์แห่งความคิด",
+                "nameEn": "Miracle of Thinking",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 28,
+                "courseCode": "INT102",
+                "nameTh": "สถิติสำหรับเทคโนโลยีสารสนเทศ",
+                "nameEn": "Statistics for Information Technology",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 31,
+                "courseCode": "INT111",
+                "nameTh": "ระบบสารสนเทศเพื่อธุรกิจ",
+                "nameEn": "Business Information Systems",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 55,
+                "courseCode": "INT185",
+                "nameTh": "การแสดงผลข้อมูลด้วยภาพเบื้องต้น",
+                "nameEn": "Basic Data Visualization",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "withdrawn",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 65,
+                "courseCode": "INT243",
+                "nameTh": "การเขียนโปรแกรมไพทอน",
+                "nameEn": "Python Programming",
+                "credits": 3,
+                "source": "track",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "Data Scientist"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 69,
+                "courseCode": "INT270",
+                "nameTh": "คณิตศาสตร์สำหรับปัญญาประดิษฐ์",
+                "nameEn": "Mathematics for Artificial Intelligence",
+                "credits": 3,
+                "source": "track",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "Data Scientist"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 73,
+                "courseCode": "INT282",
+                "nameTh": "สถิติสำหรับวิทยาการข้อมูล",
+                "nameEn": "Statistics for Data Science",
+                "credits": 1,
+                "source": "track",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "Data Scientist"
+                },
+                "status": "not_registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 148,
+                "courseCode": "LNG304",
+                "nameTh": "การประชุมและการสนทนา",
+                "nameEn": "Meetings and Discussions",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "year": 3,
+        "academicYear": 2569,
+        "status": "current",
+        "totalCredits": 31,
+        "semesters": [
+          {
+            "semester": 1,
+            "status": "current",
+            "totalCredits": 18,
+            "courses": [
+              {
+                "courseId": 21,
+                "courseCode": "GEN111",
+                "nameTh": "มนุษย์กับหลักจริยศาสตร์เพื่อการดำเนินชีวิต",
+                "nameEn": "Man and Ethics of Living",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 29,
+                "courseCode": "INT105",
+                "nameTh": "สัมมนาเทคโนโลยีสารสนเทศ",
+                "nameEn": "Information Technology Seminar",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 41,
+                "courseCode": "INT136",
+                "nameTh": "ความมั่นคงทางไซเบอร์",
+                "nameEn": "Cyber Security",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 47,
+                "courseCode": "INT145",
+                "nameTh": "การวิเคราะห์และออกแบบซอฟต์แวร์",
+                "nameEn": "Software Analysis and Design",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 55,
+                "courseCode": "INT185",
+                "nameTh": "การแสดงผลข้อมูลด้วยภาพเบื้องต้น",
+                "nameEn": "Basic Data Visualization",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 70,
+                "courseCode": "INT271",
+                "nameTh": "การเรียนรู้ของเครื่อง",
+                "nameEn": "Machine Learning",
+                "credits": 3,
+                "source": "track",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "Data Scientist"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 71,
+                "courseCode": "INT272",
+                "nameTh": "เครือข่ายประสาทประดิษฐ์และการเรียนรู้เชิงลึก",
+                "nameEn": "Artificial Neural Networks and Deep Learning",
+                "credits": 2,
+                "source": "track",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "Data Scientist"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 149,
+                "courseCode": "LNG308",
+                "nameTh": "การเขียนรายงานด้านวิทยาศาสตร์และเทคโนโลยี",
+                "nameEn": "Technical Report Writing",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 72,
+                "courseCode": "INT273",
+                "nameTh": "การเรียนรู้เชิงลึกแบบก่อกำเนิด",
+                "nameEn": "Generative Deep Learning",
+                "credits": 1,
+                "source": "registrar",
+                "locked": false,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "เชิงลึก"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 101,
+                "courseCode": "INT380",
+                "nameTh": "การวิเคราะห์ข้อมูลขนาดใหญ่",
+                "nameEn": "Big Data Analytics",
+                "credits": 2,
+                "source": "registrar",
+                "locked": false,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "เชิงลึก"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          },
+          {
+            "semester": 2,
+            "status": "upcoming",
+            "totalCredits": 13,
+            "courses": [
+              {
+                "courseId": 25,
+                "courseCode": "GEN351",
+                "nameTh": "การบริหารจัดการยุคใหม่และภาวะผู้นำ",
+                "nameEn": "Modern Management and Leadership",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 33,
+                "courseCode": "INT116",
+                "nameTh": "ประเด็นทางกฎหมายและจริยธรรมในเทคโนโลยีสารสนเทศ",
+                "nameEn": "Legal and Ethical Issues in Information Technology",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 48,
+                "courseCode": "INT146",
+                "nameTh": "การทดสอบซอฟต์แวร์",
+                "nameEn": "Software Testing",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 56,
+                "courseCode": "INT189",
+                "nameTh": "การกำกับดูแลข้อมูล",
+                "nameEn": "Data Governance",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 74,
+                "courseCode": "INT285",
+                "nameTh": "การแสดงผลข้อมูลด้วยภาพขั้นสูง",
+                "nameEn": "Advanced Data Visualization",
+                "credits": 2,
+                "source": "track",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "Data Scientist"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 82,
+                "courseCode": "INT297",
+                "nameTh": "ฐานข้อมูลโนเอสคิวแอล",
+                "nameEn": "NoSQL Database",
+                "credits": 2,
+                "source": "track",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "Data Scientist"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 150,
+                "courseCode": "LNG320",
+                "nameTh": "การเรียนภาษาอังกฤษโดยเน้นเนื้อหา",
+                "nameEn": "Content-Based Language Learning",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "year": 4,
+        "academicYear": 2570,
+        "status": "upcoming",
+        "totalCredits": 18,
+        "semesters": [
+          {
+            "semester": 1,
+            "status": "upcoming",
+            "totalCredits": 12,
+            "courses": [
+              {
+                "courseId": 24,
+                "courseCode": "GEN241",
+                "nameTh": "ความงดงามแห่งชีวิต",
+                "nameEn": "Beauty of Life",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 32,
+                "courseCode": "INT115",
+                "nameTh": "การปฏิบัติอย่างนักเทคโนโลยีสารสนเทศมืออาชีพ",
+                "nameEn": "Information Technology Professional Practices",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 49,
+                "courseCode": "INT147",
+                "nameTh": "การพัฒนาซอฟต์แวร์แบบอไจล์ 2",
+                "nameEn": "Agile Software Development II",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 151,
+                "courseCode": "LNG332",
+                "nameTh": "ภาษาอังกฤษธุรกิจ",
+                "nameEn": "Business English",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 102,
+                "courseCode": "INT381",
+                "nameTh": "ธุรกิจอัจฉริยะ",
+                "nameEn": "Business Intelligence",
+                "credits": 2,
+                "source": "user",
+                "locked": false,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "เชิงลึก"
+                },
+                "status": "planned",
+                "studyPlanCourseId": 201
+              }
+            ]
+          },
+          {
+            "semester": 2,
+            "status": "upcoming",
+            "totalCredits": 6,
+            "courses": [
+              {
+                "courseId": 145,
+                "courseCode": "INT509",
+                "nameTh": "การเรียนรู้ผ่านประสบการณ์การทำงาน",
+                "nameEn": "Experiential Learning",
+                "credits": 6,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "PROJECT",
+                  "label": "โครงงาน"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "3": {
+    "studyPlanId": 3,
+    "planName": "ยังไม่ตัดสินใจ",
+    "isDefault": false,
+    "student": {
+      "studentId": "67130500004",
+      "admissionYear": 2567,
+      "currentYear": 3,
+      "currentSemester": 1
+    },
+    "curriculum": {
+      "id": 1,
+      "name": "หลักสูตร IT 2567",
+      "totalCredits": 128
+    },
+    "track": null,
+    "years": [
+      {
+        "year": 1,
+        "academicYear": 2567,
+        "status": "completed",
+        "totalCredits": 34,
+        "semesters": [
+          {
+            "semester": 1,
+            "status": "completed",
+            "totalCredits": 17,
+            "courses": [
+              {
+                "courseId": 22,
+                "courseCode": "GEN121",
+                "nameTh": "ทักษะการเรียนรู้และการแก้ปัญหา",
+                "nameEn": "Learning and Problem Solving Skills",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 26,
+                "courseCode": "INT100",
+                "nameTh": "การคิดเชิงออกแบบ",
+                "nameEn": "Design Thinking",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 27,
+                "courseCode": "INT101",
+                "nameTh": "คณิตศาสตร์ดิสครีต",
+                "nameEn": "Discrete Mathematics",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 30,
+                "courseCode": "INT110",
+                "nameTh": "การคิดเชิงธุรกิจ",
+                "nameEn": "Business Thinking",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 34,
+                "courseCode": "INT120",
+                "nameTh": "พื้นฐานการออกแบบประสบการณ์ของผู้ใช้และส่วนต่อประสาน",
+                "nameEn": "UX/UI Design Fundamentals",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 35,
+                "courseCode": "INT130",
+                "nameTh": "พื้นฐานแพลตฟอร์มคอมพิวเตอร์",
+                "nameEn": "Computing Platform Basics",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 42,
+                "courseCode": "INT140",
+                "nameTh": "การคิดเชิงคอมพิวเตอร์",
+                "nameEn": "Computational Thinking",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 45,
+                "courseCode": "INT143",
+                "nameTh": "พื้นฐานกระบวนการพัฒนาซอฟต์แวร์",
+                "nameEn": "Software Process Fundamentals",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 53,
+                "courseCode": "INT180",
+                "nameTh": "ความสามารถด้านข้อมูล",
+                "nameEn": "Data Literacy",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          },
+          {
+            "semester": 2,
+            "status": "completed",
+            "totalCredits": 17,
+            "courses": [
+              {
+                "courseId": 36,
+                "courseCode": "INT131",
+                "nameTh": "หลักการแพลตฟอร์มคอมพิวเตอร์",
+                "nameEn": "Computing Platform Principles",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 37,
+                "courseCode": "INT132",
+                "nameTh": "พื้นฐานลินุกซ์และการเขียนเชลล์สคริปต์",
+                "nameEn": "Linux Fundamentals and Shell Scripting",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 38,
+                "courseCode": "INT133",
+                "nameTh": "เครือข่ายคอมพิวเตอร์",
+                "nameEn": "Computer Networks",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 40,
+                "courseCode": "INT135",
+                "nameTh": "ความมั่นคงขั้นพื้นฐาน",
+                "nameEn": "Basic Security",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 43,
+                "courseCode": "INT141",
+                "nameTh": "การเขียนโปรแกรมเบื้องต้น",
+                "nameEn": "Basic Programming",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 44,
+                "courseCode": "INT142",
+                "nameTh": "เครื่องมือการพัฒนาซอฟต์แวร์",
+                "nameEn": "Software Development Tools",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 50,
+                "courseCode": "INT150",
+                "nameTh": "เทคโนโลยีเว็บ",
+                "nameEn": "Web Technology",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 57,
+                "courseCode": "INT190",
+                "nameTh": "เอสคิวแอลพื้นฐาน",
+                "nameEn": "Basic SQL",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 147,
+                "courseCode": "LNG220",
+                "nameTh": "ภาษาอังกฤษเชิงวิชาการ",
+                "nameEn": "Academic English",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "year": 2,
+        "academicYear": 2568,
+        "status": "completed",
+        "totalCredits": 38,
+        "semesters": [
+          {
+            "semester": 1,
+            "status": "completed",
+            "totalCredits": 23,
+            "courses": [
+              {
+                "courseId": 38,
+                "courseCode": "INT133",
+                "nameTh": "เครือข่ายคอมพิวเตอร์",
+                "nameEn": "Computer Networks",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 39,
+                "courseCode": "INT134",
+                "nameTh": "การติดตั้งระบบ",
+                "nameEn": "System Deployment",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 46,
+                "courseCode": "INT144",
+                "nameTh": "การพัฒนาซอฟต์แวร์แบบอไจล์ 1",
+                "nameEn": "Agile Software Development I",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 51,
+                "courseCode": "INT151",
+                "nameTh": "การพัฒนาฟรอนเอนด์พื้นฐาน",
+                "nameEn": "Basic Frontend Development",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 52,
+                "courseCode": "INT161",
+                "nameTh": "การพัฒนาแบ็กเอนด์พื้นฐาน",
+                "nameEn": "Basic Backend Development",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 54,
+                "courseCode": "INT182",
+                "nameTh": "พื้นฐานวิทยาการข้อมูลและปัญญาประดิษฐ์",
+                "nameEn": "Data Science and Artificial Intelligence Fundamentals",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 58,
+                "courseCode": "INT191",
+                "nameTh": "แนวคิดและการออกแบบฐานข้อมูลเชิงสัมพันธ์",
+                "nameEn": "Relational Database Concepts and Design",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 140,
+                "courseCode": "INT504",
+                "nameTh": "โครงงานบูรณาการ",
+                "nameEn": "Integrated Project",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "PROJECT",
+                  "label": "โครงงาน"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 146,
+                "courseCode": "LNG202",
+                "nameTh": "การอ่านพื้นฐานทางวิทยาศาสตร์และเทคโนโลยี",
+                "nameEn": "Basic Reading for Science and Technology",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 164,
+                "courseCode": "GEN311",
+                "nameTh": "จริยศาสตร์ในสังคมฐานวิทยาศาสตร์",
+                "nameEn": "Ethics in Science-Based Society",
+                "credits": 3,
+                "source": "registrar",
+                "locked": false,
+                "category": {
+                  "code": "FREE_ELECTIVE",
+                  "label": "เลือกเสรี"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 168,
+                "courseCode": "GEN341",
+                "nameTh": "ภูมิปัญญาท้องถิ่นไทย",
+                "nameEn": "Thai Indigenous Knowledge",
+                "credits": 3,
+                "source": "user",
+                "locked": false,
+                "category": {
+                  "code": "FREE_ELECTIVE",
+                  "label": "เลือกเสรี"
+                },
+                "status": "not_registered",
+                "studyPlanCourseId": 301
+              }
+            ]
+          },
+          {
+            "semester": 2,
+            "status": "completed",
+            "totalCredits": 15,
+            "courses": [
+              {
+                "courseId": 23,
+                "courseCode": "GEN231",
+                "nameTh": "มหัศจรรย์แห่งความคิด",
+                "nameEn": "Miracle of Thinking",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 28,
+                "courseCode": "INT102",
+                "nameTh": "สถิติสำหรับเทคโนโลยีสารสนเทศ",
+                "nameEn": "Statistics for Information Technology",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 31,
+                "courseCode": "INT111",
+                "nameTh": "ระบบสารสนเทศเพื่อธุรกิจ",
+                "nameEn": "Business Information Systems",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 55,
+                "courseCode": "INT185",
+                "nameTh": "การแสดงผลข้อมูลด้วยภาพเบื้องต้น",
+                "nameEn": "Basic Data Visualization",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "withdrawn",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 148,
+                "courseCode": "LNG304",
+                "nameTh": "การประชุมและการสนทนา",
+                "nameEn": "Meetings and Discussions",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 65,
+                "courseCode": "INT243",
+                "nameTh": "การเขียนโปรแกรมไพทอน",
+                "nameEn": "Python Programming",
+                "credits": 3,
+                "source": "registrar",
+                "locked": false,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "เชิงลึก"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 69,
+                "courseCode": "INT270",
+                "nameTh": "คณิตศาสตร์สำหรับปัญญาประดิษฐ์",
+                "nameEn": "Mathematics for Artificial Intelligence",
+                "credits": 3,
+                "source": "registrar",
+                "locked": false,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "เชิงลึก"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "year": 3,
+        "academicYear": 2569,
+        "status": "current",
+        "totalCredits": 30,
+        "semesters": [
+          {
+            "semester": 1,
+            "status": "current",
+            "totalCredits": 18,
+            "courses": [
+              {
+                "courseId": 21,
+                "courseCode": "GEN111",
+                "nameTh": "มนุษย์กับหลักจริยศาสตร์เพื่อการดำเนินชีวิต",
+                "nameEn": "Man and Ethics of Living",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 29,
+                "courseCode": "INT105",
+                "nameTh": "สัมมนาเทคโนโลยีสารสนเทศ",
+                "nameEn": "Information Technology Seminar",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 41,
+                "courseCode": "INT136",
+                "nameTh": "ความมั่นคงทางไซเบอร์",
+                "nameEn": "Cyber Security",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 47,
+                "courseCode": "INT145",
+                "nameTh": "การวิเคราะห์และออกแบบซอฟต์แวร์",
+                "nameEn": "Software Analysis and Design",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 55,
+                "courseCode": "INT185",
+                "nameTh": "การแสดงผลข้อมูลด้วยภาพเบื้องต้น",
+                "nameEn": "Basic Data Visualization",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 149,
+                "courseCode": "LNG308",
+                "nameTh": "การเขียนรายงานด้านวิทยาศาสตร์และเทคโนโลยี",
+                "nameEn": "Technical Report Writing",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 70,
+                "courseCode": "INT271",
+                "nameTh": "การเรียนรู้ของเครื่อง",
+                "nameEn": "Machine Learning",
+                "credits": 3,
+                "source": "registrar",
+                "locked": false,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "เชิงลึก"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 71,
+                "courseCode": "INT272",
+                "nameTh": "เครือข่ายประสาทประดิษฐ์และการเรียนรู้เชิงลึก",
+                "nameEn": "Artificial Neural Networks and Deep Learning",
+                "credits": 2,
+                "source": "registrar",
+                "locked": false,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "เชิงลึก"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 72,
+                "courseCode": "INT273",
+                "nameTh": "การเรียนรู้เชิงลึกแบบก่อกำเนิด",
+                "nameEn": "Generative Deep Learning",
+                "credits": 1,
+                "source": "registrar",
+                "locked": false,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "เชิงลึก"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 101,
+                "courseCode": "INT380",
+                "nameTh": "การวิเคราะห์ข้อมูลขนาดใหญ่",
+                "nameEn": "Big Data Analytics",
+                "credits": 2,
+                "source": "registrar",
+                "locked": false,
+                "category": {
+                  "code": "MAJOR_ADVANCED",
+                  "label": "เชิงลึก"
+                },
+                "status": "registered",
+                "studyPlanCourseId": null
+              }
+            ]
+          },
+          {
+            "semester": 2,
+            "status": "upcoming",
+            "totalCredits": 12,
+            "courses": [
+              {
+                "courseId": 25,
+                "courseCode": "GEN351",
+                "nameTh": "การบริหารจัดการยุคใหม่และภาวะผู้นำ",
+                "nameEn": "Modern Management and Leadership",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 33,
+                "courseCode": "INT116",
+                "nameTh": "ประเด็นทางกฎหมายและจริยธรรมในเทคโนโลยีสารสนเทศ",
+                "nameEn": "Legal and Ethical Issues in Information Technology",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 48,
+                "courseCode": "INT146",
+                "nameTh": "การทดสอบซอฟต์แวร์",
+                "nameEn": "Software Testing",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 56,
+                "courseCode": "INT189",
+                "nameTh": "การกำกับดูแลข้อมูล",
+                "nameEn": "Data Governance",
+                "credits": 1,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 150,
+                "courseCode": "LNG320",
+                "nameTh": "การเรียนภาษาอังกฤษโดยเน้นเนื้อหา",
+                "nameEn": "Content-Based Language Learning",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 187,
+                "courseCode": "LNG272",
+                "nameTh": "ภาษาญี่ปุ่น 1",
+                "nameEn": "Japanese I",
+                "credits": 3,
+                "source": "user",
+                "locked": false,
+                "category": {
+                  "code": "FREE_ELECTIVE",
+                  "label": "เลือกเสรี"
+                },
+                "status": "planned",
+                "studyPlanCourseId": 302
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "year": 4,
+        "academicYear": 2570,
+        "status": "upcoming",
+        "totalCredits": 16,
+        "semesters": [
+          {
+            "semester": 1,
+            "status": "upcoming",
+            "totalCredits": 10,
+            "courses": [
+              {
+                "courseId": 24,
+                "courseCode": "GEN241",
+                "nameTh": "ความงดงามแห่งชีวิต",
+                "nameEn": "Beauty of Life",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 32,
+                "courseCode": "INT115",
+                "nameTh": "การปฏิบัติอย่างนักเทคโนโลยีสารสนเทศมืออาชีพ",
+                "nameEn": "Information Technology Professional Practices",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 49,
+                "courseCode": "INT147",
+                "nameTh": "การพัฒนาซอฟต์แวร์แบบอไจล์ 2",
+                "nameEn": "Agile Software Development II",
+                "credits": 2,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "MAJOR_FOUNDATION",
+                  "label": "วิชาพื้นฐาน IT"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              },
+              {
+                "courseId": 151,
+                "courseCode": "LNG332",
+                "nameTh": "ภาษาอังกฤษธุรกิจ",
+                "nameEn": "Business English",
+                "credits": 3,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "GE",
+                  "label": "ศึกษาทั่วไป"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              }
+            ]
+          },
+          {
+            "semester": 2,
+            "status": "upcoming",
+            "totalCredits": 6,
+            "courses": [
+              {
+                "courseId": 145,
+                "courseCode": "INT509",
+                "nameTh": "การเรียนรู้ผ่านประสบการณ์การทำงาน",
+                "nameEn": "Experiential Learning",
+                "credits": 6,
+                "source": "curriculum",
+                "locked": true,
+                "category": {
+                  "code": "PROJECT",
+                  "label": "โครงงาน"
+                },
+                "status": "planned",
+                "studyPlanCourseId": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
