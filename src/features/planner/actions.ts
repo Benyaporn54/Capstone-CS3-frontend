@@ -1,8 +1,18 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createPlan, PLAN_NAME_MAX_LENGTH } from "./api";
-import type { CreatePlanResult } from "@/types/plan";
+import { getCourses } from "@/features/courses/api";
+import {
+  addCourseToPlan,
+  createPlan,
+  getPlanDetail,
+  PLAN_NAME_MAX_LENGTH,
+} from "./api";
+import type {
+  AddPlanCourseInput,
+  AddPlanCourseResult,
+  CreatePlanResult,
+} from "@/types/plan";
 
 export async function createPlanAction(input: {
   planName: string;
@@ -24,4 +34,49 @@ export async function createPlanAction(input: {
   const result = await createPlan({ planName, trackId: input.trackId });
   if (result.ok) revalidatePath("/planner");
   return result;
+}
+
+export async function addCourseToPlanAction(
+  input: AddPlanCourseInput,
+): Promise<AddPlanCourseResult> {
+  if (
+    !Number.isInteger(input.studyPlanId) ||
+    input.studyPlanId <= 0 ||
+    !Number.isInteger(input.courseId) ||
+    input.courseId <= 0 ||
+    !Number.isInteger(input.studyYear) ||
+    input.studyYear < 1 ||
+    input.studyYear > 8 ||
+    ![1, 2].includes(input.studySemester)
+  ) {
+    return { ok: false, message: "ข้อมูลรายวิชาหรือภาคเรียนไม่ถูกต้อง" };
+  }
+
+  const plan = await getPlanDetail(input.studyPlanId);
+  if (!plan) return { ok: false, message: "ไม่พบแผนการเรียนนี้" };
+
+  const duplicate = plan.years.some((year) =>
+    year.semesters.some((semester) =>
+      semester.courses.some((course) => course.courseId === input.courseId),
+    ),
+  );
+  if (duplicate) {
+    return {
+      ok: false,
+      field: "courseId",
+      message: "รายวิชานี้อยู่ในแผนการเรียนแล้ว",
+    };
+  }
+
+  const result = await addCourseToPlan(input);
+  if (result.ok) {
+    revalidatePath(`/planner/${input.studyPlanId}`);
+    revalidatePath("/planner");
+  }
+  return result;
+}
+
+export async function searchCoursesAction(q: string, page: number) {
+  if (!Number.isInteger(page) || page < 0) throw new Error("Invalid page");
+  return getCourses({ q, page, size: 10 });
 }

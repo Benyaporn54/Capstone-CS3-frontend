@@ -11,19 +11,28 @@ type GetCoursesParams = {
   /** 0-based, same as the API */
   page: number;
   size?: number;
+  q?: string;
 };
 
 export async function getCourses({
   page,
   size = COURSE_PAGE_SIZE,
+  q,
 }: GetCoursesParams): Promise<Page<CourseListItem>> {
   if (USE_MOCK) {
-    return paginateMock(coursesMock as CourseListItem[], page, size);
+    const keyword = q?.trim().toLocaleLowerCase() ?? "";
+    const courses = (coursesMock as CourseListItem[]).filter((course) =>
+      [course.courseCode, course.nameTh, course.nameEn].some((value) =>
+        value.toLocaleLowerCase().includes(keyword),
+      ),
+    );
+    return paginateMock(courses, page, size);
   }
 
   return apiGet<Page<CourseListItem>>("/v1/courses", {
     page,
     size,
+    q: q?.trim() || undefined,
     sort: "courseCode,asc",
   });
 }

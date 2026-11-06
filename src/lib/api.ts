@@ -7,6 +7,7 @@ export class ApiError extends Error {
   constructor(
     public status: number,
     message: string,
+    public backendMessage?: string,
   ) {
     super(message);
     this.name = "ApiError";
@@ -48,8 +49,23 @@ export async function apiPost<T>(
   });
 
   if (!res.ok) {
-    throw new ApiError(res.status, `POST ${path} failed with ${res.status}`);
+    const body: unknown = await res.json().catch(() => null);
+    const backendMessage =
+      body &&
+      typeof body === "object" &&
+      "message" in body &&
+      typeof body.message === "string" &&
+      body.message.trim()
+        ? body.message
+        : undefined;
+    throw new ApiError(
+      res.status,
+      backendMessage ?? `POST ${path} failed with ${res.status}`,
+      backendMessage,
+    );
   }
 
-  return (await res.json()) as T;
+  if (res.status === 204) return undefined as T;
+  const responseBody = await res.text();
+  return (responseBody ? JSON.parse(responseBody) : undefined) as T;
 }

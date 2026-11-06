@@ -1,16 +1,22 @@
 import { X } from "lucide-react";
-import type { PlanYear } from "@/types/plan";
+import type { PlanCourse, PlanYear } from "@/types/plan";
 import { yearAnchorId } from "../utils";
 import PlannerSemesterCard from "./PlannerSemesterCard";
 
 type PlannerYearSectionProps = {
   year: PlanYear;
+  studyPlanId: number;
+  plannedCourseIds: ReadonlySet<number>;
+  onCourseAdded: (semester: number, course: PlanCourse) => void;
   /** มีเฉพาะปีที่เพิ่มเองฝั่ง FE และยังว่าง */
   onRemove?: () => void;
 };
 
 export default function PlannerYearSection({
   year,
+  studyPlanId,
+  plannedCourseIds,
+  onCourseAdded,
   onRemove,
 }: PlannerYearSectionProps) {
   const headingId = `${yearAnchorId(year.year)}-heading`;
@@ -44,7 +50,14 @@ export default function PlannerYearSection({
 
       <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
         {year.semesters.map((semester) => (
-          <PlannerSemesterCard key={semester.semester} semester={semester} />
+          <PlannerSemesterCard
+            key={semester.semester}
+            semester={semester}
+            studyPlanId={studyPlanId}
+            studyYear={year.year}
+            plannedCourseIds={plannedCourseIds}
+            onCourseAdded={(course) => onCourseAdded(semester.semester, course)}
+          />
         ))}
       </div>
     </section>

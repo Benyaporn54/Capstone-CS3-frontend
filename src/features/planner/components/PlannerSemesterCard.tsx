@@ -1,15 +1,28 @@
+"use client";
+
+import { useState } from "react";
 import { AlertTriangle, Plus } from "lucide-react";
-import type { PlanSemester } from "@/types/plan";
+import type { PlanCourse, PlanSemester } from "@/types/plan";
 import { countMismatch, SEMESTER_STATUS_LABEL } from "../utils";
+import AddCourseModal from "./AddCourseModal";
 import PlannerCourseRow from "./PlannerCourseRow";
 
 type PlannerSemesterCardProps = {
   semester: PlanSemester;
+  studyPlanId: number;
+  studyYear: number;
+  plannedCourseIds: ReadonlySet<number>;
+  onCourseAdded: (course: PlanCourse) => void;
 };
 
 export default function PlannerSemesterCard({
   semester,
+  studyPlanId,
+  studyYear,
+  plannedCourseIds,
+  onCourseAdded,
 }: PlannerSemesterCardProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const statusLabel = SEMESTER_STATUS_LABEL[semester.status];
   const mismatch = countMismatch(semester);
   const isCurrent = semester.status === "current";
@@ -69,17 +82,27 @@ export default function PlannerSemesterCard({
 
       {semester.status === "upcoming" && (
         <div className="border-border mt-auto border-t p-2">
-          {/* TODO (SCRUM-170): เปิด modal ค้นหาและเพิ่มวิชาลงเทอมนี้ */}
           <button
             type="button"
-            disabled
-            title="เพิ่มวิชา (เร็ว ๆ นี้)"
+            onClick={() => setIsModalOpen(true)}
             className="text-body text-fg-muted hover:bg-hover hover:text-fg flex h-9 w-full items-center justify-center gap-1.5 rounded-md transition-colors disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-transparent"
           >
             <Plus size={16} aria-hidden />
             เพิ่มวิชา
           </button>
         </div>
+      )}
+
+      {isModalOpen && (
+        <AddCourseModal
+          isOpen
+          onClose={() => setIsModalOpen(false)}
+          studyPlanId={studyPlanId}
+          studyYear={studyYear}
+          studySemester={semester.semester}
+          plannedCourseIds={plannedCourseIds}
+          onAdded={onCourseAdded}
+        />
       )}
     </section>
   );
