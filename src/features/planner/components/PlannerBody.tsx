@@ -2,7 +2,13 @@
 
 import { useMemo, useState } from "react";
 import { Plus } from "lucide-react";
-import type { PlanCourse, PlanDetail, PlanYear } from "@/types/plan";
+import type {
+  PlanCourse,
+  PlanDetail,
+  PlanSemester,
+  PlanYear,
+} from "@/types/plan";
+import PlannerCreditSummary from "./PlannerCreditSummary";
 import PlannerYearNav from "./PlannerYearNav";
 import PlannerYearSection from "./PlannerYearSection";
 
@@ -17,6 +23,7 @@ type AddedCourse = {
   year: number;
   semester: number;
   course: PlanCourse;
+  updatedSemester?: PlanSemester;
 };
 
 function emptyYear(year: number, admissionYear: number): PlanYear {
@@ -29,6 +36,11 @@ function emptyYear(year: number, admissionYear: number): PlanYear {
       semester,
       status: "upcoming",
       totalCredits: 0,
+      itFoundationCredits: 0,
+      generalEducationCredits: 0,
+      trackCredits: 0,
+      projectAndWorkCredits: 0,
+      freeElectiveCredits: 0,
       courses: [],
     })),
   };
@@ -68,6 +80,16 @@ export default function PlannerBody({ plan }: PlannerBodyProps) {
       semester.courses.push(added.course);
       semester.totalCredits += added.course.credits;
       year.totalCredits += added.course.credits;
+      // ใช้ผลคำนวณแยกหมวดจาก BE; หากยังดึงไม่ได้ ให้แสดงว่าไม่พร้อมแทนตัวเลขเก่า
+      for (const field of [
+        "itFoundationCredits",
+        "generalEducationCredits",
+        "trackCredits",
+        "projectAndWorkCredits",
+        "freeElectiveCredits",
+      ] as const) {
+        semester[field] = added.updatedSemester?.[field];
+      }
     }
     return result;
   }, [addedCourses, extraYears, plan]);
@@ -83,7 +105,10 @@ export default function PlannerBody({ plan }: PlannerBodyProps) {
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-8">
       <aside className="flex flex-col gap-4 lg:sticky lg:top-6 lg:self-start">
-        {/* TODO (SCRUM-175): การ์ดหน่วยกิตในแผน แยกตามหมวด วางตรงนี้ เหนือเมนูปี */}
+        <PlannerCreditSummary
+          years={years}
+          requiredCredits={plan.curriculum.totalCredits}
+        />
         <PlannerYearNav years={years} />
       </aside>
 
@@ -94,12 +119,12 @@ export default function PlannerBody({ plan }: PlannerBodyProps) {
             year={year}
             studyPlanId={plan.studyPlanId}
             plannedCourseIds={plannedCourseIds}
-            onCourseAdded={(semester, course) =>
+            onCourseAdded={(semester, course, updatedSemester) =>
               setAddedCourses((current) => [
                 ...current.filter(
                   (item) => item.course.courseId !== course.courseId,
                 ),
-                { year: year.year, semester, course },
+                { year: year.year, semester, course, updatedSemester },
               ])
             }
             onRemove={

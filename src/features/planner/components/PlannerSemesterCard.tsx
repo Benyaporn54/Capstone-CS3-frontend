@@ -12,7 +12,7 @@ type PlannerSemesterCardProps = {
   studyPlanId: number;
   studyYear: number;
   plannedCourseIds: ReadonlySet<number>;
-  onCourseAdded: (course: PlanCourse) => void;
+  onCourseAdded: (course: PlanCourse, updatedSemester?: PlanSemester) => void;
 };
 
 export default function PlannerSemesterCard({

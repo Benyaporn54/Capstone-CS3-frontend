@@ -48,7 +48,7 @@ export type AddPlanCourseInput = {
 };
 
 export type AddPlanCourseResult =
-  | { ok: true; course: PlanCourse }
+  | { ok: true; course: PlanCourse; updatedSemester?: PlanSemester }
   | { ok: false; message: string; field?: "courseId" };
 
 // --- Types สำหรับหน้า Planner View (GET /v1/plans/{id}) ---
@@ -91,6 +91,12 @@ export type PlanSemester = {
   status: TermStatus;
   /** ไม่นับวิชาที่ withdrawn / not_registered */
   totalCredits: number;
+  /** สรุปตามหมวดที่ backend คำนวณให้ อาจยังไม่มีใน API รุ่นเก่า */
+  itFoundationCredits?: number;
+  generalEducationCredits?: number;
+  trackCredits?: number;
+  projectAndWorkCredits?: number;
+  freeElectiveCredits?: number;
   courses: PlanCourse[];
 };
 

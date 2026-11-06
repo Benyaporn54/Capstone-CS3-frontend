@@ -7,7 +7,7 @@ import Button from "@/components/ui/Button";
 import TextField from "@/components/ui/TextField";
 import type { CourseListItem } from "@/types/course";
 import type { Page } from "@/types/common";
-import type { PlanCourse } from "@/types/plan";
+import type { PlanCourse, PlanSemester } from "@/types/plan";
 import { addCourseToPlanAction, searchCoursesAction } from "../actions";
 
 type AddCourseModalProps = {
@@ -17,7 +17,7 @@ type AddCourseModalProps = {
   studyYear: number;
   studySemester: number;
   plannedCourseIds: ReadonlySet<number>;
-  onAdded: (course: PlanCourse) => void;
+  onAdded: (course: PlanCourse, updatedSemester?: PlanSemester) => void;
 };
 
 export default function AddCourseModal({
@@ -112,7 +112,7 @@ export default function AddCourseModal({
       });
 
       if (result.ok) {
-        onAdded(result.course);
+        onAdded(result.course, result.updatedSemester);
         onClose();
         router.refresh();
       } else {
