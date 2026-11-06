@@ -4,16 +4,21 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { ApiError, apiGet, apiPost } from "@/lib/api";
 import { getTracks } from "@/features/tracks/api";
+import coursesMock from "@/mocks/courses.json";
 import planDetailsMock from "@/mocks/planDetails.json";
 import plansMock from "@/mocks/plans.json";
 import trackOptionsMock from "@/mocks/planTrackOptions.json";
 import type {
+  AddPlanCourseInput,
+  AddPlanCourseResult,
   CreatePlanInput,
   CreatePlanResult,
+  PlanCourse,
   PlanDetail,
   PlanListResponse,
   PlanSummary,
 } from "@/types/plan";
+import type { CourseListItem } from "@/types/course";
 import type { TrackListItem } from "@/types/track";
 
 // USE_MOCK_PLANS=true → ใช้ mock ทั้งหมด (รายการแผน, สร้างแผน, รายละเอียดแผน)
@@ -217,4 +222,132 @@ export async function getTrackOptions(): Promise<TrackListItem[]> {
     if (tracks.length > 0) return tracks;
   }
   return trackOptionsMock as TrackListItem[];
+}
+
+function hasCourse(plan: PlanDetail, courseId: number): boolean {
+  return plan.years.some((year) =>
+    year.semesters.some((semester) =>
+      semester.courses.some((course) => course.courseId === courseId),
+    ),
+  );
+}
+
+function addCourseToMockPlan(input: AddPlanCourseInput): AddPlanCourseResult {
+  const summary = mockStore.plans.find(
+    (plan) => plan.studyPlanId === input.studyPlanId,
+  );
+  if (!summary) return { ok: false, message: "ไม่พบแผนการเรียนนี้" };
+
+  const plan =
+    planDetailsStore[String(input.studyPlanId)] ??
+    mockDetailFromSummary(summary);
+  planDetailsStore[String(input.studyPlanId)] = plan;
+
+  if (hasCourse(plan, input.courseId)) {
+    return {
+      ok: false,
+      field: "courseId",
+      message: "รายวิชานี้อยู่ในแผนการเรียนแล้ว",
+    };
+  }
+
+  const course = (coursesMock as CourseListItem[]).find(
+    (item) => item.id === input.courseId && item.isActive,
+  );
+  if (!course) return { ok: false, message: "ไม่พบรายวิชาที่เลือก" };
+
+  let year = plan.years.find((item) => item.year === input.studyYear);
+  if (!year) {
+    year = {
+      year: input.studyYear,
+      academicYear: plan.student.admissionYear + input.studyYear - 1,
+      status: "upcoming",
+      totalCredits: 0,
+      semesters: [1, 2].map((semester) => ({
+        semester,
+        status: "upcoming",
+        totalCredits: 0,
+        courses: [],
+      })),
+    };
+    plan.years.push(year);
+    plan.years.sort((a, b) => a.year - b.year);
+  }
+
+  const semester = year.semesters.find(
+    (item) => item.semester === input.studySemester,
+  );
+  if (!semester) return { ok: false, message: "ไม่พบภาคเรียนที่เลือก" };
+
+  const existingIds = plan.years.flatMap((item) =>
+    item.semesters.flatMap((term) =>
+      term.courses.flatMap((itemCourse) =>
+        itemCourse.studyPlanCourseId === null
+          ? []
+          : [itemCourse.studyPlanCourseId],
+      ),
+    ),
+  );
+  const category = course.categories[0];
+  const addedCourse: PlanCourse = {
+    courseId: course.id,
+    courseCode: course.courseCode,
+    nameTh: course.nameTh,
+    nameEn: course.nameEn,
+    credits: course.credits,
+    source: "user",
+    locked: false,
+    category: {
+      code: category?.code ?? "ELECTIVE",
+      label: category?.nameTh ?? "วิชาเลือก",
+    },
+    status: "planned",
+    studyPlanCourseId: Math.max(0, ...existingIds) + 1,
+  };
+  semester.courses.push(addedCourse);
+  semester.totalCredits += course.credits;
+  year.totalCredits += course.credits;
+  summary.updatedAt = new Date().toISOString();
+  return { ok: true, course: addedCourse };
+}
+
+/** เพิ่มวิชาเลือกลงแผน — BE ตรวจ ownership จาก token ซ้ำอีกชั้น */
+export async function addCourseToPlan(
+  input: AddPlanCourseInput,
+): Promise<AddPlanCourseResult> {
+  if (USE_MOCK_PLANS) return addCourseToMockPlan(input);
+
+  try {
+    const { studyPlanId, ...body } = input;
+    const course = await apiPost<PlanCourse>(
+      `/v1/plans/${studyPlanId}/courses`,
+      body,
+      {
+        headers: await authHeaders(),
+      },
+    );
+    return { ok: true, course };
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 409) {
+      return {
+        ok: false,
+        field: "courseId",
+        message: error.backendMessage ?? "รายวิชานี้อยู่ในแผนการเรียนแล้ว",
+      };
+    }
+    if (error instanceof ApiError && error.status === 400) {
+      return {
+        ok: false,
+        message: error.backendMessage ?? "ข้อมูลรายวิชาหรือภาคเรียนไม่ถูกต้อง",
+      };
+    }
+    if (error instanceof ApiError && error.status === 401) {
+      return { ok: false, message: "เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่" };
+    }
+    if (error instanceof ApiError && error.status === 404) {
+      return { ok: false, message: "ไม่พบแผนการเรียนหรือรายวิชาที่เลือก" };
+    }
+    console.error("Failed to add course to plan:", error);
+    return { ok: false, message: "เพิ่มรายวิชาไม่สำเร็จ ลองใหม่อีกครั้ง" };
+  }
 }

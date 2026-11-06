@@ -39,6 +39,18 @@ export type CreatePlanResult =
   | { ok: true; plan: PlanSummary }
   | { ok: false; message: string; field?: "planName" | "trackId" };
 
+/** POST /v1/plans/{id}/courses — เพิ่มวิชาเลือกลงแผน */
+export type AddPlanCourseInput = {
+  studyPlanId: number;
+  courseId: number;
+  studyYear: number;
+  studySemester: number;
+};
+
+export type AddPlanCourseResult =
+  | { ok: true; course: PlanCourse }
+  | { ok: false; message: string; field?: "courseId" };
+
 // --- Types สำหรับหน้า Planner View (GET /v1/plans/{id}) ---
 // ตรงกับการ์ด SCRUM-168
 
