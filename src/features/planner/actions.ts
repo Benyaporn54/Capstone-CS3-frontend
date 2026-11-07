@@ -72,6 +72,23 @@ export async function addCourseToPlanAction(
   if (result.ok) {
     revalidatePath(`/planner/${input.studyPlanId}`);
     revalidatePath("/planner");
+    try {
+      const updatedPlan = await getPlanDetail(input.studyPlanId);
+      const updatedSemester = updatedPlan?.years
+        .find((year) => year.year === input.studyYear)
+        ?.semesters.find(
+          (semester) => semester.semester === input.studySemester,
+        );
+      if (
+        updatedSemester?.courses.some(
+          (course) => course.courseId === input.courseId,
+        )
+      ) {
+        return { ...result, updatedSemester };
+      }
+    } catch (error) {
+      console.error("Failed to refresh plan after adding course:", error);
+    }
   }
   return result;
 }

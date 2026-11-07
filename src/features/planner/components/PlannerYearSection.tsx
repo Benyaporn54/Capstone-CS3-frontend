@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import type { PlanCourse, PlanYear } from "@/types/plan";
+import type { PlanCourse, PlanSemester, PlanYear } from "@/types/plan";
 import { yearAnchorId } from "../utils";
 import PlannerSemesterCard from "./PlannerSemesterCard";
 
@@ -7,7 +7,11 @@ type PlannerYearSectionProps = {
   year: PlanYear;
   studyPlanId: number;
   plannedCourseIds: ReadonlySet<number>;
-  onCourseAdded: (semester: number, course: PlanCourse) => void;
+  onCourseAdded: (
+    semester: number,
+    course: PlanCourse,
+    updatedSemester?: PlanSemester,
+  ) => void;
   /** มีเฉพาะปีที่เพิ่มเองฝั่ง FE และยังว่าง */
   onRemove?: () => void;
 };
@@ -56,7 +60,9 @@ export default function PlannerYearSection({
             studyPlanId={studyPlanId}
             studyYear={year.year}
             plannedCourseIds={plannedCourseIds}
-            onCourseAdded={(course) => onCourseAdded(semester.semester, course)}
+            onCourseAdded={(course, updatedSemester) =>
+              onCourseAdded(semester.semester, course, updatedSemester)
+            }
           />
         ))}
       </div>
