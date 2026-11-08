@@ -10,7 +10,7 @@ export async function getTracks(token?: string): Promise<TrackListItem[]> {
       headers["Authorization"] = `Bearer ${token}`;
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+    const baseUrl = process.env.API_INTERNAL_URL ?? "http://localhost:8080";
     const res = await fetch(`${baseUrl}/v1/tracks`, {
       headers,
       cache: "no-store",
@@ -39,7 +39,7 @@ export async function getTrackById(
       headers["Authorization"] = `Bearer ${token}`;
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+    const baseUrl = process.env.API_INTERNAL_URL ?? "http://localhost:8080";
     const res = await fetch(`${baseUrl}/v1/tracks/${id}`, {
       headers,
       cache: "no-store",
