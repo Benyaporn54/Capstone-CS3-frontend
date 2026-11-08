@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, ReactNode } from "react";
+import { Loader2 } from "lucide-react";
 import { Button, ButtonVariant } from "./Button";
 
 export type ModalType = "success" | "danger" | "warning" | "info";
@@ -15,6 +16,13 @@ export interface ModalProps {
   cancelLabel?: string;
   onConfirm?: () => void;
   showCancel?: boolean;
+  /** false = ไม่ปิดเองหลังกดยืนยัน (ให้ผู้เรียกปิดเองเมื่อทำงาน async เสร็จ) */
+  closeOnConfirm?: boolean;
+  /** กำลังทำงาน: ปิด modal ไม่ได้ ปุ่มยืนยันแสดง spinner */
+  loading?: boolean;
+  loadingLabel?: string;
+  /** ข้อความ error ใต้คำอธิบาย */
+  errorMessage?: ReactNode;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -27,7 +35,21 @@ export const Modal: React.FC<ModalProps> = ({
   cancelLabel = "ยกเลิก",
   onConfirm,
   showCancel = false,
+  closeOnConfirm = true,
+  loading = false,
+  loadingLabel,
+  errorMessage,
 }) => {
+  // ปิดด้วย Esc (ยกเว้นระหว่าง loading)
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !loading) onClose();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isOpen, loading, onClose]);
+
   if (!isOpen) return null;
 
   const typeConfig: Record<
@@ -115,18 +137,23 @@ export const Modal: React.FC<ModalProps> = ({
   const currentType = typeConfig[type];
 
   const handleConfirm = () => {
+    if (loading) return;
     if (onConfirm) onConfirm();
-    onClose();
+    if (closeOnConfirm) onClose();
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div
         className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
-        onClick={onClose}
+        onClick={() => !loading && onClose()}
       />
 
-      <div className="bg-bg shadow-pop border-border relative z-10 flex w-full max-w-sm flex-col items-center rounded-lg border p-6 text-center transition-all">
+      <div
+        role="alertdialog"
+        aria-modal="true"
+        className="bg-bg shadow-pop border-border relative z-10 flex w-full max-w-sm flex-col items-center rounded-lg border p-6 text-center transition-all"
+      >
         <div
           className={`mb-4 flex h-12 w-12 items-center justify-center rounded-full ${currentType.bgClass}`}
         >
@@ -137,19 +164,38 @@ export const Modal: React.FC<ModalProps> = ({
         {description && (
           <p className="text-body text-fg-muted mb-6">{description}</p>
         )}
+        {errorMessage && (
+          <p
+            role="alert"
+            className="bg-error-soft text-label text-error mb-4 w-full rounded-md px-3 py-2 text-left"
+          >
+            {errorMessage}
+          </p>
+        )}
 
         <div className="mt-2 flex w-full justify-end gap-3">
           {showCancel && (
-            <Button variant="ghost" onClick={onClose} className="w-full">
+            <Button
+              variant="ghost"
+              onClick={onClose}
+              disabled={loading}
+              // โฟกัสที่ยกเลิกก่อน กันกด Enter ยืนยันโดยไม่ตั้งใจ
+              autoFocus
+              className="w-full"
+            >
               {cancelLabel}
             </Button>
           )}
           <Button
             variant={currentType.buttonVariant}
             onClick={handleConfirm}
-            className="w-full"
+            disabled={loading}
+            className="w-full gap-1.5"
           >
-            {confirmLabel}
+            {loading && (
+              <Loader2 size={16} aria-hidden className="animate-spin" />
+            )}
+            {loading ? (loadingLabel ?? confirmLabel) : confirmLabel}
           </Button>
         </div>
       </div>

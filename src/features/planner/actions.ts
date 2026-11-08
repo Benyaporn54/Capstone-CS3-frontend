@@ -6,12 +6,18 @@ import {
   addCourseToPlan,
   createPlan,
   getPlanDetail,
+  moveCourseInPlan,
   PLAN_NAME_MAX_LENGTH,
+  removeCourseFromPlan,
 } from "./api";
 import type {
   AddPlanCourseInput,
   AddPlanCourseResult,
   CreatePlanResult,
+  MovePlanCourseInput,
+  MovePlanCourseResult,
+  RemovePlanCourseInput,
+  RemovePlanCourseResult,
 } from "@/types/plan";
 
 export async function createPlanAction(input: {
@@ -96,4 +102,48 @@ export async function addCourseToPlanAction(
 export async function searchCoursesAction(q: string, page: number) {
   if (!Number.isInteger(page) || page < 0) throw new Error("Invalid page");
   return getCourses({ q, page, size: 10 });
+}
+
+function isPositiveInt(value: number): boolean {
+  return Number.isInteger(value) && value > 0;
+}
+
+export async function moveCourseAction(
+  input: MovePlanCourseInput,
+): Promise<MovePlanCourseResult> {
+  if (
+    !isPositiveInt(input.studyPlanId) ||
+    !isPositiveInt(input.studyPlanCourseId) ||
+    !Number.isInteger(input.studyYear) ||
+    input.studyYear < 1 ||
+    input.studyYear > 8 ||
+    ![1, 2].includes(input.studySemester)
+  ) {
+    return { ok: false, message: "ข้อมูลภาคเรียนไม่ถูกต้อง" };
+  }
+
+  const result = await moveCourseInPlan(input);
+  if (result.ok) {
+    revalidatePath(`/planner/${input.studyPlanId}`);
+    revalidatePath("/planner");
+  }
+  return result;
+}
+
+export async function removeCourseAction(
+  input: RemovePlanCourseInput,
+): Promise<RemovePlanCourseResult> {
+  if (
+    !isPositiveInt(input.studyPlanId) ||
+    !isPositiveInt(input.studyPlanCourseId)
+  ) {
+    return { ok: false, message: "ไม่พบวิชานี้ในแผน" };
+  }
+
+  const result = await removeCourseFromPlan(input);
+  if (result.ok) {
+    revalidatePath(`/planner/${input.studyPlanId}`);
+    revalidatePath("/planner");
+  }
+  return result;
 }

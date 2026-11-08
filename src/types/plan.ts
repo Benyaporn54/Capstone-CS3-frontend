@@ -51,6 +51,25 @@ export type AddPlanCourseResult =
   | { ok: true; course: PlanCourse; updatedSemester?: PlanSemester }
   | { ok: false; message: string; field?: "courseId" };
 
+// --- ย้าย / เอาวิชาออกจากแผน (SCRUM-172 / SCRUM-173) ---
+export type MovePlanCourseInput = {
+  studyPlanId: number;
+  studyPlanCourseId: number;
+  studyYear: number;
+  studySemester: number;
+};
+
+export type MovePlanCourseResult =
+  { ok: true; course: PlanCourse } | { ok: false; message: string };
+
+export type RemovePlanCourseInput = {
+  studyPlanId: number;
+  studyPlanCourseId: number;
+};
+
+export type RemovePlanCourseResult =
+  { ok: true } | { ok: false; message: string };
+
 // --- Types สำหรับหน้า Planner View (GET /v1/plans/{id}) ---
 // ตรงกับการ์ด SCRUM-168
 

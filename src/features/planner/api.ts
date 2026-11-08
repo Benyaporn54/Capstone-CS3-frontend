@@ -2,7 +2,7 @@ import "server-only";
 
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { ApiError, apiGet, apiPost } from "@/lib/api";
+import { ApiError, apiDelete, apiGet, apiPatch, apiPost } from "@/lib/api";
 import { getTracks } from "@/features/tracks/api";
 import coursesMock from "@/mocks/courses.json";
 import planDetailsMock from "@/mocks/planDetails.json";
@@ -13,10 +13,15 @@ import type {
   AddPlanCourseResult,
   CreatePlanInput,
   CreatePlanResult,
+  MovePlanCourseInput,
+  MovePlanCourseResult,
   PlanCourse,
   PlanDetail,
   PlanListResponse,
   PlanSummary,
+  PlanYear,
+  RemovePlanCourseInput,
+  RemovePlanCourseResult,
 } from "@/types/plan";
 import type { CourseListItem } from "@/types/course";
 import type { TrackListItem } from "@/types/track";
@@ -349,5 +354,195 @@ export async function addCourseToPlan(
     }
     console.error("Failed to add course to plan:", error);
     return { ok: false, message: "เพิ่มรายวิชาไม่สำเร็จ ลองใหม่อีกครั้ง" };
+  }
+}
+
+// ---------- ย้าย / เอาวิชาออกจากแผน (SCRUM-172 FE, SCRUM-173 BE) ----------
+
+/** ลำดับเทอมแบบนับต่อกัน ใช้เทียบว่าเทอมผ่านแล้ว / ปัจจุบัน / ยังไม่ถึง */
+function termIndex(year: number, semester: number): number {
+  return (year - 1) * 2 + semester;
+}
+
+function isUpcomingTerm(plan: PlanDetail, year: number, semester: number) {
+  const { currentYear, currentSemester } = plan.student;
+  return termIndex(year, semester) > termIndex(currentYear, currentSemester);
+}
+
+/** หน่วยกิตที่นับในเทอม/ปี (ไม่นับ W และไม่ได้ลง) — ตรงกับ SCRUM-168 */
+function countsCredits(course: PlanCourse): boolean {
+  return course.status === "registered" || course.status === "planned";
+}
+
+function findUserCourse(plan: PlanDetail, studyPlanCourseId: number) {
+  for (const year of plan.years) {
+    for (const semester of year.semesters) {
+      const index = semester.courses.findIndex(
+        (course) => course.studyPlanCourseId === studyPlanCourseId,
+      );
+      if (index >= 0) {
+        return { year, semester, index, course: semester.courses[index] };
+      }
+    }
+  }
+  return null;
+}
+
+function ensureMockYear(plan: PlanDetail, studyYear: number): PlanYear {
+  let year = plan.years.find((item) => item.year === studyYear);
+  if (!year) {
+    year = {
+      year: studyYear,
+      academicYear: plan.student.admissionYear + studyYear - 1,
+      status: "upcoming",
+      totalCredits: 0,
+      semesters: [1, 2].map((semester) => ({
+        semester,
+        status: "upcoming",
+        totalCredits: 0,
+        courses: [],
+      })),
+    };
+    plan.years.push(year);
+    plan.years.sort((a, b) => a.year - b.year);
+  }
+  return year;
+}
+
+function getMockPlanForEdit(studyPlanId: number): PlanDetail | null {
+  const summary = mockStore.plans.find(
+    (plan) => plan.studyPlanId === studyPlanId,
+  );
+  if (!summary) return null;
+  const plan =
+    planDetailsStore[String(studyPlanId)] ?? mockDetailFromSummary(summary);
+  planDetailsStore[String(studyPlanId)] = plan;
+  summary.updatedAt = new Date().toISOString();
+  return plan;
+}
+
+function moveCourseInMockPlan(
+  input: MovePlanCourseInput,
+): MovePlanCourseResult {
+  const plan = getMockPlanForEdit(input.studyPlanId);
+  if (!plan) return { ok: false, message: "ไม่พบแผนการเรียน" };
+  const found = findUserCourse(plan, input.studyPlanCourseId);
+  if (!found) return { ok: false, message: "ไม่พบวิชานี้ในแผน" };
+
+  const { year, semester, index, course } = found;
+  if (!isUpcomingTerm(plan, year.year, semester.semester)) {
+    return {
+      ok: false,
+      message: "ย้ายได้เฉพาะวิชาในภาคเรียนที่ยังไม่ถึง",
+    };
+  }
+  if (!isUpcomingTerm(plan, input.studyYear, input.studySemester)) {
+    return { ok: false, message: "ย้ายได้เฉพาะไปภาคเรียนที่ยังไม่ถึง" };
+  }
+  if (
+    year.year === input.studyYear &&
+    semester.semester === input.studySemester
+  ) {
+    return { ok: false, message: "วิชานี้อยู่ภาคเรียนนี้อยู่แล้ว" };
+  }
+
+  const targetYear = ensureMockYear(plan, input.studyYear);
+  const target = targetYear.semesters.find(
+    (item) => item.semester === input.studySemester,
+  );
+  if (!target) return { ok: false, message: "ไม่พบภาคเรียนที่เลือก" };
+  if (target.courses.some((item) => item.courseId === course.courseId)) {
+    return { ok: false, message: "มีวิชานี้ในภาคเรียนที่เลือกแล้ว" };
+  }
+
+  semester.courses.splice(index, 1);
+  target.courses.push(course);
+  if (countsCredits(course)) {
+    semester.totalCredits -= course.credits;
+    year.totalCredits -= course.credits;
+    target.totalCredits += course.credits;
+    targetYear.totalCredits += course.credits;
+  }
+  return { ok: true, course };
+}
+
+function removeCourseFromMockPlan(
+  input: RemovePlanCourseInput,
+): RemovePlanCourseResult {
+  const plan = getMockPlanForEdit(input.studyPlanId);
+  if (!plan) return { ok: false, message: "ไม่พบแผนการเรียน" };
+  const found = findUserCourse(plan, input.studyPlanCourseId);
+  if (!found) return { ok: false, message: "ไม่พบวิชานี้ในแผน" };
+
+  const { year, semester, index, course } = found;
+  semester.courses.splice(index, 1);
+  if (countsCredits(course)) {
+    semester.totalCredits -= course.credits;
+    year.totalCredits -= course.credits;
+  }
+  return { ok: true };
+}
+
+/** แปลง error ของ BE เป็นข้อความที่แสดงใน modal (BE ส่ง message ภาษาไทยมาให้แล้ว) */
+function planCourseErrorMessage(error: unknown, fallback: string): string {
+  if (error instanceof ApiError) {
+    if (error.status === 401) return "เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่";
+    if (error.backendMessage) return error.backendMessage;
+    if (error.status === 404) return "ไม่พบวิชานี้ในแผน";
+  }
+  return fallback;
+}
+
+/** ย้ายวิชาที่เพิ่มเองไปภาคเรียนอื่น — PATCH /v1/plans/{id}/courses/{studyPlanCourseId} */
+export async function moveCourseInPlan(
+  input: MovePlanCourseInput,
+): Promise<MovePlanCourseResult> {
+  if (USE_MOCK_PLANS) return moveCourseInMockPlan(input);
+
+  try {
+    const { studyPlanId, studyPlanCourseId, ...body } = input;
+    const course = await apiPatch<PlanCourse>(
+      `/v1/plans/${studyPlanId}/courses/${studyPlanCourseId}`,
+      body,
+      { headers: await authHeaders() },
+    );
+    return { ok: true, course };
+  } catch (error) {
+    if (!(error instanceof ApiError)) {
+      console.error("Failed to move course:", error);
+    }
+    return {
+      ok: false,
+      message: planCourseErrorMessage(
+        error,
+        "ย้ายวิชาไม่สำเร็จ ลองใหม่อีกครั้ง",
+      ),
+    };
+  }
+}
+
+/** เอาวิชาที่เพิ่มเองออกจากแผน — DELETE /v1/plans/{id}/courses/{studyPlanCourseId} */
+export async function removeCourseFromPlan(
+  input: RemovePlanCourseInput,
+): Promise<RemovePlanCourseResult> {
+  if (USE_MOCK_PLANS) return removeCourseFromMockPlan(input);
+
+  try {
+    await apiDelete(
+      `/v1/plans/${input.studyPlanId}/courses/${input.studyPlanCourseId}`,
+      { headers: await authHeaders() },
+    );
+    return { ok: true };
+  } catch (error) {
+    if (!(error instanceof ApiError)) {
+      console.error("Failed to remove course:", error);
+    }
+    return {
+      ok: false,
+      message: planCourseErrorMessage(
+        error,
+        "เอาวิชาออกไม่สำเร็จ ลองใหม่อีกครั้ง",
+      ),
+    };
   }
 }

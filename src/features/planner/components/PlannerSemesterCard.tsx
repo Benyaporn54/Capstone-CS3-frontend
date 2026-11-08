@@ -5,7 +5,7 @@ import { AlertTriangle, Plus } from "lucide-react";
 import type { PlanCourse, PlanSemester } from "@/types/plan";
 import { countMismatch, SEMESTER_STATUS_LABEL } from "../utils";
 import AddCourseModal from "./AddCourseModal";
-import PlannerCourseRow from "./PlannerCourseRow";
+import PlannerCourseRow, { type CourseAction } from "./PlannerCourseRow";
 
 type PlannerSemesterCardProps = {
   semester: PlanSemester;
@@ -13,6 +13,8 @@ type PlannerSemesterCardProps = {
   studyYear: number;
   plannedCourseIds: ReadonlySet<number>;
   onCourseAdded: (course: PlanCourse, updatedSemester?: PlanSemester) => void;
+  onCourseAction?: (action: CourseAction, course: PlanCourse) => void;
+  highlightedCourseId?: number | null;
 };
 
 export default function PlannerSemesterCard({
@@ -21,6 +23,8 @@ export default function PlannerSemesterCard({
   studyYear,
   plannedCourseIds,
   onCourseAdded,
+  onCourseAction,
+  highlightedCourseId = null,
 }: PlannerSemesterCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const statusLabel = SEMESTER_STATUS_LABEL[semester.status];
@@ -71,6 +75,11 @@ export default function PlannerSemesterCard({
               key={`${course.courseId}-${course.source}-${i}`}
               course={course}
               semesterStatus={semester.status}
+              onAction={onCourseAction}
+              highlighted={
+                highlightedCourseId !== null &&
+                course.studyPlanCourseId === highlightedCourseId
+              }
             />
           ))}
         </ul>
