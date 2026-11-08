@@ -36,31 +36,38 @@ export async function apiGet<T>(
   return (await res.json()) as T;
 }
 
-export async function apiPost<T>(
+type SendMethod = "POST" | "PATCH" | "DELETE";
+
+/** POST / PATCH / DELETE แบบ JSON — error จาก BE ({ message }) เก็บไว้ใน ApiError.backendMessage */
+async function apiSend<T>(
+  method: SendMethod,
   path: string,
   body: unknown,
   init?: RequestInit,
 ): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
     ...init,
-    method: "POST",
-    headers: { "Content-Type": "application/json", ...init?.headers },
-    body: JSON.stringify(body),
+    method,
+    headers:
+      body === undefined
+        ? init?.headers
+        : { "Content-Type": "application/json", ...init?.headers },
+    body: body === undefined ? undefined : JSON.stringify(body),
   });
 
   if (!res.ok) {
-    const body: unknown = await res.json().catch(() => null);
+    const errorBody: unknown = await res.json().catch(() => null);
     const backendMessage =
-      body &&
-      typeof body === "object" &&
-      "message" in body &&
-      typeof body.message === "string" &&
-      body.message.trim()
-        ? body.message
+      errorBody &&
+      typeof errorBody === "object" &&
+      "message" in errorBody &&
+      typeof errorBody.message === "string" &&
+      errorBody.message.trim()
+        ? errorBody.message
         : undefined;
     throw new ApiError(
       res.status,
-      backendMessage ?? `POST ${path} failed with ${res.status}`,
+      backendMessage ?? `${method} ${path} failed with ${res.status}`,
       backendMessage,
     );
   }
@@ -68,4 +75,27 @@ export async function apiPost<T>(
   if (res.status === 204) return undefined as T;
   const responseBody = await res.text();
   return (responseBody ? JSON.parse(responseBody) : undefined) as T;
+}
+
+export function apiPost<T>(
+  path: string,
+  body: unknown,
+  init?: RequestInit,
+): Promise<T> {
+  return apiSend<T>("POST", path, body, init);
+}
+
+export function apiPatch<T>(
+  path: string,
+  body: unknown,
+  init?: RequestInit,
+): Promise<T> {
+  return apiSend<T>("PATCH", path, body, init);
+}
+
+export function apiDelete<T = void>(
+  path: string,
+  init?: RequestInit,
+): Promise<T> {
+  return apiSend<T>("DELETE", path, undefined, init);
 }

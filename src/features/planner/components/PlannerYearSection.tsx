@@ -1,6 +1,7 @@
 import { X } from "lucide-react";
 import type { PlanCourse, PlanSemester, PlanYear } from "@/types/plan";
 import { yearAnchorId } from "../utils";
+import type { CourseAction, CourseLocation } from "./PlannerCourseRow";
 import PlannerSemesterCard from "./PlannerSemesterCard";
 
 type PlannerYearSectionProps = {
@@ -12,6 +13,12 @@ type PlannerYearSectionProps = {
     course: PlanCourse,
     updatedSemester?: PlanSemester,
   ) => void;
+  onCourseAction?: (
+    action: CourseAction,
+    course: PlanCourse,
+    location: CourseLocation,
+  ) => void;
+  highlightedCourseId?: number | null;
   /** มีเฉพาะปีที่เพิ่มเองฝั่ง FE และยังว่าง */
   onRemove?: () => void;
 };
@@ -21,6 +28,8 @@ export default function PlannerYearSection({
   studyPlanId,
   plannedCourseIds,
   onCourseAdded,
+  onCourseAction,
+  highlightedCourseId,
   onRemove,
 }: PlannerYearSectionProps) {
   const headingId = `${yearAnchorId(year.year)}-heading`;
@@ -63,6 +72,15 @@ export default function PlannerYearSection({
             onCourseAdded={(course, updatedSemester) =>
               onCourseAdded(semester.semester, course, updatedSemester)
             }
+            onCourseAction={
+              onCourseAction &&
+              ((action, course) =>
+                onCourseAction(action, course, {
+                  year: year.year,
+                  semester: semester.semester,
+                }))
+            }
+            highlightedCourseId={highlightedCourseId}
           />
         ))}
       </div>
