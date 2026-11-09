@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Star } from "lucide-react";
+import { auth } from "@/auth";
+import { ApiError } from "@/lib/api";
 import type { CourseDetail as CourseDetailType } from "@/types/course";
+import { getSavedCourses } from "@/features/saved-courses/api";
 import { getCourseByCode } from "../api";
 import { getCourseReviews } from "@/features/reviews/api";
 import ReviewList from "@/features/reviews/components/ReviewList";
@@ -27,6 +30,20 @@ export default async function CourseDetail({ params }: CourseDetailProps) {
     (await getCourseByCode(courseCode.toUpperCase()));
 
   if (!course) notFound();
+
+  const token = (await auth())?.backendToken;
+  let canSave = Boolean(token);
+  let savedCourseIds: Set<number> | null = null;
+  if (token) {
+    try {
+      savedCourseIds = new Set(
+        (await getSavedCourses(token)).map((item) => item.id),
+      );
+    } catch (error) {
+      if (error instanceof ApiError && error.status === 401) canSave = false;
+      else console.error("Failed to load saved courses on course detail:", error);
+    }
+  }
 
   const { summary, reviews } = getCourseReviews(course.courseCode);
   const category = categoryLabel(course);
@@ -92,7 +109,14 @@ export default async function CourseDetail({ params }: CourseDetailProps) {
           </p>
         </div>
 
-        <CourseDetailActions />
+        <CourseDetailActions
+          key={`${course.id}-${canSave}-${savedCourseIds !== null}-${savedCourseIds?.has(course.id) ?? false}`}
+          courseId={course.id}
+          courseCode={course.courseCode}
+          initialSaved={savedCourseIds?.has(course.id) ?? false}
+          canSave={canSave}
+          savedStatusAvailable={!canSave || savedCourseIds !== null}
+        />
       </header>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_280px]">
