@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { getCourses } from "@/features/courses/api";
+import { getCategories, getCourses } from "@/features/courses/api";
 import {
   addCourseToPlan,
   createPlan,
@@ -102,9 +102,23 @@ export async function addCourseToPlanAction(
   return result;
 }
 
-export async function searchCoursesAction(q: string, page: number) {
+export async function searchCoursesAction(
+  q: string,
+  page: number,
+  categories: string[] = [],
+) {
   if (!Number.isInteger(page) || page < 0) throw new Error("Invalid page");
-  return getCourses({ q, page, size: 10 });
+  if (
+    !Array.isArray(categories) ||
+    categories.some((code) => typeof code !== "string")
+  ) {
+    throw new Error("Invalid categories");
+  }
+  return getCourses({ q, page, size: 10, categories });
+}
+
+export async function getCourseCategoriesAction() {
+  return getCategories();
 }
 
 function isPositiveInt(value: number): boolean {
