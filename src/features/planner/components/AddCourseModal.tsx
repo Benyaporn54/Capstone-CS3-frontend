@@ -1,14 +1,19 @@
 "use client";
 
 import { useEffect, useRef, useState, useTransition } from "react";
-import { Check, Loader2, Search, X } from "lucide-react";
+import { Check, ChevronDown, Filter, Loader2, Search, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
+import Checkbox from "@/components/ui/Checkbox";
 import TextField from "@/components/ui/TextField";
-import type { CourseListItem } from "@/types/course";
+import type { CourseCategory, CourseListItem } from "@/types/course";
 import type { Page } from "@/types/common";
 import type { PlanCourse, PlanSemester } from "@/types/plan";
-import { addCourseToPlanAction, searchCoursesAction } from "../actions";
+import {
+  addCourseToPlanAction,
+  getCourseCategoriesAction,
+  searchCoursesAction,
+} from "../actions";
 
 type AddCourseModalProps = {
   isOpen: boolean;
@@ -38,9 +43,21 @@ export default function AddCourseModal({
   const [searching, setSearching] = useState(true);
   const [searchError, setSearchError] = useState(false);
   const [searchAttempt, setSearchAttempt] = useState(0);
+  const [categories, setCategories] = useState<CourseCategory[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [categoriesError, setCategoriesError] = useState(false);
+  const [categoriesAttempt, setCategoriesAttempt] = useState(0);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [language] = useState(() =>
+    typeof document === "undefined"
+      ? "th"
+      : document.documentElement.lang.toLowerCase(),
+  );
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const searchRef = useRef<HTMLInputElement>(null);
+  const filterRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -48,7 +65,7 @@ export default function AddCourseModal({
     let cancelled = false;
     const timer = setTimeout(async () => {
       try {
-        const data = await searchCoursesAction(query, page);
+        const data = await searchCoursesAction(query, page, selectedCategories);
         if (!cancelled) {
           setResults(data);
           setSearchError(false);
@@ -66,7 +83,37 @@ export default function AddCourseModal({
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [isOpen, query, page, searchAttempt]);
+  }, [isOpen, query, page, selectedCategories, searchAttempt]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    let cancelled = false;
+    getCourseCategoriesAction()
+      .then((data) => {
+        if (cancelled) return;
+        setCategories(data);
+        setCategoriesError(false);
+      })
+      .catch(() => {
+        if (!cancelled) setCategoriesError(true);
+      })
+      .finally(() => {
+        if (!cancelled) setCategoriesLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, categoriesAttempt]);
+
+  useEffect(() => {
+    if (!filterOpen) return;
+    const onPointerDown = (event: PointerEvent) => {
+      if (!filterRef.current?.contains(event.target as Node))
+        setFilterOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [filterOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -82,11 +129,14 @@ export default function AddCourseModal({
   useEffect(() => {
     if (!isOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && !pending) onClose();
+      if (event.key === "Escape" && !pending) {
+        if (filterOpen) setFilterOpen(false);
+        else onClose();
+      }
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [isOpen, onClose, pending]);
+  }, [isOpen, onClose, pending, filterOpen]);
 
   if (!isOpen) return null;
 
@@ -157,20 +207,122 @@ export default function AddCourseModal({
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col gap-4 px-5 py-5 sm:px-6">
-          <TextField
-            ref={searchRef}
-            value={query}
-            onChange={(event) => {
-              setQuery(event.target.value);
-              setPage(0);
-              setSearching(true);
-              setSelectedCourse(null);
-            }}
-            leftIcon={<Search size={16} aria-hidden />}
-            placeholder="ค้นหาด้วยรหัสหรือชื่อวิชา"
-            aria-label="ค้นหารายวิชา"
-            disabled={pending}
-          />
+          <div className="flex items-start gap-2">
+            <TextField
+              ref={searchRef}
+              value={query}
+              onChange={(event) => {
+                setQuery(event.target.value);
+                setPage(0);
+                setSearching(true);
+                setSelectedCourse(null);
+              }}
+              leftIcon={<Search size={16} aria-hidden />}
+              placeholder="ค้นหาด้วยรหัสหรือชื่อวิชา"
+              aria-label="ค้นหารายวิชา"
+              disabled={pending}
+            />
+            <div ref={filterRef} className="relative shrink-0">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => setFilterOpen((open) => !open)}
+                aria-label={
+                  selectedCategories.length > 0
+                    ? `กรองหมวดวิชา ${selectedCategories.length} หมวด`
+                    : "กรองหมวดวิชา"
+                }
+                aria-expanded={filterOpen}
+                aria-controls="course-category-filter"
+                className="border-border gap-1.5"
+                disabled={pending}
+              >
+                <Filter size={16} aria-hidden />
+                <span>
+                  หมวดวิชา
+                  {selectedCategories.length > 0
+                    ? ` (${selectedCategories.length})`
+                    : ""}
+                </span>
+                <ChevronDown size={14} aria-hidden />
+              </Button>
+              {filterOpen && (
+                <div
+                  id="course-category-filter"
+                  className="border-border bg-bg shadow-pop absolute top-full right-0 z-20 mt-2 max-h-72 w-64 overflow-y-auto rounded-lg border p-3"
+                >
+                  <p className="text-label text-fg mb-2">กรองตามหมวดวิชา</p>
+                  {categoriesLoading ? (
+                    <p className="text-caption text-fg-muted py-2">
+                      กำลังโหลดหมวดวิชา…
+                    </p>
+                  ) : categoriesError ? (
+                    <div className="flex flex-col items-start gap-2">
+                      <p role="alert" className="text-caption text-error">
+                        โหลดหมวดวิชาไม่สำเร็จ
+                      </p>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        onClick={() => {
+                          setCategoriesLoading(true);
+                          setCategoriesAttempt((attempt) => attempt + 1);
+                        }}
+                      >
+                        ลองอีกครั้ง
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-2">
+                      {categories.map((category) => (
+                        <Checkbox
+                          key={category.code}
+                          checked={selectedCategories.includes(category.code)}
+                          onChange={() => {
+                            setSelectedCategories((current) =>
+                              current.includes(category.code)
+                                ? current.filter(
+                                    (code) => code !== category.code,
+                                  )
+                                : [...current, category.code],
+                            );
+                            setPage(0);
+                            setSearching(true);
+                            setSelectedCourse(null);
+                          }}
+                          label={
+                            <span>
+                              {language.startsWith("en")
+                                ? category.nameEn
+                                : category.nameTh}
+                              <span className="text-caption text-fg-muted block">
+                                {category.code}
+                              </span>
+                            </span>
+                          }
+                          disabled={pending}
+                        />
+                      ))}
+                      {selectedCategories.length > 0 && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          onClick={() => {
+                            setSelectedCategories([]);
+                            setPage(0);
+                            setSearching(true);
+                            setSelectedCourse(null);
+                          }}
+                        >
+                          ล้างตัวกรอง
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
 
           <div className="flex items-center justify-between gap-3">
             <p className="text-label text-fg">รายวิชาที่เปิดให้เลือก</p>
@@ -221,7 +373,7 @@ export default function AddCourseModal({
                         type="button"
                         disabled={pending || isPlanned || !course.isActive}
                         onClick={() => {
-                          setSelectedCourse(course);
+                          setSelectedCourse(isSelected ? null : course);
                           setError(null);
                         }}
                         className={`focus-visible:ring-accent flex w-full items-center gap-3 px-4 py-3 text-left transition-colors focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset disabled:cursor-not-allowed ${

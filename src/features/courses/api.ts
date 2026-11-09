@@ -1,7 +1,11 @@
 import { ApiError, apiGet } from "@/lib/api";
 import coursesMock from "@/mocks/courses.json";
 import type { Page } from "@/types/common";
-import type { CourseDetail, CourseListItem } from "@/types/course";
+import type {
+  CourseCategory,
+  CourseDetail,
+  CourseListItem,
+} from "@/types/course";
 
 const USE_MOCK = process.env.USE_MOCK_API === "true";
 
@@ -12,19 +16,26 @@ type GetCoursesParams = {
   page: number;
   size?: number;
   q?: string;
+  categories?: string[];
 };
 
 export async function getCourses({
   page,
   size = COURSE_PAGE_SIZE,
   q,
+  categories = [],
 }: GetCoursesParams): Promise<Page<CourseListItem>> {
   if (USE_MOCK) {
     const keyword = q?.trim().toLocaleLowerCase() ?? "";
-    const courses = (coursesMock as CourseListItem[]).filter((course) =>
-      [course.courseCode, course.nameTh, course.nameEn].some((value) =>
-        value.toLocaleLowerCase().includes(keyword),
-      ),
+    const courses = (coursesMock as CourseListItem[]).filter(
+      (course) =>
+        [course.courseCode, course.nameTh, course.nameEn].some((value) =>
+          value.toLocaleLowerCase().includes(keyword),
+        ) &&
+        (categories.length === 0 ||
+          course.categories.some((category) =>
+            categories.includes(category.code),
+          )),
     );
     return paginateMock(courses, page, size);
   }
@@ -33,8 +44,23 @@ export async function getCourses({
     page,
     size,
     q: q?.trim() || undefined,
+    category: categories.length > 0 ? categories.join(",") : undefined,
     sort: "courseCode,asc",
   });
+}
+
+
+export async function getCategories(): Promise<CourseCategory[]> {
+  if (USE_MOCK) {
+    return Array.from(
+      new Map(
+        (coursesMock as CourseListItem[])
+          .flatMap((course) => course.categories)
+          .map((category) => [category.code, category]),
+      ).values(),
+    );
+  }
+  return apiGet<CourseCategory[]>("/v1/categories");
 }
 
 export async function getCourseByCode(
