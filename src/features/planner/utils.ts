@@ -1,5 +1,8 @@
 import type { PlanSemester, PlanYear, TermStatus } from "@/types/plan";
 
+/** หลักสูตร 4 ปี — ปีที่ 5 ขึ้นไปคือปีที่นักศึกษาเพิ่มเอง */
+export const STANDARD_YEARS = 4;
+
 const UNITS: { limit: number; divisor: number; label: string }[] = [
   { limit: 60, divisor: 1, label: "นาที" },
   { limit: 60 * 24, divisor: 60, label: "ชั่วโมง" },
@@ -41,4 +44,22 @@ export const SEMESTER_STATUS_LABEL: Partial<Record<TermStatus, string>> = {
 
 export function yearAnchorId(year: number): string {
   return `year-${year}`;
+}
+
+/**
+ * SCRUM-209: ลบปีได้เมื่อเป็นปีที่เพิ่มเอง (ปี 5 ขึ้นไป) ยังไม่ถึง
+ * และมีแต่วิชาที่นักศึกษาเพิ่มเอง (ไม่มีวิชาบังคับ/วิชาที่ลงทะเบียนจริง)
+ * การบังคับให้ลบได้เฉพาะปีสุดท้าย (เลขปีต่อเนื่อง) ทำที่ผู้เรียกใช้
+ */
+export function isRemovableYear(year: PlanYear): boolean {
+  return (
+    year.year > STANDARD_YEARS &&
+    year.status === "upcoming" &&
+    year.semesters.every((semester) =>
+      semester.courses.every(
+        (course) =>
+          course.source === "user" && course.studyPlanCourseId !== null,
+      ),
+    )
+  );
 }

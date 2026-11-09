@@ -70,6 +70,15 @@ export type RemovePlanCourseInput = {
 export type RemovePlanCourseResult =
   { ok: true } | { ok: false; message: string };
 
+// --- ลบปีการศึกษาที่เพิ่มเอง (SCRUM-209) ---
+export type RemovePlanYearInput = {
+  studyPlanId: number;
+  studyYear: number;
+};
+
+export type RemovePlanYearResult =
+  { ok: true; removedCourseIds: number[] } | { ok: false; message: string };
+
 // --- Types สำหรับหน้า Planner View (GET /v1/plans/{id}) ---
 // ตรงกับการ์ด SCRUM-168
 
