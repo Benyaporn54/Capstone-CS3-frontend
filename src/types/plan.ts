@@ -39,6 +39,8 @@ export type CreatePlanResult =
   | { ok: true; plan: PlanSummary }
   | { ok: false; message: string; field?: "planName" | "trackId" };
 
+export type PlanMutationResult = { ok: true } | { ok: false; message: string };
+
 /** POST /v1/plans/{id}/courses — เพิ่มวิชาเลือกลงแผน */
 export type AddPlanCourseInput = {
   studyPlanId: number;
