@@ -33,20 +33,6 @@ export default async function PlannerView({ params }: PlannerViewProps) {
     planList?.plans.length === 1 &&
     planList.plans[0].studyPlanId === plan.studyPlanId;
 
-  const token = (await auth())?.backendToken;
-  let savedCourses = null;
-  if (token) {
-    try {
-      savedCourses = await getSavedCourses(token);
-    } catch (error) {
-      console.error("Failed to load saved courses on planner:", error);
-    }
-  }
-
-  const isOnlyDefaultPlan =
-    plan.isDefault &&
-    planList?.plans.length === 1 &&
-    planList.plans[0].studyPlanId === plan.studyPlanId;
 
   return (
     <>
