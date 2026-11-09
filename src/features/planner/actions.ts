@@ -1,14 +1,19 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { getCategories, getCourses } from "@/features/courses/api";
 import {
   addCourseToPlan,
   createPlan,
+  deletePlan,
   getPlanDetail,
+  getPlans,
   moveCourseInPlan,
   PLAN_NAME_MAX_LENGTH,
+  renamePlan,
   removeCourseFromPlan,
+  setDefaultPlan,
 } from "./api";
 import type {
   AddPlanCourseInput,
@@ -16,6 +21,7 @@ import type {
   CreatePlanResult,
   MovePlanCourseInput,
   MovePlanCourseResult,
+  PlanMutationResult,
   RemovePlanCourseInput,
   RemovePlanCourseResult,
   RemovePlanYearInput,
@@ -42,6 +48,91 @@ export async function createPlanAction(input: {
 
   const result = await createPlan({ planName, trackId: input.trackId });
   if (result.ok) revalidatePath("/planner");
+  return result;
+}
+
+export async function renamePlanAction(input: {
+  studyPlanId: number;
+  planName: string;
+}): Promise<PlanMutationResult> {
+  if (
+    !input ||
+    !Number.isInteger(input.studyPlanId) ||
+    input.studyPlanId <= 0
+  ) {
+    return { ok: false, message: "ไม่พบแผนการเรียนนี้" };
+  }
+  if (typeof input.planName !== "string") {
+    return { ok: false, message: "กรุณาตั้งชื่อแผน" };
+  }
+  const planName = input.planName.trim();
+  if (!planName) {
+    return { ok: false, message: "กรุณาตั้งชื่อแผน" };
+  }
+  if (planName.length > PLAN_NAME_MAX_LENGTH) {
+    return {
+      ok: false,
+      message: `ชื่อแผนยาวได้ไม่เกิน ${PLAN_NAME_MAX_LENGTH} ตัวอักษร`,
+    };
+  }
+
+  const result = await renamePlan(input.studyPlanId, planName);
+  if (result.ok) {
+    revalidatePath(`/planner/${input.studyPlanId}`);
+    revalidatePath("/planner");
+  }
+  return result;
+}
+
+export async function setDefaultPlanAction(
+  studyPlanId: number,
+): Promise<PlanMutationResult> {
+  if (!Number.isInteger(studyPlanId) || studyPlanId <= 0) {
+    return { ok: false, message: "ไม่พบแผนการเรียนนี้" };
+  }
+
+  const result = await setDefaultPlan(studyPlanId);
+  if (result.ok) {
+    revalidatePath(`/planner/${studyPlanId}`);
+    revalidatePath("/planner/[planId]", "page");
+    revalidatePath("/planner");
+  }
+  return result;
+}
+
+export async function deletePlanAction(
+  studyPlanId: number,
+): Promise<PlanMutationResult> {
+  if (!Number.isInteger(studyPlanId) || studyPlanId <= 0) {
+    return { ok: false, message: "ไม่พบแผนการเรียนนี้" };
+  }
+
+  const planList = await getPlans();
+  if (!planList) {
+    return {
+      ok: false,
+      message: "ไม่สามารถตรวจสอบรายการแผนได้ กรุณาลองใหม่อีกครั้ง",
+    };
+  }
+  const targetPlan = planList.plans.find(
+    (plan) => plan.studyPlanId === studyPlanId,
+  );
+  if (!targetPlan) {
+    return { ok: false, message: "ไม่พบแผนการเรียนนี้" };
+  }
+  if (targetPlan.isDefault && planList.plans.length === 1) {
+    return {
+      ok: false,
+      message: "ไม่สามารถลบแผนหลักที่เป็นแผนเดียวในระบบได้",
+    };
+  }
+
+  const result = await deletePlan(studyPlanId);
+  if (result.ok) {
+    revalidatePath("/planner/[planId]", "page");
+    revalidatePath("/planner");
+    redirect("/planner");
+  }
   return result;
 }
 

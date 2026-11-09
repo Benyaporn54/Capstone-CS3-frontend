@@ -18,6 +18,7 @@ import type {
   PlanCourse,
   PlanDetail,
   PlanListResponse,
+  PlanMutationResult,
   PlanSummary,
   PlanYear,
   RemovePlanCourseInput,
@@ -213,6 +214,114 @@ export async function getPlanDetail(
       redirectToLogin(`/planner/${planId}`);
     }
     throw error;
+  }
+}
+
+function planMutationErrorMessage(error: unknown, fallback: string): string {
+  if (error instanceof ApiError) {
+    if (error.status === 401) return "เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่";
+    if (error.status === 404) return "ไม่พบแผนการเรียนนี้";
+    return error.backendMessage ?? fallback;
+  }
+  console.error("Failed to update plan:", error);
+  return fallback;
+}
+
+/** เปลี่ยนชื่อแผน — PATCH /v1/plans/{id} */
+export async function renamePlan(
+  planId: number,
+  planName: string,
+): Promise<PlanMutationResult> {
+  if (USE_MOCK_PLANS) {
+    const summary = mockStore.plans.find((plan) => plan.studyPlanId === planId);
+    if (!summary) return { ok: false, message: "ไม่พบแผนการเรียนนี้" };
+    summary.planName = planName;
+    const detail = planDetailsStore[String(planId)];
+    if (detail) detail.planName = planName;
+    return { ok: true };
+  }
+
+  try {
+    await apiPatch<void>(
+      `/v1/plans/${planId}`,
+      { planName },
+      { headers: await authHeaders() },
+    );
+    return { ok: true };
+  } catch (error) {
+    return {
+      ok: false,
+      message: planMutationErrorMessage(
+        error,
+        "เปลี่ยนชื่อแผนไม่สำเร็จ ลองใหม่อีกครั้ง",
+      ),
+    };
+  }
+}
+
+/** ตั้งแผนหลัก — PATCH /v1/plans/{id}/default */
+export async function setDefaultPlan(
+  planId: number,
+): Promise<PlanMutationResult> {
+  if (USE_MOCK_PLANS) {
+    const selected = mockStore.plans.find(
+      (plan) => plan.studyPlanId === planId,
+    );
+    if (!selected) return { ok: false, message: "ไม่พบแผนการเรียนนี้" };
+    for (const plan of mockStore.plans) {
+      plan.isDefault = plan.studyPlanId === planId;
+      const detail = planDetailsStore[String(plan.studyPlanId)];
+      if (detail) detail.isDefault = plan.isDefault;
+    }
+    return { ok: true };
+  }
+
+  try {
+    await apiPatch<void>(`/v1/plans/${planId}/default`, undefined, {
+      headers: await authHeaders(),
+    });
+    return { ok: true };
+  } catch (error) {
+    return {
+      ok: false,
+      message: planMutationErrorMessage(
+        error,
+        "ตั้งแผนหลักไม่สำเร็จ ลองใหม่อีกครั้ง",
+      ),
+    };
+  }
+}
+
+/** ลบแผน — DELETE /v1/plans/{id} */
+export async function deletePlan(planId: number): Promise<PlanMutationResult> {
+  if (USE_MOCK_PLANS) {
+    const index = mockStore.plans.findIndex(
+      (plan) => plan.studyPlanId === planId,
+    );
+    if (index < 0) return { ok: false, message: "ไม่พบแผนการเรียนนี้" };
+    const [deleted] = mockStore.plans.splice(index, 1);
+    delete planDetailsStore[String(planId)];
+    if (deleted.isDefault && mockStore.plans.length > 0) {
+      mockStore.plans[0].isDefault = true;
+      const detail = planDetailsStore[String(mockStore.plans[0].studyPlanId)];
+      if (detail) detail.isDefault = true;
+    }
+    return { ok: true };
+  }
+
+  try {
+    await apiDelete(`/v1/plans/${planId}`, {
+      headers: await authHeaders(),
+    });
+    return { ok: true };
+  } catch (error) {
+    return {
+      ok: false,
+      message: planMutationErrorMessage(
+        error,
+        "ลบแผนไม่สำเร็จ ลองใหม่อีกครั้ง",
+      ),
+    };
   }
 }
 
