@@ -33,7 +33,6 @@ export default async function PlannerView({ params }: PlannerViewProps) {
     planList?.plans.length === 1 &&
     planList.plans[0].studyPlanId === plan.studyPlanId;
 
-
   return (
     <>
       <PlannerHeader
@@ -41,7 +40,7 @@ export default async function PlannerView({ params }: PlannerViewProps) {
         plan={plan}
         isOnlyDefaultPlan={isOnlyDefaultPlan}
       />
-      <PlannerBody plan={plan}  savedCourses={savedCourses}/>
+      <PlannerBody plan={plan} savedCourses={savedCourses} />
     </>
   );
 }

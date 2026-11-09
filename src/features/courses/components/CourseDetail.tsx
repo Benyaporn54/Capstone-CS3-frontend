@@ -41,7 +41,8 @@ export default async function CourseDetail({ params }: CourseDetailProps) {
       );
     } catch (error) {
       if (error instanceof ApiError && error.status === 401) canSave = false;
-      else console.error("Failed to load saved courses on course detail:", error);
+      else
+        console.error("Failed to load saved courses on course detail:", error);
     }
   }
 
