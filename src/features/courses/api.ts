@@ -49,7 +49,6 @@ export async function getCourses({
   });
 }
 
-
 export async function getCategories(): Promise<CourseCategory[]> {
   if (USE_MOCK) {
     return Array.from(
