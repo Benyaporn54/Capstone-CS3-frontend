@@ -18,7 +18,10 @@ import type {
   MovePlanCourseResult,
   RemovePlanCourseInput,
   RemovePlanCourseResult,
+  RemovePlanYearInput,
+  RemovePlanYearResult,
 } from "@/types/plan";
+import { isRemovableYear } from "./utils";
 
 export async function createPlanAction(input: {
   planName: string;
@@ -146,4 +149,55 @@ export async function removeCourseAction(
     revalidatePath("/planner");
   }
   return result;
+}
+
+/**
+ * SCRUM-209: ลบปีการศึกษาที่เพิ่มเอง = เอาวิชาทุกตัวในปีนั้นออกจากแผน
+ * (ปีไม่ได้เก็บใน DB — ไม่มีวิชาเหลือ ปีก็หายไปเอง)
+ */
+export async function removeYearAction(
+  input: RemovePlanYearInput,
+): Promise<RemovePlanYearResult> {
+  if (!isPositiveInt(input.studyPlanId) || !isPositiveInt(input.studyYear)) {
+    return { ok: false, message: "ข้อมูลปีการศึกษาไม่ถูกต้อง" };
+  }
+
+  const plan = await getPlanDetail(input.studyPlanId);
+  if (!plan) return { ok: false, message: "ไม่พบแผนการเรียนนี้" };
+
+  const year = plan.years.find((item) => item.year === input.studyYear);
+  // ปีที่ยังไม่มีวิชา (เพิ่มไว้แค่ฝั่ง FE) ไม่ต้องเรียก API
+  if (!year) return { ok: true, removedCourseIds: [] };
+
+  const lastYear = Math.max(...plan.years.map((item) => item.year));
+  if (year.year !== lastYear || !isRemovableYear(year)) {
+    return { ok: false, message: "ลบได้เฉพาะปีสุดท้ายที่เพิ่มเอง" };
+  }
+
+  const courses = year.semesters.flatMap((semester) => semester.courses);
+  const removedCourseIds: number[] = [];
+  let failed = false;
+  for (const course of courses) {
+    const result = await removeCourseFromPlan({
+      studyPlanId: input.studyPlanId,
+      studyPlanCourseId: course.studyPlanCourseId!,
+    });
+    if (!result.ok) {
+      failed = true;
+      break;
+    }
+    removedCourseIds.push(course.courseId);
+  }
+
+  if (removedCourseIds.length > 0) {
+    revalidatePath(`/planner/${input.studyPlanId}`);
+    revalidatePath("/planner");
+  }
+  if (failed) {
+    return {
+      ok: false,
+      message: `ลบปี ${year.year} ไม่สำเร็จ (เอาออกแล้ว ${removedCourseIds.length} จาก ${courses.length} วิชา) ลองใหม่อีกครั้ง`,
+    };
+  }
+  return { ok: true, removedCourseIds };
 }

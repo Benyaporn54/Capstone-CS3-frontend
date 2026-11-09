@@ -19,7 +19,7 @@ type PlannerYearSectionProps = {
     location: CourseLocation,
   ) => void;
   highlightedCourseId?: number | null;
-  /** มีเฉพาะปีที่เพิ่มเองฝั่ง FE และยังว่าง */
+  /** มีเฉพาะปีสุดท้ายที่เพิ่มเอง (ปี 5 ขึ้นไป) — SCRUM-209 */
   onRemove?: () => void;
 };
 

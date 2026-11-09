@@ -11,7 +11,8 @@ import type {
 } from "@/types/plan";
 import { Modal } from "@/components/ui/Modal";
 import { useToast } from "@/components/ui/Toast";
-import { removeCourseAction } from "../actions";
+import { removeCourseAction, removeYearAction } from "../actions";
+import { isRemovableYear } from "../utils";
 import MoveCourseModal from "./MoveCourseModal";
 import type { CourseAction, CourseLocation } from "./PlannerCourseRow";
 import PlannerCreditSummary from "./PlannerCreditSummary";
@@ -75,6 +76,10 @@ export default function PlannerBody({ plan }: PlannerBodyProps) {
   const [highlightedCourseId, setHighlightedCourseId] = useState<number | null>(
     null,
   );
+  // SCRUM-209: ปีที่รอยืนยันการลบ (เฉพาะปีที่มีวิชาแล้ว)
+  const [yearToRemove, setYearToRemove] = useState<PlanYear | null>(null);
+  const [removeYearError, setRemoveYearError] = useState<string | null>(null);
+  const [removingYear, startRemoveYear] = useTransition();
   const { showToast } = useToast();
   const router = useRouter();
 
@@ -111,6 +116,51 @@ export default function PlannerBody({ plan }: PlannerBodyProps) {
         router.refresh();
       } else {
         setRemoveError(result.message);
+      }
+    });
+  };
+
+  const forgetExtraYear = (yearNumber: number) =>
+    setExtraYearNumbers((current) =>
+      current.filter((item) => item !== yearNumber),
+    );
+
+  const closeRemoveYear = () => {
+    setYearToRemove(null);
+    setRemoveYearError(null);
+  };
+
+  /** ปีว่าง = ลบทันที, ปีที่มีวิชา = ถามยืนยันก่อน */
+  const requestRemoveYear = (year: PlanYear) => {
+    const hasCourses = year.semesters.some(
+      (semester) => semester.courses.length > 0,
+    );
+    if (hasCourses) {
+      setYearToRemove(year);
+    } else {
+      forgetExtraYear(year.year);
+    }
+  };
+
+  const confirmRemoveYear = () => {
+    if (!yearToRemove) return;
+    const target = yearToRemove;
+    setRemoveYearError(null);
+    startRemoveYear(async () => {
+      const result = await removeYearAction({
+        studyPlanId: plan.studyPlanId,
+        studyYear: target.year,
+      });
+      if (result.ok) {
+        result.removedCourseIds.forEach(forgetAddedCourse);
+        forgetExtraYear(target.year);
+        closeRemoveYear();
+        showToast(`ลบปี ${target.year} ออกจากแผนแล้ว`);
+        router.refresh();
+      } else {
+        setRemoveYearError(result.message);
+        // อาจเอาวิชาออกไปได้บางส่วนแล้ว — ดึงแผนล่าสุดมาแสดง
+        router.refresh();
       }
     });
   };
@@ -195,9 +245,9 @@ export default function PlannerBody({ plan }: PlannerBodyProps) {
             }
             highlightedCourseId={highlightedCourseId}
             onRemove={
-              // ลบได้เฉพาะปีที่เพิ่มเองล่าสุด ให้เลขปีต่อเนื่อง
-              extraYears.length > 0 && i === years.length - 1
-                ? () => setExtraYearNumbers((current) => current.slice(0, -1))
+              // ลบได้เฉพาะปีสุดท้ายที่เพิ่มเอง (ปี 5 ขึ้นไป) ให้เลขปีต่อเนื่อง
+              i === years.length - 1 && isRemovableYear(year)
+                ? () => requestRemoveYear(year)
                 : undefined
             }
           />
@@ -258,6 +308,27 @@ export default function PlannerBody({ plan }: PlannerBodyProps) {
         loading={removing}
         errorMessage={removeError}
         onConfirm={confirmRemove}
+      />
+
+      <Modal
+        isOpen={yearToRemove !== null}
+        onClose={() => !removingYear && closeRemoveYear()}
+        type="danger"
+        title={`ลบปี ${yearToRemove?.year ?? ""} ออกจากแผน?`}
+        description={
+          yearToRemove &&
+          `วิชาที่วางแผนไว้ในปี ${yearToRemove.year} ทั้งหมด ${yearToRemove.semesters.reduce(
+            (sum, semester) => sum + semester.courses.length,
+            0,
+          )} วิชา จะถูกเอาออกจาก “${plan.planName}” ด้วย`
+        }
+        showCancel
+        confirmLabel="ลบปีนี้"
+        loadingLabel="กำลังลบ…"
+        closeOnConfirm={false}
+        loading={removingYear}
+        errorMessage={removeYearError}
+        onConfirm={confirmRemoveYear}
       />
     </div>
   );
