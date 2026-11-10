@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { getPlanDetail, getPlans } from "../api";
+import { auth } from "@/auth";
+import { getSavedCourses } from "@/features/saved-courses/api";
 import PlannerBody from "./PlannerBody";
 import PlannerHeader from "./PlannerHeader";
 
@@ -17,6 +19,15 @@ export default async function PlannerView({ params }: PlannerViewProps) {
 
   if (!plan) notFound();
 
+  const token = (await auth())?.backendToken;
+  let savedCourses = null;
+  if (token) {
+    try {
+      savedCourses = await getSavedCourses(token);
+    } catch (error) {
+      console.error("Failed to load saved courses on planner:", error);
+    }
+  }
   const isOnlyDefaultPlan =
     plan.isDefault &&
     planList?.plans.length === 1 &&
@@ -29,7 +40,7 @@ export default async function PlannerView({ params }: PlannerViewProps) {
         plan={plan}
         isOnlyDefaultPlan={isOnlyDefaultPlan}
       />
-      <PlannerBody plan={plan} />
+      <PlannerBody plan={plan} savedCourses={savedCourses} />
     </>
   );
 }

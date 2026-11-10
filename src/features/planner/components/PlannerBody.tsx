@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Plus } from "lucide-react";
+import type { CourseListItem } from "@/types/course";
 import type {
   PlanCourse,
   PlanDetail,
@@ -18,12 +19,14 @@ import type { CourseAction, CourseLocation } from "./PlannerCourseRow";
 import PlannerCreditSummary from "./PlannerCreditSummary";
 import PlannerYearNav from "./PlannerYearNav";
 import PlannerYearSection from "./PlannerYearSection";
+import SavedCoursesCard from "./SavedCoursesCard";
 
 /** ป.ตรี 4 ปี เรียนได้ไม่เกิน 8 ปีการศึกษา */
 const MAX_YEARS = 8;
 
 type PlannerBodyProps = {
   plan: PlanDetail;
+  savedCourses: CourseListItem[] | null;
 };
 
 type AddedCourse = {
@@ -62,7 +65,7 @@ function emptyYear(year: number, admissionYear: number): PlanYear {
   };
 }
 
-export default function PlannerBody({ plan }: PlannerBodyProps) {
+export default function PlannerBody({ plan, savedCourses }: PlannerBodyProps) {
   // ปีที่เพิ่มด้วยปุ่ม "เพิ่มปีการศึกษา" อยู่แค่ฝั่ง FE (ไม่มี API ตาม SCRUM-168)
   // จะถูกบันทึกจริงเมื่อเพิ่มวิชาลงปีนั้น (SCRUM-170) — รีเฟรชแล้วปีว่างจะหายไป
   const [extraYearNumbers, setExtraYearNumbers] = useState<number[]>([]);
@@ -215,8 +218,20 @@ export default function PlannerBody({ plan }: PlannerBodyProps) {
     ),
   );
 
+  const recordAddedCourse = (
+    year: number,
+    semester: number,
+    course: PlanCourse,
+    updatedSemester?: PlanSemester,
+  ) => {
+    setAddedCourses((current) => [
+      ...current.filter((item) => item.course.courseId !== course.courseId),
+      { year, semester, course, updatedSemester },
+    ]);
+  };
+
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-8">
+    <div className="grid grid-cols-1 gap-6 min-[1440px]:grid-cols-[260px_minmax(0,1fr)_260px] lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-8">
       <aside className="flex flex-col gap-4 lg:sticky lg:top-6 lg:self-start">
         <PlannerCreditSummary
           years={years}
@@ -233,12 +248,7 @@ export default function PlannerBody({ plan }: PlannerBodyProps) {
             studyPlanId={plan.studyPlanId}
             plannedCourseIds={plannedCourseIds}
             onCourseAdded={(semester, course, updatedSemester) =>
-              setAddedCourses((current) => [
-                ...current.filter(
-                  (item) => item.course.courseId !== course.courseId,
-                ),
-                { year: year.year, semester, course, updatedSemester },
-              ])
+              recordAddedCourse(year.year, semester, course, updatedSemester)
             }
             onCourseAction={(action, course, location) =>
               setActionTarget({ action, course, location })
@@ -273,6 +283,16 @@ export default function PlannerBody({ plan }: PlannerBodyProps) {
           </p>
         )}
       </div>
+
+      <aside className="min-w-0 min-[1440px]:sticky min-[1440px]:top-6 min-[1440px]:col-span-1 min-[1440px]:self-start lg:col-span-2">
+        <SavedCoursesCard
+          savedCourses={savedCourses}
+          studyPlanId={plan.studyPlanId}
+          years={years}
+          plannedCourseIds={plannedCourseIds}
+          onAdded={recordAddedCourse}
+        />
+      </aside>
 
       {actionTarget?.action === "move" && (
         <MoveCourseModal
