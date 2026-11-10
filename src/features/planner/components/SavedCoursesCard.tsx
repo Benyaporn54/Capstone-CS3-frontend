@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Loader2, Plus, X } from "lucide-react";
@@ -25,6 +25,12 @@ type Props = {
   ) => void;
 };
 
+type SavedCardPosition = {
+  top: number;
+  left: number;
+  width: number;
+};
+
 export default function SavedCoursesCard({
   savedCourses,
   studyPlanId,
@@ -38,9 +44,96 @@ export default function SavedCoursesCard({
   );
   const [selectedTerm, setSelectedTerm] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [savedCardPosition, setSavedCardPosition] =
+    useState<SavedCardPosition | null>(null);
+  const savedCardHeadingRef = useRef<HTMLHeadingElement>(null);
   const [pending, startTransition] = useTransition();
   const router = useRouter();
   const { showToast } = useToast();
+
+  useEffect(() => {
+    const wideScreen = window.matchMedia("(min-width: 90rem)");
+    let frame: number | null = null;
+
+    const updatePosition = () => {
+      frame = null;
+      if (!wideScreen.matches) {
+        setSavedCardPosition(null);
+        return;
+      }
+
+      const cardAside = savedCardHeadingRef.current?.closest("aside");
+      const plannerGrid = cardAside?.parentElement;
+      const plannerColumn = cardAside?.previousElementSibling;
+      const creditSummary = plannerGrid?.firstElementChild?.firstElementChild;
+
+      if (
+        !(plannerColumn instanceof HTMLElement) ||
+        !(creditSummary instanceof HTMLElement)
+      ) {
+        setSavedCardPosition(null);
+        return;
+      }
+
+      const rootFontSize = Number.parseFloat(
+        window.getComputedStyle(document.documentElement).fontSize,
+      );
+      const gap = rootFontSize;
+      const viewportPadding = rootFontSize;
+      const plannerRect = plannerColumn.getBoundingClientRect();
+      const summaryRect = creditSummary.getBoundingClientRect();
+      const left = plannerRect.right + gap;
+      const availableWidth = window.innerWidth - left - viewportPadding;
+      const preferredWidth = Math.min(
+        rootFontSize * 13,
+        Math.max(rootFontSize * 9, window.innerWidth * 0.11),
+      );
+
+      if (availableWidth < rootFontSize * 8) {
+        setSavedCardPosition(null);
+        return;
+      }
+
+      const nextPosition = {
+        top: Math.round(summaryRect.top),
+        left: Math.round(left),
+        width: Math.round(Math.min(preferredWidth, availableWidth)),
+      };
+      setSavedCardPosition((current) =>
+        current?.top === nextPosition.top &&
+        current.left === nextPosition.left &&
+        current.width === nextPosition.width
+          ? current
+          : nextPosition,
+      );
+    };
+
+    const schedulePositionUpdate = () => {
+      if (frame === null) frame = window.requestAnimationFrame(updatePosition);
+    };
+
+    updatePosition();
+    const resizeObserver = new ResizeObserver(schedulePositionUpdate);
+    const cardAside = savedCardHeadingRef.current?.closest("aside");
+    const plannerGrid = cardAside?.parentElement;
+    const plannerColumn = cardAside?.previousElementSibling;
+    const creditSummary = plannerGrid?.firstElementChild?.firstElementChild;
+    if (plannerColumn) resizeObserver.observe(plannerColumn);
+    if (creditSummary) resizeObserver.observe(creditSummary);
+    window.addEventListener("scroll", schedulePositionUpdate, {
+      passive: true,
+    });
+    window.addEventListener("resize", schedulePositionUpdate);
+    wideScreen.addEventListener("change", schedulePositionUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", schedulePositionUpdate);
+      window.removeEventListener("resize", schedulePositionUpdate);
+      wideScreen.removeEventListener("change", schedulePositionUpdate);
+      resizeObserver.disconnect();
+      if (frame !== null) window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   const terms = years.flatMap((year) =>
     year.semesters
@@ -82,9 +175,15 @@ export default function SavedCoursesCard({
       <Card
         aria-labelledby="saved-courses-heading"
         variant="surface"
-        className="p-4"
+        className="p-4 min-[90rem]:z-20 min-[90rem]:p-3"
+        style={
+          savedCardPosition === null
+            ? undefined
+            : { position: "fixed", ...savedCardPosition }
+        }
       >
         <h2
+          ref={savedCardHeadingRef}
           id="saved-courses-heading"
           className="text-label text-fg font-semibold"
         >
