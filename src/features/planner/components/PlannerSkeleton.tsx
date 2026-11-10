@@ -32,7 +32,7 @@ export default function PlannerSkeleton() {
         <div className="bg-hover h-10 w-56 animate-pulse rounded-md" />
         <div className="bg-hover h-5 w-80 max-w-full animate-pulse rounded-md" />
       </div>
-      <div className="grid grid-cols-1 gap-6 min-[1440px]:grid-cols-[260px_minmax(0,1fr)_260px] lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-8">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-8">
         <div className="flex flex-col gap-4">
           <div className="bg-hover hidden h-44 animate-pulse rounded-lg lg:block" />
         </div>
