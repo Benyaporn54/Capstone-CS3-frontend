@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react";
 import { ArrowRight, Check, Info, Lock, Trash2 } from "lucide-react";
 import ActionMenu, { type ActionMenuItem } from "@/components/ui/ActionMenu";
 import type { PlanCourse, TermStatus } from "@/types/plan";
+import type { GradeEnrollment, GradeValue } from "@/types/grade";
+import InlineGradeSelect from "@/features/grades/components/InlineGradeSelect";
 
 /** ตำแหน่งของวิชาในแผน (ชั้นปี + ภาคเรียน) */
 export type CourseLocation = { year: number; semester: number };
@@ -13,6 +15,8 @@ export type CourseAction = "move" | "remove";
 type PlannerCourseRowProps = {
   course: PlanCourse;
   semesterStatus: TermStatus;
+  gradeEnrollment?: GradeEnrollment;
+  onGradeSaved: (enrollmentId: number, grade: GradeValue) => void;
   /** SCRUM-172: เมนู ⋯ ของวิชาที่เพิ่มเอง */
   onAction?: (action: CourseAction, course: PlanCourse) => void;
   /** ไฮไลต์แวบหนึ่งหลังย้ายมาเทอมนี้ */
@@ -91,6 +95,8 @@ function getTag(course: PlanCourse): Tag | null {
 export default function PlannerCourseRow({
   course,
   semesterStatus,
+  gradeEnrollment,
+  onGradeSaved,
   onAction,
   highlighted = false,
 }: PlannerCourseRowProps) {
@@ -172,6 +178,13 @@ export default function PlannerCourseRow({
           >
             <Lock size={14} aria-label="วิชาบังคับ" />
           </span>
+        )}
+        {gradeEnrollment && (
+          <InlineGradeSelect
+            key={`${gradeEnrollment.enrollmentId}-${gradeEnrollment.currentGrade ?? ""}`}
+            enrollment={gradeEnrollment}
+            onSaved={onGradeSaved}
+          />
         )}
         {hasMenu && (
           <ActionMenu

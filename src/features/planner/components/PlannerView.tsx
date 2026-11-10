@@ -2,6 +2,9 @@ import { notFound } from "next/navigation";
 import { getPlanDetail, getPlans } from "../api";
 import { auth } from "@/auth";
 import { getSavedCourses } from "@/features/saved-courses/api";
+import { getGradeEnrollments } from "@/features/grades/api";
+import type { GradeEnrollment } from "@/types/grade";
+import { ApiError } from "@/lib/api";
 import PlannerBody from "./PlannerBody";
 import PlannerHeader from "./PlannerHeader";
 
@@ -21,11 +24,27 @@ export default async function PlannerView({ params }: PlannerViewProps) {
 
   const token = (await auth())?.backendToken;
   let savedCourses = null;
+  let gradeEnrollments: GradeEnrollment[] | null = null;
+  let gradeEnrollmentsError: string | null = null;
   if (token) {
     try {
       savedCourses = await getSavedCourses(token);
     } catch (error) {
       console.error("Failed to load saved courses on planner:", error);
+    }
+
+    try {
+      gradeEnrollments = await getGradeEnrollments(token);
+    } catch (error) {
+      console.error("Failed to load grade enrollments on planner:", error);
+      if (error instanceof ApiError && error.status === 401) {
+        gradeEnrollmentsError = "เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่";
+      } else if (error instanceof ApiError && error.status === 403) {
+        gradeEnrollmentsError = "คุณไม่มีสิทธิ์ดูรายการรายวิชาสำหรับบันทึกเกรด";
+      } else {
+        gradeEnrollmentsError =
+          "โหลดข้อมูลเกรดไม่สำเร็จ จึงยังไม่สามารถบันทึกเกรดได้";
+      }
     }
   }
   const isOnlyDefaultPlan =
@@ -40,7 +59,12 @@ export default async function PlannerView({ params }: PlannerViewProps) {
         plan={plan}
         isOnlyDefaultPlan={isOnlyDefaultPlan}
       />
-      <PlannerBody plan={plan} savedCourses={savedCourses} />
+      <PlannerBody
+        plan={plan}
+        savedCourses={savedCourses}
+        initialGradeEnrollments={gradeEnrollments}
+        gradeEnrollmentsError={gradeEnrollmentsError}
+      />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
 import type { PlanCourse, PlanSemester, PlanYear } from "@/types/plan";
+import type { GradeEnrollment, GradeValue } from "@/types/grade";
 import { yearAnchorId } from "../utils";
 import type { CourseAction, CourseLocation } from "./PlannerCourseRow";
 import PlannerSemesterCard from "./PlannerSemesterCard";
@@ -7,6 +8,8 @@ import PlannerSemesterCard from "./PlannerSemesterCard";
 type PlannerYearSectionProps = {
   year: PlanYear;
   studyPlanId: number;
+  gradeEnrollments: GradeEnrollment[];
+  onGradeSaved: (enrollmentId: number, grade: GradeValue) => void;
   plannedCourseIds: ReadonlySet<number>;
   onCourseAdded: (
     semester: number,
@@ -26,6 +29,8 @@ type PlannerYearSectionProps = {
 export default function PlannerYearSection({
   year,
   studyPlanId,
+  gradeEnrollments,
+  onGradeSaved,
   plannedCourseIds,
   onCourseAdded,
   onCourseAction,
@@ -68,6 +73,9 @@ export default function PlannerYearSection({
             semester={semester}
             studyPlanId={studyPlanId}
             studyYear={year.year}
+            academicYear={year.academicYear}
+            gradeEnrollments={gradeEnrollments}
+            onGradeSaved={onGradeSaved}
             plannedCourseIds={plannedCourseIds}
             onCourseAdded={(course, updatedSemester) =>
               onCourseAdded(semester.semester, course, updatedSemester)

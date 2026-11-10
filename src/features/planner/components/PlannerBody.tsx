@@ -10,6 +10,7 @@ import type {
   PlanSemester,
   PlanYear,
 } from "@/types/plan";
+import type { GradeEnrollment, GradeValue } from "@/types/grade";
 import { Modal } from "@/components/ui/Modal";
 import { useToast } from "@/components/ui/Toast";
 import { removeCourseAction, removeYearAction } from "../actions";
@@ -27,6 +28,8 @@ const MAX_YEARS = 8;
 type PlannerBodyProps = {
   plan: PlanDetail;
   savedCourses: CourseListItem[] | null;
+  initialGradeEnrollments: GradeEnrollment[] | null;
+  gradeEnrollmentsError: string | null;
 };
 
 type AddedCourse = {
@@ -65,7 +68,15 @@ function emptyYear(year: number, admissionYear: number): PlanYear {
   };
 }
 
-export default function PlannerBody({ plan, savedCourses }: PlannerBodyProps) {
+export default function PlannerBody({
+  plan,
+  savedCourses,
+  initialGradeEnrollments,
+  gradeEnrollmentsError,
+}: PlannerBodyProps) {
+  const [gradeEnrollments, setGradeEnrollments] = useState(
+    initialGradeEnrollments,
+  );
   // ปีที่เพิ่มด้วยปุ่ม "เพิ่มปีการศึกษา" อยู่แค่ฝั่ง FE (ไม่มี API ตาม SCRUM-168)
   // จะถูกบันทึกจริงเมื่อเพิ่มวิชาลงปีนั้น (SCRUM-170) — รีเฟรชแล้วปีว่างจะหายไป
   const [extraYearNumbers, setExtraYearNumbers] = useState<number[]>([]);
@@ -230,6 +241,17 @@ export default function PlannerBody({ plan, savedCourses }: PlannerBodyProps) {
     ]);
   };
 
+  const updateGrade = (enrollmentId: number, grade: GradeValue) => {
+    setGradeEnrollments(
+      (current) =>
+        current?.map((enrollment) =>
+          enrollment.enrollmentId === enrollmentId
+            ? { ...enrollment, currentGrade: grade }
+            : enrollment,
+        ) ?? null,
+    );
+  };
+
   return (
     <div className="grid grid-cols-1 gap-6 min-[1440px]:grid-cols-[260px_minmax(0,1fr)_260px] lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-8">
       <aside className="flex flex-col gap-4 lg:sticky lg:top-6 lg:self-start">
@@ -241,11 +263,21 @@ export default function PlannerBody({ plan, savedCourses }: PlannerBodyProps) {
       </aside>
 
       <div className="flex min-w-0 flex-col gap-10">
+        {gradeEnrollmentsError && (
+          <p
+            role="status"
+            className="bg-warning-soft text-label text-warning rounded-md px-3 py-2"
+          >
+            {gradeEnrollmentsError}
+          </p>
+        )}
         {years.map((year, i) => (
           <PlannerYearSection
             key={year.year}
             year={year}
             studyPlanId={plan.studyPlanId}
+            gradeEnrollments={gradeEnrollments ?? []}
+            onGradeSaved={updateGrade}
             plannedCourseIds={plannedCourseIds}
             onCourseAdded={(semester, course, updatedSemester) =>
               recordAddedCourse(year.year, semester, course, updatedSemester)

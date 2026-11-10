@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AlertTriangle, Plus } from "lucide-react";
 import type { PlanCourse, PlanSemester } from "@/types/plan";
+import type { GradeEnrollment, GradeValue } from "@/types/grade";
 import { countMismatch, SEMESTER_STATUS_LABEL } from "../utils";
 import AddCourseModal from "./AddCourseModal";
 import PlannerCourseRow, { type CourseAction } from "./PlannerCourseRow";
@@ -11,6 +12,9 @@ type PlannerSemesterCardProps = {
   semester: PlanSemester;
   studyPlanId: number;
   studyYear: number;
+  academicYear: number;
+  gradeEnrollments: GradeEnrollment[];
+  onGradeSaved: (enrollmentId: number, grade: GradeValue) => void;
   plannedCourseIds: ReadonlySet<number>;
   onCourseAdded: (course: PlanCourse, updatedSemester?: PlanSemester) => void;
   onCourseAction?: (action: CourseAction, course: PlanCourse) => void;
@@ -21,6 +25,9 @@ export default function PlannerSemesterCard({
   semester,
   studyPlanId,
   studyYear,
+  academicYear,
+  gradeEnrollments,
+  onGradeSaved,
   plannedCourseIds,
   onCourseAdded,
   onCourseAction,
@@ -75,6 +82,17 @@ export default function PlannerSemesterCard({
               key={`${course.courseId}-${course.source}-${i}`}
               course={course}
               semesterStatus={semester.status}
+              gradeEnrollment={
+                course.status === "registered"
+                  ? getMatchingEnrollment(
+                      course,
+                      academicYear,
+                      semester.semester,
+                      gradeEnrollments,
+                    )
+                  : undefined
+              }
+              onGradeSaved={onGradeSaved}
               onAction={onCourseAction}
               highlighted={
                 highlightedCourseId !== null &&
@@ -115,4 +133,21 @@ export default function PlannerSemesterCard({
       )}
     </section>
   );
+}
+
+function getMatchingEnrollment(
+  course: PlanCourse,
+  academicYear: number,
+  semester: number,
+  enrollments: GradeEnrollment[],
+): GradeEnrollment | undefined {
+  const matches = enrollments.filter(
+    (enrollment) =>
+      enrollment.courseId === course.courseId &&
+      enrollment.academicYear === academicYear &&
+      enrollment.semester === semester &&
+      enrollment.enrollmentStatus === "registered",
+  );
+
+  return matches.length === 1 ? matches[0] : undefined;
 }
