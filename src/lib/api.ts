@@ -36,9 +36,9 @@ export async function apiGet<T>(
   return (await res.json()) as T;
 }
 
-type SendMethod = "POST" | "PATCH" | "DELETE";
+type SendMethod = "POST" | "PUT" | "PATCH" | "DELETE";
 
-/** POST / PATCH / DELETE แบบ JSON — error จาก BE ({ message }) เก็บไว้ใน ApiError.backendMessage */
+/** POST / PUT / PATCH / DELETE แบบ JSON — error จาก BE ({ message }) เก็บไว้ใน ApiError.backendMessage */
 async function apiSend<T>(
   method: SendMethod,
   path: string,
@@ -83,6 +83,14 @@ export function apiPost<T>(
   init?: RequestInit,
 ): Promise<T> {
   return apiSend<T>("POST", path, body, init);
+}
+
+export function apiPut<T>(
+  path: string,
+  body: unknown,
+  init?: RequestInit,
+): Promise<T> {
+  return apiSend<T>("PUT", path, body, init);
 }
 
 export function apiPatch<T>(
