@@ -1,4 +1,3 @@
-import { BadgeCheck } from "lucide-react";
 import type { CourseReview } from "@/types/review";
 import DisplayStars from "@/features/courses/components/DisplayStars";
 import MetricBar from "@/features/courses/components/MetricBar";
@@ -16,15 +15,8 @@ export default function ReviewCard({ review }: ReviewCardProps) {
             {review.initials}
           </span>
           <div className="flex flex-col">
-            <p className="text-body text-fg flex items-center gap-1 font-medium">
+            <p className="text-body text-fg font-medium">
               {review.displayName}
-              {review.verified && (
-                <BadgeCheck
-                  size={14}
-                  className="text-success fill-success-soft"
-                  aria-label="บัญชีที่ยืนยันแล้ว"
-                />
-              )}
             </p>
             <p className="text-caption text-fg-muted">
               เขียนเมื่อ {review.writtenAt} · {review.relativeTime}
@@ -34,7 +26,11 @@ export default function ReviewCard({ review }: ReviewCardProps) {
         <DisplayStars value={review.rating} size={14} />
       </header>
 
-      <p className="text-body text-fg">{review.comment}</p>
+      {review.comment && (
+        <p className="text-body text-fg whitespace-pre-line">
+          {review.comment}
+        </p>
+      )}
 
       <dl className="flex flex-wrap items-center gap-x-5 gap-y-1">
         <div className="flex items-center gap-2">

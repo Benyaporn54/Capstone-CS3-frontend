@@ -6,11 +6,23 @@ import { ApiError } from "@/lib/api";
 import type { CourseDetail as CourseDetailType } from "@/types/course";
 import { getSavedCourses } from "@/features/saved-courses/api";
 import { getCourseByCode } from "../api";
-import { getCourseReviews } from "@/features/reviews/api";
+import { getCourseReviews, getMyReviewStatus } from "@/features/reviews/api";
+import type { CourseReviewBundle, MyReviewStatus } from "@/types/review";
 import ReviewList from "@/features/reviews/components/ReviewList";
 import CourseDetailActions from "./CourseDetailActions";
 import CourseInfoCard from "./CourseInfoCard";
 import CourseRatingPanel from "./CourseRatingPanel";
+
+const EMPTY_REVIEWS: CourseReviewBundle = {
+  summary: {
+    averageRating: 0,
+    reviewCount: 0,
+    ratingCounts: [0, 0, 0, 0, 0],
+    averageDifficulty: 0,
+    averageWorkload: 0,
+  },
+  reviews: { reviews: [], page: 0, totalPages: 0, totalElements: 0 },
+};
 
 type CourseDetailProps = {
   params: Promise<{ courseCode: string }>;
@@ -46,10 +58,28 @@ export default async function CourseDetail({ params }: CourseDetailProps) {
     }
   }
 
-  const { summary, reviews } = getCourseReviews(course.courseCode);
+  // SCRUM-204: รีวิวจาก BE (หน้าแรก เรียงล่าสุด) + สิทธิ์เขียนรีวิวของผู้ใช้
+  let reviewBundle: CourseReviewBundle | null = null;
+  try {
+    reviewBundle = await getCourseReviews(course.courseCode);
+  } catch (error) {
+    console.error("Failed to load reviews on course detail:", error);
+  }
+  const { summary, reviews } = reviewBundle ?? EMPTY_REVIEWS;
+
+  let reviewStatus: MyReviewStatus | null = null;
+  if (token && canSave) {
+    try {
+      reviewStatus = await getMyReviewStatus(token, course.courseCode);
+    } catch (error) {
+      if (error instanceof ApiError && error.status === 401) canSave = false;
+      else console.error("Failed to load review status:", error);
+    }
+  }
+
   const category = categoryLabel(course);
   const isRecommended = summary.averageRating >= 4 && summary.reviewCount >= 20;
-  const tags = summary.tags.length > 0 ? summary.tags : course.tags;
+  const tags = course.tags;
 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-8">
@@ -114,6 +144,8 @@ export default async function CourseDetail({ params }: CourseDetailProps) {
           key={`${course.id}-${canSave}-${savedCourseIds !== null}-${savedCourseIds?.has(course.id) ?? false}`}
           courseId={course.id}
           courseCode={course.courseCode}
+          courseName={course.nameEn}
+          reviewStatus={reviewStatus}
           initialSaved={savedCourseIds?.has(course.id) ?? false}
           canSave={canSave}
           savedStatusAvailable={!canSave || savedCourseIds !== null}
@@ -139,7 +171,13 @@ export default async function CourseDetail({ params }: CourseDetailProps) {
             )}
           </section>
 
-          <ReviewList reviews={reviews} totalCount={summary.reviewCount} />
+          <ReviewList
+            key={`reviews-${summary.reviewCount}`}
+            courseCode={course.courseCode}
+            initialPage={reviews}
+            totalCount={summary.reviewCount}
+            loadFailed={reviewBundle === null}
+          />
         </div>
 
         <aside className="flex flex-col gap-4">
