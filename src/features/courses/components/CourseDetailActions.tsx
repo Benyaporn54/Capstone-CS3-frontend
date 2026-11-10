@@ -2,25 +2,32 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Bookmark, Plus, SquarePen } from "lucide-react";
+import { Bookmark, Check, Plus, SquarePen } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { setCourseSavedAction } from "@/features/saved-courses/actions";
+import WriteReviewModal from "@/features/reviews/components/WriteReviewModal";
+import type { MyReviewStatus } from "@/types/review";
 
 type CourseDetailActionsProps = {
   courseId: number;
   courseCode: string;
+  courseName: string;
   initialSaved: boolean;
   canSave: boolean;
   savedStatusAvailable: boolean;
+  /** null = ยังไม่ login หรือโหลดสถานะไม่สำเร็จ (SCRUM-204) */
+  reviewStatus: Pick<MyReviewStatus, "canReview" | "reason"> | null;
 };
 
 export default function CourseDetailActions({
   courseId,
   courseCode,
+  courseName,
   initialSaved,
   canSave,
   savedStatusAvailable,
+  reviewStatus,
 }: CourseDetailActionsProps) {
   const router = useRouter();
   const { showToast } = useToast();
@@ -31,12 +38,16 @@ export default function CourseDetailActions({
       : "โหลดสถานะการบันทึกไม่สำเร็จ กรุณาโหลดหน้าใหม่",
   );
   const [pending, startTransition] = useTransition();
+  const [reviewOpen, setReviewOpen] = useState(false);
+
+  const goToLogin = () =>
+    router.push(
+      `/login?callbackUrl=${encodeURIComponent(`/courses/${courseCode}`)}`,
+    );
 
   const toggleSaved = () => {
     if (!canSave) {
-      router.push(
-        `/login?callbackUrl=${encodeURIComponent(`/courses/${courseCode}`)}`,
-      );
+      goToLogin();
       return;
     }
     if (!savedStatusAvailable || pending) return;
@@ -51,9 +62,7 @@ export default function CourseDetailActions({
             : `บันทึก ${courseCode} แล้ว`,
         );
       } else if (result.signIn) {
-        router.push(
-          `/login?callbackUrl=${encodeURIComponent(`/courses/${courseCode}`)}`,
-        );
+        goToLogin();
       } else {
         setError(result.message);
       }
@@ -77,15 +86,32 @@ export default function CourseDetailActions({
             className={saved ? "text-accent fill-accent" : undefined}
           />
         </Button>
-        <Button
-          type="button"
-          variant="secondary"
-          className="gap-1.5"
-          onClick={() => router.push("/login")}
-        >
-          <SquarePen size={16} />
-          เขียนรีวิว
-        </Button>
+        {reviewStatus?.reason === "ALREADY_REVIEWED" ? (
+          <span className="text-label text-fg-muted inline-flex h-10 items-center gap-1.5 px-2">
+            <Check size={16} className="text-success" aria-hidden />
+            รีวิวแล้ว
+          </span>
+        ) : (
+          <Button
+            type="button"
+            variant="secondary"
+            className="gap-1.5"
+            disabled={canSave && !reviewStatus?.canReview}
+            title={
+              !canSave
+                ? undefined
+                : reviewStatus === null
+                  ? "โหลดสถานะรีวิวไม่สำเร็จ กรุณาโหลดหน้าใหม่"
+                  : reviewStatus.reason === "NOT_ENROLLED"
+                    ? "รีวิวได้เฉพาะวิชาที่เคยเรียนจบเทอมแล้ว"
+                    : undefined
+            }
+            onClick={() => (canSave ? setReviewOpen(true) : goToLogin())}
+          >
+            <SquarePen size={16} />
+            เขียนรีวิว
+          </Button>
+        )}
         <Button
           type="button"
           className="gap-1.5"
@@ -111,6 +137,18 @@ export default function CourseDetailActions({
           )}
         </div>
       )}
+      <WriteReviewModal
+        isOpen={reviewOpen}
+        courseCode={courseCode}
+        courseName={courseName}
+        onClose={() => setReviewOpen(false)}
+        onSubmitted={() => {
+          setReviewOpen(false);
+          showToast(`ส่งรีวิว ${courseCode} แล้ว`);
+          router.refresh();
+        }}
+        onSignInRequired={goToLogin}
+      />
     </div>
   );
 }
