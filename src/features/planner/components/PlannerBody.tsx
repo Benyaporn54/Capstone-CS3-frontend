@@ -242,12 +242,13 @@ export default function PlannerBody({
   };
 
   const updateGrade = (enrollmentId: number, grade: GradeValue) => {
-    setGradeEnrollments((current) =>
-      current?.map((enrollment) =>
-        enrollment.enrollmentId === enrollmentId
-          ? { ...enrollment, currentGrade: grade }
-          : enrollment,
-      ) ?? null,
+    setGradeEnrollments(
+      (current) =>
+        current?.map((enrollment) =>
+          enrollment.enrollmentId === enrollmentId
+            ? { ...enrollment, currentGrade: grade }
+            : enrollment,
+        ) ?? null,
     );
   };
 

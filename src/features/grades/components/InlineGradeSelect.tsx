@@ -90,9 +90,7 @@ export default function InlineGradeSelect({
       maxHeight: Math.max(OPTION_HEIGHT + MENU_PADDING * 2, availableHeight),
     });
 
-    const selectedIndex = GRADE_VALUES.findIndex(
-      (value) => value === grade,
-    );
+    const selectedIndex = GRADE_VALUES.findIndex((value) => value === grade);
     optionRefs.current[selectedIndex >= 0 ? selectedIndex : 0]?.focus();
   }, [open, grade]);
 
@@ -301,7 +299,7 @@ export default function InlineGradeSelect({
                 aria-selected={grade === value}
                 tabIndex={-1}
                 onClick={() => void handleGradeChange(value)}
-                className={`text-label flex h-7 w-full items-center justify-center rounded-sm outline-none transition-colors ${
+                className={`text-label flex h-7 w-full items-center justify-center rounded-sm transition-colors outline-none ${
                   grade === value
                     ? "bg-accent-soft text-accent font-semibold"
                     : "text-fg hover:bg-hover focus-visible:bg-hover"

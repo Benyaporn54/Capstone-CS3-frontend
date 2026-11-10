@@ -21,7 +21,9 @@ function isGradeValue(value: unknown): value is GradeValue {
   );
 }
 
-export async function saveGradeAction(input: unknown): Promise<SaveGradeResult> {
+export async function saveGradeAction(
+  input: unknown,
+): Promise<SaveGradeResult> {
   if (!isRecord(input)) {
     return { ok: false, message: "ข้อมูลเกรดไม่ถูกต้อง" };
   }
