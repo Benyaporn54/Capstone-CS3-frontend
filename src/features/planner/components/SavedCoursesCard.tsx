@@ -211,7 +211,11 @@ export default function SavedCoursesCard({
             ยังไม่มีวิชาที่บันทึกไว้
           </p>
         ) : (
-          <ul className="mt-3 flex flex-col gap-2">
+          <ul
+            aria-label="รายวิชาที่บันทึกไว้"
+            tabIndex={showAll && savedCourses.length > 3 ? 0 : undefined}
+            className={`mt-3 flex max-h-[min(50vh,24rem)] flex-col gap-2 overflow-y-auto overscroll-contain ${showAll && savedCourses.length > 3 ? "pr-1" : ""}`}
+          >
             {visibleCourses?.map((course) => {
               const alreadyInPlan = plannedCourseIds.has(course.id);
               const category = course.categories?.[0];
