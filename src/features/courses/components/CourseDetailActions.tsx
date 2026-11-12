@@ -7,6 +7,7 @@ import Button from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
 import { setCourseSavedAction } from "@/features/saved-courses/actions";
 import WriteReviewModal from "@/features/reviews/components/WriteReviewModal";
+import AddToPlanModal from "./AddToPlanModal";
 import type { MyReviewStatus } from "@/types/review";
 
 type CourseDetailActionsProps = {
@@ -39,6 +40,7 @@ export default function CourseDetailActions({
   );
   const [pending, startTransition] = useTransition();
   const [reviewOpen, setReviewOpen] = useState(false);
+  const [planOpen, setPlanOpen] = useState(false);
 
   const goToLogin = () =>
     router.push(
@@ -115,7 +117,7 @@ export default function CourseDetailActions({
         <Button
           type="button"
           className="gap-1.5"
-          onClick={() => router.push("/planner")}
+          onClick={() => (canSave ? setPlanOpen(true) : goToLogin())}
         >
           <Plus size={16} />
           เพิ่มเข้าแผน
@@ -149,6 +151,18 @@ export default function CourseDetailActions({
         }}
         onSignInRequired={goToLogin}
       />
+      {planOpen && (
+        <AddToPlanModal
+          courseId={courseId}
+          courseCode={courseCode}
+          onClose={() => setPlanOpen(false)}
+          onAdded={() => {
+            setPlanOpen(false);
+            showToast(`เพิ่ม ${courseCode} เข้าแผนแล้ว`);
+            router.refresh();
+          }}
+        />
+      )}
     </div>
   );
 }

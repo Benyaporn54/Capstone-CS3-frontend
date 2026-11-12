@@ -193,6 +193,27 @@ export async function addCourseToPlanAction(
   return result;
 }
 
+export async function getCoursePlanOptionsAction() {
+  const list = await getPlans();
+  if (!list) return null;
+  const details = await Promise.all(
+    list.plans.map((plan) => getPlanDetail(plan.studyPlanId)),
+  );
+  if (details.some((detail) => detail === null)) {
+    throw new Error("Failed to load plan details");
+  }
+  return list.plans.map((plan, index) => ({
+    id: plan.studyPlanId,
+    name: plan.planName,
+    isDefault: plan.isDefault,
+    terms: (details[index]?.years ?? []).flatMap((year) =>
+      year.semesters
+        .filter((semester) => semester.status === "upcoming")
+        .map((semester) => ({ year: year.year, semester: semester.semester })),
+    ),
+  }));
+}
+
 export async function searchCoursesAction(
   q: string,
   page: number,

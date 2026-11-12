@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, ReactNode } from "react";
+import React, { useEffect, useId, ReactNode } from "react";
 import { Loader2 } from "lucide-react";
 import { Button, ButtonVariant } from "./Button";
 
@@ -23,6 +23,8 @@ export interface ModalProps {
   loadingLabel?: string;
   /** ข้อความ error ใต้คำอธิบาย */
   errorMessage?: ReactNode;
+  children?: ReactNode;
+  confirmDisabled?: boolean;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -39,7 +41,10 @@ export const Modal: React.FC<ModalProps> = ({
   loading = false,
   loadingLabel,
   errorMessage,
+  children,
+  confirmDisabled = false,
 }) => {
+  const titleId = useId();
   // ปิดด้วย Esc (ยกเว้นระหว่าง loading)
   useEffect(() => {
     if (!isOpen) return;
@@ -150,8 +155,9 @@ export const Modal: React.FC<ModalProps> = ({
       />
 
       <div
-        role="alertdialog"
+        role={children ? "dialog" : "alertdialog"}
         aria-modal="true"
+        aria-labelledby={titleId}
         className="bg-bg shadow-pop border-border relative z-10 flex w-full max-w-sm flex-col items-center rounded-lg border p-6 text-center transition-all"
       >
         <div
@@ -160,10 +166,13 @@ export const Modal: React.FC<ModalProps> = ({
           {currentType.icon}
         </div>
 
-        <h3 className="text-h3 text-fg mb-1 font-semibold">{title}</h3>
+        <h3 id={titleId} className="text-h3 text-fg mb-1 font-semibold">
+          {title}
+        </h3>
         {description && (
           <p className="text-body text-fg-muted mb-6">{description}</p>
         )}
+        {children && <div className="my-4 w-full text-left">{children}</div>}
         {errorMessage && (
           <p
             role="alert"
@@ -189,7 +198,7 @@ export const Modal: React.FC<ModalProps> = ({
           <Button
             variant={currentType.buttonVariant}
             onClick={handleConfirm}
-            disabled={loading}
+            disabled={loading || confirmDisabled}
             className="w-full gap-1.5"
           >
             {loading && (
