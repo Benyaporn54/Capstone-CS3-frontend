@@ -57,14 +57,11 @@ export default function PlannerCreditSummary({
         </h2>
         <p className="text-fg-muted text-body whitespace-nowrap">
           <span
-            className={`text-h3 ${
-              isOverLimit ? "text-warning" : "text-fg"
-            }`}
+            className={`text-h3 ${isOverLimit ? "text-warning" : "text-fg"}`}
           >
             {totalCredits}
           </span>{" "}
-          /{" "}
-          {requiredCredits}
+          / {requiredCredits}
         </p>
       </div>
       <div

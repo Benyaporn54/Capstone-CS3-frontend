@@ -1,11 +1,7 @@
 import { AlertTriangle, Info } from "lucide-react";
 import type { PlanCourse } from "@/types/plan";
 
-export default function PrerequisiteNotice({
-  course,
-}: {
-  course: PlanCourse;
-}) {
+export default function PrerequisiteNotice({ course }: { course: PlanCourse }) {
   const missingGroups = course.missingGroups ?? [];
   const hasMissingPrerequisites = course.isEligible === false;
   const note = course.prerequisiteNote?.trim();
@@ -20,11 +16,7 @@ export default function PrerequisiteNotice({
           className="bg-error-soft text-caption text-error rounded-md px-2.5 py-2"
         >
           <p className="flex items-start gap-1.5 font-medium">
-            <AlertTriangle
-              size={14}
-              aria-hidden
-              className="mt-0.5 shrink-0"
-            />
+            <AlertTriangle size={14} aria-hidden className="mt-0.5 shrink-0" />
             <span>ยังขาดวิชาบังคับก่อนหน้า</span>
           </p>
           {missingGroups.length > 0 ? (
