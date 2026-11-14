@@ -26,6 +26,7 @@ import type {
 } from "@/types/plan";
 import type { CourseListItem } from "@/types/course";
 import type { TrackListItem } from "@/types/track";
+import { countsCredits } from "./utils";
 
 // USE_MOCK_PLANS=true → ใช้ mock ทั้งหมด (รายการแผน, สร้างแผน, รายละเอียดแผน)
 // เรียก BE จริงเป็นค่าเริ่มต้น: GET /v1/plans (SCRUM-179) ✓, POST /v1/plans (SCRUM-180),
@@ -476,11 +477,6 @@ function termIndex(year: number, semester: number): number {
 function isUpcomingTerm(plan: PlanDetail, year: number, semester: number) {
   const { currentYear, currentSemester } = plan.student;
   return termIndex(year, semester) > termIndex(currentYear, currentSemester);
-}
-
-/** หน่วยกิตที่นับในเทอม/ปี (ไม่นับ W และไม่ได้ลง) — ตรงกับ SCRUM-168 */
-function countsCredits(course: PlanCourse): boolean {
-  return course.status === "registered" || course.status === "planned";
 }
 
 function findUserCourse(plan: PlanDetail, studyPlanCourseId: number) {

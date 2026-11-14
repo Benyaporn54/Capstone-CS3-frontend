@@ -1,4 +1,9 @@
-import type { PlanSemester, PlanYear, TermStatus } from "@/types/plan";
+import type {
+  PlanCourse,
+  PlanSemester,
+  PlanYear,
+  TermStatus,
+} from "@/types/plan";
 
 /** หลักสูตร 4 ปี — ปีที่ 5 ขึ้นไปคือปีที่นักศึกษาเพิ่มเอง */
 export const STANDARD_YEARS = 4;
@@ -25,6 +30,29 @@ export function formatRelativeTime(
 }
 
 // ---- Planner View ----
+
+/** หน่วยกิตสุทธิไม่นับวิชาถอนและวิชาที่ไม่ได้ลงทะเบียน */
+export function countsCredits(course: PlanCourse): boolean {
+  return course.status === "registered" || course.status === "planned";
+}
+
+export function sumCourseCredits(courses: PlanCourse[]): number {
+  return courses.reduce(
+    (total, course) => total + (countsCredits(course) ? course.credits : 0),
+    0,
+  );
+}
+
+export function semesterCredits(semester: PlanSemester): number {
+  return sumCourseCredits(semester.courses);
+}
+
+export function yearCredits(year: PlanYear): number {
+  return year.semesters.reduce(
+    (total, semester) => total + semesterCredits(semester),
+    0,
+  );
+}
 
 /** จำนวนวิชาที่ทะเบียนจริงไม่ตรงแผน: ลงนอกแผน + วางแผนไว้แต่ไม่ได้ลง */
 export function countMismatch(semester: PlanSemester): number {

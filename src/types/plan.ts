@@ -101,6 +101,19 @@ export type PlanCourseCategory = {
   label: string;
 };
 
+export type PrerequisiteCourse = {
+  courseId: number;
+  courseCode: string;
+  nameTh: string;
+  nameEn: string;
+  isCorequisite: boolean;
+};
+
+export type PrerequisiteGroup = {
+  groupNo: number;
+  courses: PrerequisiteCourse[];
+};
+
 export type PlanCourse = {
   courseId: number;
   courseCode: string;
@@ -114,6 +127,9 @@ export type PlanCourse = {
   status: PlanCourseStatus;
   /** มีเฉพาะ source = user (ใช้กับ PATCH/DELETE ใน SCRUM-173) */
   studyPlanCourseId: number | null;
+  isEligible?: boolean;
+  missingGroups?: PrerequisiteGroup[];
+  prerequisiteNote?: string | null;
 };
 
 export type PlanSemester = {

@@ -1,4 +1,6 @@
+import { AlertTriangle } from "lucide-react";
 import type { PlanSemester, PlanYear } from "@/types/plan";
+import { sumCourseCredits } from "../utils";
 
 type CreditField =
   | "itFoundationCredits"
@@ -33,10 +35,10 @@ export default function PlannerCreditSummary({
   requiredCredits: number;
 }) {
   const semesters = years.flatMap((year) => year.semesters);
-  const totalCredits = semesters.reduce(
-    (total, semester) => total + semester.totalCredits,
-    0,
+  const totalCredits = sumCourseCredits(
+    semesters.flatMap((semester) => semester.courses),
   );
+  const isOverLimit = totalCredits > requiredCredits;
   const percentage =
     requiredCredits > 0
       ? Math.min(100, Math.max(0, (totalCredits / requiredCredits) * 100))
@@ -45,15 +47,21 @@ export default function PlannerCreditSummary({
   return (
     <section
       aria-labelledby="credit-summary-heading"
-      className="border-border bg-bg rounded-lg border p-4"
+      className={`bg-bg rounded-lg border p-4 ${
+        isOverLimit ? "border-warning" : "border-border"
+      }`}
     >
       <div className="flex items-baseline justify-between gap-2">
         <h2 id="credit-summary-heading" className="text-label text-fg-muted">
           หน่วยกิตในแผน
         </h2>
         <p className="text-fg-muted text-body whitespace-nowrap">
-          <span className="text-h3 text-fg">{totalCredits}</span> /{" "}
-          {requiredCredits}
+          <span
+            className={`text-h3 ${isOverLimit ? "text-warning" : "text-fg"}`}
+          >
+            {totalCredits}
+          </span>{" "}
+          / {requiredCredits}
         </p>
       </div>
       <div
@@ -68,10 +76,24 @@ export default function PlannerCreditSummary({
         className="bg-hover mt-3 h-1.5 overflow-hidden rounded-full"
       >
         <div
-          className="bg-accent h-full rounded-full"
+          className={`h-full rounded-full ${
+            isOverLimit ? "bg-warning" : "bg-accent"
+          }`}
           style={{ width: `${percentage}%` }}
         />
       </div>
+      {isOverLimit && (
+        <p
+          role="status"
+          className="bg-warning-soft text-label text-warning mt-3 flex items-start gap-2 rounded-md px-3 py-2"
+        >
+          <AlertTriangle size={16} aria-hidden className="mt-0.5 shrink-0" />
+          <span>
+            หน่วยกิตในแผนเกินเกณฑ์หลักสูตร {totalCredits - requiredCredits}{" "}
+            หน่วยกิต (เกณฑ์ {requiredCredits} หน่วยกิต)
+          </span>
+        </p>
+      )}
       <dl className="mt-4 flex flex-col gap-2">
         {categories.map(({ label, field }) => {
           const credits = sumCategory(semesters, field);

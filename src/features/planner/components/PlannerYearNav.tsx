@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { PlanYear } from "@/types/plan";
-import { yearAnchorId, yearHasMismatch } from "../utils";
+import { yearAnchorId, yearCredits, yearHasMismatch } from "../utils";
 
 type PlannerYearNavProps = {
   years: PlanYear[];
@@ -11,7 +11,7 @@ type PlannerYearNavProps = {
 function yearStatusText(year: PlanYear): string {
   if (year.status === "completed") return "เรียนจบแล้ว";
   if (year.status === "current") return "กำลังเรียน";
-  return `${year.totalCredits} หน่วยกิต`;
+  return `${yearCredits(year)} หน่วยกิต`;
 }
 
 /** เมนูปีด้านข้าง — ไฮไลต์ปีที่กำลังเลื่อนดูอยู่ */
