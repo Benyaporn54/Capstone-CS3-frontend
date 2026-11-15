@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import type { PlanCourse, PlanSemester, PlanYear } from "@/types/plan";
 import type { GradeEnrollment, GradeValue } from "@/types/grade";
-import { yearAnchorId } from "../utils";
+import { yearAnchorId, yearCredits } from "../utils";
 import type { CourseAction, CourseLocation } from "./PlannerCourseRow";
 import PlannerSemesterCard from "./PlannerSemesterCard";
 
@@ -51,7 +51,7 @@ export default function PlannerYearSection({
             ปี {year.year}
           </h2>
           <span className="text-body text-fg-muted">
-            {year.academicYear} · {year.totalCredits} หน่วยกิต
+            {year.academicYear} · {yearCredits(year)} หน่วยกิต
           </span>
         </div>
         {onRemove && (

@@ -6,6 +6,7 @@ import ActionMenu, { type ActionMenuItem } from "@/components/ui/ActionMenu";
 import type { PlanCourse, TermStatus } from "@/types/plan";
 import type { GradeEnrollment, GradeValue } from "@/types/grade";
 import InlineGradeSelect from "@/features/grades/components/InlineGradeSelect";
+import PrerequisiteNotice from "./PrerequisiteNotice";
 
 /** ตำแหน่งของวิชาในแผน (ชั้นปี + ภาคเรียน) */
 export type CourseLocation = { year: number; semester: number };
@@ -149,6 +150,7 @@ export default function PlannerCourseRow({
             {course.category.label}
           </span>
         </p>
+        <PrerequisiteNotice course={course} />
       </div>
 
       <div className="flex shrink-0 items-center gap-2">

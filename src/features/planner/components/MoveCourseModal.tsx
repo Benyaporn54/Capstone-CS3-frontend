@@ -6,6 +6,7 @@ import { AlertCircle, Loader2, X } from "lucide-react";
 import Button from "@/components/ui/Button";
 import RadioButton from "@/components/ui/RadioButton";
 import type { PlanCourse, PlanYear } from "@/types/plan";
+import { semesterCredits } from "../utils";
 import { moveCourseAction } from "../actions";
 import type { CourseLocation } from "./PlannerCourseRow";
 
@@ -172,8 +173,8 @@ export default function MoveCourseModal({
                         ) : (
                           <span className="text-caption text-fg-muted">
                             {isSelected
-                              ? `${semester.totalCredits} → ${semester.totalCredits + course.credits}`
-                              : semester.totalCredits}{" "}
+                              ? `${semesterCredits(semester)} → ${semesterCredits(semester) + course.credits}`
+                              : semesterCredits(semester)}{" "}
                             หน่วยกิต
                           </span>
                         )}

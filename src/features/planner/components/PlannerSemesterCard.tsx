@@ -4,7 +4,11 @@ import { useState } from "react";
 import { AlertTriangle, Plus } from "lucide-react";
 import type { PlanCourse, PlanSemester } from "@/types/plan";
 import type { GradeEnrollment, GradeValue } from "@/types/grade";
-import { countMismatch, SEMESTER_STATUS_LABEL } from "../utils";
+import {
+  countMismatch,
+  SEMESTER_STATUS_LABEL,
+  semesterCredits,
+} from "../utils";
 import AddCourseModal from "./AddCourseModal";
 import PlannerCourseRow, { type CourseAction } from "./PlannerCourseRow";
 
@@ -36,6 +40,7 @@ export default function PlannerSemesterCard({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const statusLabel = SEMESTER_STATUS_LABEL[semester.status];
   const mismatch = countMismatch(semester);
+  const totalCredits = semesterCredits(semester);
   const isCurrent = semester.status === "current";
 
   return (
@@ -63,7 +68,7 @@ export default function PlannerSemesterCard({
           )}
         </div>
         <span className="text-caption text-fg-muted">
-          {semester.totalCredits} หน่วยกิต
+          {totalCredits} หน่วยกิต
         </span>
       </header>
 
