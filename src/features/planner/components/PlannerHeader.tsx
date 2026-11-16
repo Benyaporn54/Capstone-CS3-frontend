@@ -40,7 +40,6 @@ export default function PlannerHeader({
 }: PlannerHeaderProps) {
   const { currentYear, currentSemester } = plan.student;
   const [planName, setPlanName] = useState(plan.planName);
-  // SCRUM-242: ตั้งแผนหลักสำเร็จแล้วอัปเดตป้ายทันที ไม่ต้องรอ router.refresh()
   const [defaultSetForPlanId, setDefaultSetForPlanId] = useState<number | null>(
     null,
   );

@@ -218,15 +218,10 @@ export async function getPlanDetail(
   }
 }
 
-/** ข้อความจาก BE ที่ตั้งใจให้ผู้ใช้อ่าน (ภาษาไทย) — ข้อความอังกฤษ / SQL / stack trace ไม่เอาขึ้นจอ */
 function isUserFacingMessage(message: string | undefined): message is string {
   return !!message && /[\u0E00-\u0E7F]/.test(message);
 }
 
-/**
- * SCRUM-242: แปลง error เป็นข้อความภาษาไทยสำหรับผู้ใช้
- * รายละเอียดทางเทคนิค log ไว้ฝั่ง server (console) เท่านั้น
- */
 function planMutationErrorMessage(error: unknown, fallback: string): string {
   if (error instanceof ApiError) {
     if (error.status === 401) return "เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่";
