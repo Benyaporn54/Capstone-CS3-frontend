@@ -7,6 +7,7 @@ import { ArrowLeft, Loader2, Pencil, Star, Trash2, X } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import TextField from "@/components/ui/TextField";
+import { useToast } from "@/components/ui/Toast";
 import type { PlanDetail } from "@/types/plan";
 import {
   deletePlanAction,
@@ -39,7 +40,11 @@ export default function PlannerHeader({
 }: PlannerHeaderProps) {
   const { currentYear, currentSemester } = plan.student;
   const [planName, setPlanName] = useState(plan.planName);
-  const isDefault = plan.isDefault;
+  // SCRUM-242: ตั้งแผนหลักสำเร็จแล้วอัปเดตป้ายทันที ไม่ต้องรอ router.refresh()
+  const [defaultSetForPlanId, setDefaultSetForPlanId] = useState<number | null>(
+    null,
+  );
+  const isDefault = plan.isDefault || defaultSetForPlanId === plan.studyPlanId;
   const [renameOpen, setRenameOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
@@ -49,6 +54,7 @@ export default function PlannerHeader({
   >(null);
   const [pending, startTransition] = useTransition();
   const router = useRouter();
+  const { showToast } = useToast();
 
   const rename = (newPlanName: string) => {
     setRenameError(null);
@@ -74,11 +80,18 @@ export default function PlannerHeader({
     setActionError(null);
     setPendingAction("default");
     startTransition(async () => {
-      const result = await setDefaultPlanAction(plan.studyPlanId);
-      if (result.ok) {
-        router.refresh();
-      } else {
-        setActionError(result.message);
+      try {
+        const result = await setDefaultPlanAction(plan.studyPlanId);
+        if (result.ok) {
+          setDefaultSetForPlanId(plan.studyPlanId);
+          showToast(`ตั้ง "${planName}" เป็นแผนหลักแล้ว`);
+          router.refresh();
+        } else {
+          showToast(result.message, "error");
+        }
+      } catch (error) {
+        console.error("Failed to set default plan:", error);
+        showToast("ตั้งเป็นแผนหลักไม่สำเร็จ กรุณาลองใหม่อีกครั้ง", "error");
       }
       setPendingAction(null);
     });

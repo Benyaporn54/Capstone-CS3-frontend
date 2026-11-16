@@ -218,11 +218,22 @@ export async function getPlanDetail(
   }
 }
 
+/** ข้อความจาก BE ที่ตั้งใจให้ผู้ใช้อ่าน (ภาษาไทย) — ข้อความอังกฤษ / SQL / stack trace ไม่เอาขึ้นจอ */
+function isUserFacingMessage(message: string | undefined): message is string {
+  return !!message && /[\u0E00-\u0E7F]/.test(message);
+}
+
+/**
+ * SCRUM-242: แปลง error เป็นข้อความภาษาไทยสำหรับผู้ใช้
+ * รายละเอียดทางเทคนิค log ไว้ฝั่ง server (console) เท่านั้น
+ */
 function planMutationErrorMessage(error: unknown, fallback: string): string {
   if (error instanceof ApiError) {
     if (error.status === 401) return "เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่";
     if (error.status === 404) return "ไม่พบแผนการเรียนนี้";
-    return error.backendMessage ?? fallback;
+    if (error.status < 500 && isUserFacingMessage(error.backendMessage)) {
+      return error.backendMessage;
+    }
   }
   console.error("Failed to update plan:", error);
   return fallback;
@@ -287,7 +298,7 @@ export async function setDefaultPlan(
       ok: false,
       message: planMutationErrorMessage(
         error,
-        "ตั้งแผนหลักไม่สำเร็จ ลองใหม่อีกครั้ง",
+        "ตั้งเป็นแผนหลักไม่สำเร็จ กรุณาลองใหม่อีกครั้ง",
       ),
     };
   }
