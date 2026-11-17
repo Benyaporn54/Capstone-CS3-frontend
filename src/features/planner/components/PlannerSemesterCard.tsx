@@ -18,7 +18,7 @@ type PlannerSemesterCardProps = {
   studyYear: number;
   academicYear: number;
   gradeEnrollments: GradeEnrollment[];
-  onGradeSaved: (enrollmentId: number, grade: GradeValue) => void;
+  onGradeSaved: (enrollmentId: number, grade: GradeValue | null) => void;
   plannedCourseIds: ReadonlySet<number>;
   onCourseAdded: (course: PlanCourse, updatedSemester?: PlanSemester) => void;
   onCourseAction?: (action: CourseAction, course: PlanCourse) => void;

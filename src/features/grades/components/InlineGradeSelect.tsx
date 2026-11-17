@@ -14,15 +14,16 @@ import { ChevronDown, LoaderCircle } from "lucide-react";
 import Link from "next/link";
 import type { GradeEnrollment, GradeValue } from "@/types/grade";
 import { GRADE_VALUES } from "@/types/grade";
-import { saveGradeAction } from "../actions";
+import { deleteGradeAction, saveGradeAction } from "../actions";
 
 const OPTION_HEIGHT = 28;
 const MENU_PADDING = 4;
 const VIEWPORT_GAP = 8;
+const GRADE_OPTIONS = ["", ...GRADE_VALUES] as const;
 
 type InlineGradeSelectProps = {
   enrollment: GradeEnrollment;
-  onSaved: (enrollmentId: number, grade: GradeValue) => void;
+  onSaved: (enrollmentId: number, grade: GradeValue | null) => void;
 };
 
 export default function InlineGradeSelect({
@@ -34,7 +35,9 @@ export default function InlineGradeSelect({
   );
   const [errorMessage, setErrorMessage] = useState("");
   const [needsSignIn, setNeedsSignIn] = useState(false);
-  const [saving, setSaving] = useState(false);
+  const [savingOperation, setSavingOperation] = useState<
+    "save" | "delete" | null
+  >(null);
   const [open, setOpen] = useState(false);
   const [position, setPosition] = useState<{
     top: number;
@@ -67,14 +70,17 @@ export default function InlineGradeSelect({
 
     const rect = triggerRef.current.getBoundingClientRect();
     const menuHeight = Math.min(
-      GRADE_VALUES.length * OPTION_HEIGHT + MENU_PADDING * 2,
+      GRADE_OPTIONS.length * OPTION_HEIGHT + MENU_PADDING * 2,
       window.innerHeight - VIEWPORT_GAP * 2,
     );
     const spaceBelow = window.innerHeight - rect.bottom - VIEWPORT_GAP;
     const spaceAbove = rect.top - VIEWPORT_GAP;
     const openAbove = spaceBelow < menuHeight && spaceAbove > spaceBelow;
     const availableHeight = openAbove ? spaceAbove : spaceBelow;
-    const width = Math.max(rect.width, 64);
+    const width = Math.min(
+      Math.max(rect.width, 128),
+      window.innerWidth - VIEWPORT_GAP * 2,
+    );
     const left = Math.min(
       Math.max(VIEWPORT_GAP, rect.left),
       window.innerWidth - width - VIEWPORT_GAP,
@@ -90,7 +96,7 @@ export default function InlineGradeSelect({
       maxHeight: Math.max(OPTION_HEIGHT + MENU_PADDING * 2, availableHeight),
     });
 
-    const selectedIndex = GRADE_VALUES.findIndex((value) => value === grade);
+    const selectedIndex = GRADE_OPTIONS.findIndex((value) => value === grade);
     optionRefs.current[selectedIndex >= 0 ? selectedIndex : 0]?.focus();
   }, [open, grade]);
 
@@ -118,7 +124,7 @@ export default function InlineGradeSelect({
   }, [open, closeMenu]);
 
   function focusOption(index: number) {
-    const wrappedIndex = (index + GRADE_VALUES.length) % GRADE_VALUES.length;
+    const wrappedIndex = (index + GRADE_OPTIONS.length) % GRADE_OPTIONS.length;
     optionRefs.current[wrappedIndex]?.focus();
   }
 
@@ -137,7 +143,7 @@ export default function InlineGradeSelect({
       focusOption(0);
     } else if (event.key === "End") {
       event.preventDefault();
-      focusOption(GRADE_VALUES.length - 1);
+      focusOption(GRADE_OPTIONS.length - 1);
     } else if (event.key === "Escape") {
       event.preventDefault();
       closeMenu(true);
@@ -146,7 +152,7 @@ export default function InlineGradeSelect({
     }
   }
 
-  async function handleGradeChange(nextGrade: GradeValue) {
+  async function handleGradeChange(nextGrade: GradeValue | "") {
     if (savingRef.current || nextGrade === savedGradeRef.current) {
       closeMenu();
       return;
@@ -154,19 +160,34 @@ export default function InlineGradeSelect({
 
     closeMenu();
     savingRef.current = true;
-    setSaving(true);
-    setGrade(nextGrade);
+    setSavingOperation(nextGrade === "" ? "delete" : "save");
     setErrorMessage("");
     setNeedsSignIn(false);
 
     try {
+      if (nextGrade === "") {
+        const result = await deleteGradeAction({
+          enrollmentId: enrollment.enrollmentId,
+        });
+
+        if (!result.ok) {
+          setErrorMessage(result.message);
+          setNeedsSignIn(result.signIn === true);
+          return;
+        }
+
+        savedGradeRef.current = "";
+        setGrade("");
+        onSaved(result.enrollmentId, null);
+        return;
+      }
+
       const result = await saveGradeAction({
         enrollmentId: enrollment.enrollmentId,
         grade: nextGrade,
       });
 
       if (!result.ok) {
-        setGrade(savedGradeRef.current);
         setErrorMessage(result.message);
         setNeedsSignIn(result.signIn === true);
         return;
@@ -176,12 +197,15 @@ export default function InlineGradeSelect({
       setGrade(result.grade.grade);
       onSaved(result.grade.enrollmentId, result.grade.grade);
     } catch (error) {
-      console.error("Inline grade save action failed:", error);
-      setGrade(savedGradeRef.current);
-      setErrorMessage("ระบบขัดข้อง ไม่สามารถบันทึกเกรดได้ กรุณาลองอีกครั้ง");
+      console.error("Inline grade change action failed:", error);
+      setErrorMessage(
+        nextGrade === ""
+          ? "ระบบขัดข้อง ไม่สามารถลบเกรดได้ กรุณาลองอีกครั้ง"
+          : "ระบบขัดข้อง ไม่สามารถบันทึกเกรดได้ กรุณาลองอีกครั้ง",
+      );
     } finally {
       savingRef.current = false;
-      setSaving(false);
+      setSavingOperation(null);
     }
   }
 
@@ -189,17 +213,18 @@ export default function InlineGradeSelect({
     <>
       <div
         className={`flex shrink-0 flex-col items-end gap-1 ${
-          errorMessage ? "w-48 max-w-[55vw]" : "w-14"
+          errorMessage ? "w-48 max-w-[55vw]" : grade === "" ? "w-32" : "w-14"
         }`}
       >
         <button
           ref={triggerRef}
           type="button"
-          aria-label={`เกรด ${enrollment.courseCode}`}
+          aria-label={`เกรด ${enrollment.courseCode}: ${grade || "ไม่กรอกเกรด"}`}
           aria-haspopup="listbox"
           aria-expanded={open}
           aria-controls={open ? menuId : undefined}
-          disabled={saving}
+          aria-busy={savingOperation !== null}
+          disabled={savingOperation !== null}
           onClick={() => (open ? closeMenu() : openMenu())}
           onKeyDown={(event) => {
             if (event.key === "ArrowDown" && !open) {
@@ -207,7 +232,9 @@ export default function InlineGradeSelect({
               openMenu();
             }
           }}
-          className={`bg-bg text-label focus-visible:ring-accent flex h-7 w-14 shrink-0 items-center justify-center gap-1 rounded-md border px-1.5 transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60 ${
+          className={`bg-bg text-label focus-visible:ring-accent flex h-7 ${
+            grade === "" || savingOperation === "delete" ? "w-32" : "w-14"
+          } shrink-0 items-center justify-center gap-1 rounded-md border px-2 transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60 ${
             errorMessage
               ? "border-error text-error"
               : open
@@ -215,19 +242,22 @@ export default function InlineGradeSelect({
                 : "border-border text-fg hover:border-border-strong"
           }`}
         >
-          {saving ? (
-            <LoaderCircle
-              size={13}
-              aria-label="กำลังบันทึกเกรด"
-              className="animate-spin"
-            />
+          {savingOperation !== null ? (
+            <>
+              <LoaderCircle size={13} aria-hidden className="animate-spin" />
+              <span className="whitespace-nowrap">
+                {savingOperation === "delete" ? "กำลังลบ" : "กำลังบันทึก"}
+              </span>
+            </>
           ) : (
             <>
-              <span>{grade || "เกรด"}</span>
+              <span className={grade === "" ? "whitespace-nowrap" : ""}>
+                {grade || "ไม่กรอกเกรด"}
+              </span>
               <ChevronDown
                 size={13}
                 aria-hidden
-                className={`text-fg-muted transition-transform ${
+                className={`text-fg-muted shrink-0 transition-transform ${
                   open ? "rotate-180" : ""
                 }`}
               />
@@ -235,12 +265,9 @@ export default function InlineGradeSelect({
           )}
         </button>
 
-        {saving && (
-          <span
-            role="status"
-            className="text-caption text-fg-muted flex items-center gap-1"
-          >
-            กำลังบันทึก
+        {savingOperation !== null && (
+          <span role="status" className="sr-only">
+            {savingOperation === "delete" ? "กำลังลบเกรด" : "กำลังบันทึกเกรด"}
           </span>
         )}
         {errorMessage && (
@@ -288,7 +315,7 @@ export default function InlineGradeSelect({
             }}
             className="border-border bg-bg shadow-pop fixed z-[70] overflow-y-auto rounded-md border p-1"
           >
-            {GRADE_VALUES.map((value, index) => (
+            {GRADE_OPTIONS.map((value, index) => (
               <button
                 key={value}
                 ref={(element) => {
@@ -299,13 +326,13 @@ export default function InlineGradeSelect({
                 aria-selected={grade === value}
                 tabIndex={-1}
                 onClick={() => void handleGradeChange(value)}
-                className={`text-label flex h-7 w-full items-center justify-center rounded-sm transition-colors outline-none ${
+                className={`text-label flex h-7 w-full items-center justify-center rounded-sm px-2 whitespace-nowrap transition-colors outline-none ${
                   grade === value
                     ? "bg-accent-soft text-accent font-semibold"
                     : "text-fg hover:bg-hover focus-visible:bg-hover"
                 }`}
               >
-                {value}
+                {value || "ไม่กรอกเกรด"}
               </button>
             ))}
           </div>,

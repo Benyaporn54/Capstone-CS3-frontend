@@ -241,7 +241,7 @@ export default function PlannerBody({
     ]);
   };
 
-  const updateGrade = (enrollmentId: number, grade: GradeValue) => {
+  const updateGrade = (enrollmentId: number, grade: GradeValue | null) => {
     setGradeEnrollments(
       (current) =>
         current?.map((enrollment) =>

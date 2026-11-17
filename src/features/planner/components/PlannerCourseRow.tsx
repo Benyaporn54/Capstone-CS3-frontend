@@ -17,7 +17,7 @@ type PlannerCourseRowProps = {
   course: PlanCourse;
   semesterStatus: TermStatus;
   gradeEnrollment?: GradeEnrollment;
-  onGradeSaved: (enrollmentId: number, grade: GradeValue) => void;
+  onGradeSaved: (enrollmentId: number, grade: GradeValue | null) => void;
   /** SCRUM-172: เมนู ⋯ ของวิชาที่เพิ่มเอง */
   onAction?: (action: CourseAction, course: PlanCourse) => void;
   /** ไฮไลต์แวบหนึ่งหลังย้ายมาเทอมนี้ */
@@ -143,7 +143,7 @@ export default function PlannerCourseRow({
           <span className="shrink-0">{course.credits} หน่วยกิต</span>
           <span aria-hidden>·</span>
           <span
-            className={`truncate ${
+            className={`min-w-0 truncate ${
               course.source === "track" ? "text-accent font-medium" : ""
             }`}
           >
@@ -153,7 +153,7 @@ export default function PlannerCourseRow({
         <PrerequisiteNotice course={course} />
       </div>
 
-      <div className="flex shrink-0 items-center gap-2">
+      <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
         {tag && (
           <span
             title={tag.title}
