@@ -15,16 +15,12 @@ const SORT_OPTIONS: { value: ReviewSort; label: string }[] = [
 
 type ReviewListProps = {
   courseCode: string;
-  /** หน้าแรก (เรียงล่าสุด) ที่ server ดึงมาแล้ว */
   initialPage: CourseReviewPage;
   totalCount: number;
-  /** โหลดรีวิวจาก BE ไม่สำเร็จตอน render หน้า */
   loadFailed?: boolean;
-  /** SCRUM-245: Guest หรือนักศึกษาที่ไม่เคยลงทะเบียนวิชานี้ → แสดงข้อความแจ้งสิทธิ์การรีวิว */
   showEligibilityNotice?: boolean;
 };
 
-/** SCRUM-204: แสดงรีวิวในหน้า Course Detail — "ดูรีวิวเพิ่ม" ดึงหน้าถัดไปจาก BE */
 export default function ReviewList({
   courseCode,
   initialPage,
