@@ -80,7 +80,6 @@ export default function PlannerCreditSummary({
           style={{ width: `${percentage}%` }}
         />
       </div>
-      {/* SCRUM-243: หน่วยกิตเกินใช้สี error ให้ตรงกับ warning อื่นใน planner (เช่น prerequisite) */}
       {isOverLimit && (
         <p
           role="status"
