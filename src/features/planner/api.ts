@@ -218,11 +218,17 @@ export async function getPlanDetail(
   }
 }
 
+function isUserFacingMessage(message: string | undefined): message is string {
+  return !!message && /[\u0E00-\u0E7F]/.test(message);
+}
+
 function planMutationErrorMessage(error: unknown, fallback: string): string {
   if (error instanceof ApiError) {
     if (error.status === 401) return "เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่";
     if (error.status === 404) return "ไม่พบแผนการเรียนนี้";
-    return error.backendMessage ?? fallback;
+    if (error.status < 500 && isUserFacingMessage(error.backendMessage)) {
+      return error.backendMessage;
+    }
   }
   console.error("Failed to update plan:", error);
   return fallback;
@@ -287,7 +293,7 @@ export async function setDefaultPlan(
       ok: false,
       message: planMutationErrorMessage(
         error,
-        "ตั้งแผนหลักไม่สำเร็จ ลองใหม่อีกครั้ง",
+        "ตั้งเป็นแผนหลักไม่สำเร็จ กรุณาลองใหม่อีกครั้ง",
       ),
     };
   }
