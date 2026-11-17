@@ -4,10 +4,14 @@ import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { ApiError } from "@/lib/api";
 import { GRADE_VALUES, type GradeValue, type SavedGrade } from "@/types/grade";
-import { saveGrade } from "./api";
+import { deleteGrade, saveGrade } from "./api";
 
 export type SaveGradeResult =
   | { ok: true; grade: SavedGrade }
+  | { ok: false; message: string; signIn?: boolean };
+
+export type DeleteGradeResult =
+  | { ok: true; enrollmentId: number }
   | { ok: false; message: string; signIn?: boolean };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -93,5 +97,65 @@ export async function saveGradeAction(
 
     console.error("Failed to save grade:", error);
     return { ok: false, message: "บันทึกเกรดไม่สำเร็จ กรุณาลองอีกครั้ง" };
+  }
+}
+
+export async function deleteGradeAction(
+  input: unknown,
+): Promise<DeleteGradeResult> {
+  if (!isRecord(input)) {
+    return { ok: false, message: "ข้อมูลรายการลงทะเบียนไม่ถูกต้อง" };
+  }
+
+  const { enrollmentId } = input;
+  if (
+    typeof enrollmentId !== "number" ||
+    !Number.isInteger(enrollmentId) ||
+    enrollmentId <= 0
+  ) {
+    return { ok: false, message: "กรุณาเลือกรายวิชาให้ถูกต้อง" };
+  }
+
+  const token = (await auth())?.backendToken;
+  if (!token) {
+    return {
+      ok: false,
+      message: "เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่",
+      signIn: true,
+    };
+  }
+
+  try {
+    await deleteGrade(token, enrollmentId);
+    revalidatePath("/planner/[planId]", "page");
+    return { ok: true, enrollmentId };
+  } catch (error) {
+    if (error instanceof ApiError) {
+      if (error.status === 401) {
+        return {
+          ok: false,
+          message: "เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่",
+          signIn: true,
+        };
+      }
+      if (error.status === 403) {
+        return { ok: false, message: "คุณไม่มีสิทธิ์ลบเกรดรายการนี้" };
+      }
+      if (error.status === 404) {
+        return {
+          ok: false,
+          message: error.backendMessage ?? "ไม่พบรายการลงทะเบียนเรียนนี้",
+        };
+      }
+
+      console.error("Failed to delete grade:", error);
+      return {
+        ok: false,
+        message: error.backendMessage ?? "ลบเกรดไม่สำเร็จ กรุณาลองอีกครั้ง",
+      };
+    }
+
+    console.error("Failed to delete grade:", error);
+    return { ok: false, message: "ลบเกรดไม่สำเร็จ กรุณาลองอีกครั้ง" };
   }
 }

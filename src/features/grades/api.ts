@@ -1,6 +1,6 @@
 import "server-only";
 
-import { apiGet, apiPut } from "@/lib/api";
+import { apiDelete, apiGet, apiPut } from "@/lib/api";
 import type { GradeEnrollment, GradeValue, SavedGrade } from "@/types/grade";
 
 const enrollmentsPath = "/v1/grades/enrollments";
@@ -27,4 +27,13 @@ export function saveGrade(
     { enrollmentId, grade },
     { headers: headers(token) },
   );
+}
+
+export function deleteGrade(
+  token: string,
+  enrollmentId: number,
+): Promise<void> {
+  return apiDelete<void>(`${gradesPath}/${enrollmentId}`, {
+    headers: headers(token),
+  });
 }

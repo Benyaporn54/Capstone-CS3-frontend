@@ -129,7 +129,6 @@ export type PlanCourse = {
   studyPlanCourseId: number | null;
   isEligible?: boolean;
   missingGroups?: PrerequisiteGroup[];
-  prerequisiteNote?: string | null;
 };
 
 export type PlanSemester = {

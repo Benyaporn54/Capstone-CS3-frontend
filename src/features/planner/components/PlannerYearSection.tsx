@@ -9,7 +9,7 @@ type PlannerYearSectionProps = {
   year: PlanYear;
   studyPlanId: number;
   gradeEnrollments: GradeEnrollment[];
-  onGradeSaved: (enrollmentId: number, grade: GradeValue) => void;
+  onGradeSaved: (enrollmentId: number, grade: GradeValue | null) => void;
   plannedCourseIds: ReadonlySet<number>;
   onCourseAdded: (
     semester: number,
