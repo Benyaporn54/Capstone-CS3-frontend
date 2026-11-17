@@ -48,7 +48,7 @@ export default function PlannerCreditSummary({
     <section
       aria-labelledby="credit-summary-heading"
       className={`bg-bg rounded-lg border p-4 ${
-        isOverLimit ? "border-warning" : "border-border"
+        isOverLimit ? "border-error" : "border-border"
       }`}
     >
       <div className="flex items-baseline justify-between gap-2">
@@ -56,9 +56,7 @@ export default function PlannerCreditSummary({
           หน่วยกิตในแผน
         </h2>
         <p className="text-fg-muted text-body whitespace-nowrap">
-          <span
-            className={`text-h3 ${isOverLimit ? "text-warning" : "text-fg"}`}
-          >
+          <span className={`text-h3 ${isOverLimit ? "text-error" : "text-fg"}`}>
             {totalCredits}
           </span>{" "}
           / {requiredCredits}
@@ -77,15 +75,16 @@ export default function PlannerCreditSummary({
       >
         <div
           className={`h-full rounded-full ${
-            isOverLimit ? "bg-warning" : "bg-accent"
+            isOverLimit ? "bg-error" : "bg-accent"
           }`}
           style={{ width: `${percentage}%` }}
         />
       </div>
+      {/* SCRUM-243: หน่วยกิตเกินใช้สี error ให้ตรงกับ warning อื่นใน planner (เช่น prerequisite) */}
       {isOverLimit && (
         <p
           role="status"
-          className="bg-warning-soft text-label text-warning mt-3 flex items-start gap-2 rounded-md px-3 py-2"
+          className="bg-error-soft text-label text-error mt-3 flex items-start gap-2 rounded-md px-3 py-2"
         >
           <AlertTriangle size={16} aria-hidden className="mt-0.5 shrink-0" />
           <span>
