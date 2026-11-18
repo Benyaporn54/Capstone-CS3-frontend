@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Info } from "lucide-react";
 import Button from "@/components/ui/Button";
 import type { CourseReviewPage, ReviewSort } from "@/types/review";
 import { loadReviewsAction } from "../actions";
@@ -14,19 +15,18 @@ const SORT_OPTIONS: { value: ReviewSort; label: string }[] = [
 
 type ReviewListProps = {
   courseCode: string;
-  /** หน้าแรก (เรียงล่าสุด) ที่ server ดึงมาแล้ว */
   initialPage: CourseReviewPage;
   totalCount: number;
-  /** โหลดรีวิวจาก BE ไม่สำเร็จตอน render หน้า */
   loadFailed?: boolean;
+  showEligibilityNotice?: boolean;
 };
 
-/** SCRUM-204: แสดงรีวิวในหน้า Course Detail — "ดูรีวิวเพิ่ม" ดึงหน้าถัดไปจาก BE */
 export default function ReviewList({
   courseCode,
   initialPage,
   totalCount,
   loadFailed = false,
+  showEligibilityNotice = false,
 }: ReviewListProps) {
   const [sort, setSort] = useState<ReviewSort>("latest");
   const [reviews, setReviews] = useState(initialPage.reviews);
@@ -97,6 +97,13 @@ export default function ReviewList({
           </div>
         )}
       </div>
+
+      {showEligibilityNotice && (
+        <p className="bg-accent-soft text-label text-accent flex items-start gap-2 rounded-md px-3 py-2.5">
+          <Info size={16} aria-hidden className="mt-0.5 shrink-0" />
+          เฉพาะนักศึกษาที่เคยลงทะเบียนเรียนวิชานี้เท่านั้นจึงจะสามารถรีวิวได้
+        </p>
+      )}
 
       {reviews.length === 0 && !error ? (
         <p className="border-border bg-surface text-body text-fg-muted rounded-lg border p-8 text-center">
