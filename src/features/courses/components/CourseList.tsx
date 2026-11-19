@@ -1,33 +1,40 @@
 import { redirect } from "next/navigation";
 import Pagination from "@/components/ui/Pagination";
 import { getCourses } from "../api";
+import {
+  buildCoursesHref,
+  parseCourseCategories,
+  parseCourseQuery,
+} from "../searchParams";
 import CourseCard from "./CourseCard";
 
 type CourseListProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-/** "?page=" in the URL is 1-based; the API is 0-based. */
 function parsePage(value: string | string[] | undefined): number {
   const page = Number(Array.isArray(value) ? value[0] : value);
   return Number.isInteger(page) && page >= 1 ? page : 1;
 }
 
 export default async function CourseList({ searchParams }: CourseListProps) {
-  const currentPage = parsePage((await searchParams).page);
-  const data = await getCourses({ page: currentPage - 1 });
+  const params = await searchParams;
+  const currentPage = parsePage(params.page);
+  const q = parseCourseQuery(params.q);
+  const categories = parseCourseCategories(params.category);
+  const hasFilters = q !== "" || categories.length > 0;
+  const data = await getCourses({ page: currentPage - 1, q, categories });
 
   if (data.totalElements === 0) {
     return (
       <p className="border-border bg-surface text-body text-fg-muted rounded-lg border p-8 text-center">
-        ยังไม่มีข้อมูลรายวิชา
+        {hasFilters ? "ไม่พบรายวิชาที่ตรงกับเงื่อนไข" : "ยังไม่มีข้อมูลรายวิชา"}
       </p>
     );
   }
 
-  // e.g. ?page=99 when there are only 7 pages
   if (currentPage > data.totalPages) {
-    redirect(`/courses?page=${data.totalPages}`);
+    redirect(buildCoursesHref({ q, categories, page: data.totalPages }));
   }
 
   return (
@@ -46,6 +53,10 @@ export default async function CourseList({ searchParams }: CourseListProps) {
         currentPage={currentPage}
         totalPages={data.totalPages}
         basePath="/courses"
+        query={{
+          q: q || undefined,
+          category: categories.length > 0 ? categories.join(",") : undefined,
+        }}
       />
     </div>
   );

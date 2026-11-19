@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import CourseList from "@/features/courses/components/CourseList";
 import CourseListSkeleton from "@/features/courses/components/CourseListSkeleton";
+import CourseSearchFilterSection from "@/features/courses/components/CourseSearchFilterSection";
 
 export const metadata: Metadata = {
   title: "รายวิชา | planIT",
@@ -19,7 +20,14 @@ export default function CoursesPage({
         <p className="text-body text-fg-muted">วิชาในหลักสูตร IT 2567</p>
       </header>
 
-      {/* The header is prerendered; the list streams in per request */}
+      <Suspense
+        fallback={
+          <div className="bg-surface h-10 w-full animate-pulse rounded-md" />
+        }
+      >
+        <CourseSearchFilterSection searchParams={searchParams} />
+      </Suspense>
+
       <Suspense fallback={<CourseListSkeleton />}>
         <CourseList searchParams={searchParams} />
       </Suspense>

@@ -4,6 +4,8 @@ Frontend for **planIT**, an IT Curriculum Planner & Course Review Platform for u
 
 Students can browse courses and tracks, plan their 4-year study path, and read/write course reviews.
 
+🌐 **Live site:** [capstone-planit.sit.kmutt.ac.th](https://capstone-planit.sit.kmutt.ac.th)
+
 > Backend repository: [Capstone-CS3-backend](https://github.com/P4warit06/Capstone-CS3-backend)
 
 ## Tech Stack

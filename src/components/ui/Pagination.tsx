@@ -2,16 +2,14 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type PaginationProps = {
-  /** 1-based */
   currentPage: number;
   totalPages: number;
-  /** Page links become `${basePath}?page=N` */
   basePath: string;
+  query?: Record<string, string | undefined>;
 };
 
 type PageItem = number | "ellipsis";
 
-/** 1 … 4 5 6 … 10 — always shows first, last, and the current page's neighbours */
 function getPageItems(current: number, total: number): PageItem[] {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
 
@@ -34,10 +32,18 @@ export default function Pagination({
   currentPage,
   totalPages,
   basePath,
+  query,
 }: PaginationProps) {
   if (totalPages <= 1) return null;
 
-  const href = (page: number) => `${basePath}?page=${page}`;
+  const href = (page: number) => {
+    const params = new URLSearchParams();
+    for (const [key, value] of Object.entries(query ?? {})) {
+      if (value) params.set(key, value);
+    }
+    params.set("page", String(page));
+    return `${basePath}?${params}`;
+  };
   const hasPrev = currentPage > 1;
   const hasNext = currentPage < totalPages;
 
