@@ -1,4 +1,5 @@
 import { getTracks } from "../api";
+import { connection } from "next/server";
 import TrackCard from "./TrackCard";
 import type { TrackListItem } from "@/types/track";
 
@@ -33,6 +34,7 @@ function groupTracks(tracks: TrackListItem[]): TrackGroupSection[] {
 }
 
 export default async function TrackList() {
+  await connection();
   const tracks = await getTracks();
 
   if (!Array.isArray(tracks) || tracks.length === 0) {

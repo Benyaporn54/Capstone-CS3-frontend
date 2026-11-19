@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, Plus } from "lucide-react";
 import Button from "@/components/ui/Button";
@@ -12,6 +12,8 @@ type CreatePlanTriggerProps = {
   planCount: number;
   maxPlans: number;
   trackOptions: TrackListItem[];
+  autoOpen?: boolean;
+  initialTrackId?: number | null;
 };
 
 /** ปุ่ม "+ สร้างแผนใหม่" (หัวหน้า) หรือแถบเส้นประท้ายรายการ — เปิด modal สร้างแผน */
@@ -20,10 +22,25 @@ export default function CreatePlanTrigger({
   planCount,
   maxPlans,
   trackOptions,
+  autoOpen = false,
+  initialTrackId = null,
 }: CreatePlanTriggerProps) {
   const router = useRouter();
-  const [open, setOpen] = useState(false);
-  const close = useCallback(() => setOpen(false), []);
+  const [open, setOpen] = useState(autoOpen);
+  const [trackForFirstModal, setTrackForFirstModal] = useState<number | null>(
+    autoOpen ? initialTrackId : null,
+  );
+  const shouldCleanQuery = useRef(autoOpen);
+  const createdPlan = useRef(false);
+  const close = useCallback(() => {
+    setOpen(false);
+    setTrackForFirstModal(null);
+    if (shouldCleanQuery.current && !createdPlan.current) {
+      router.replace("/planner", { scroll: false });
+    }
+    shouldCleanQuery.current = false;
+    createdPlan.current = false;
+  }, [router]);
   const remaining = Math.max(0, maxPlans - planCount);
   const isFull = remaining === 0;
 
@@ -35,7 +52,11 @@ export default function CreatePlanTrigger({
       remaining={remaining}
       maxPlans={maxPlans}
       trackOptions={trackOptions}
-      onCreated={(id) => router.push(`/planner/${id}`)}
+      initialTrackId={trackForFirstModal}
+      onCreated={(id) => {
+        createdPlan.current = true;
+        router.push(`/planner/${id}`);
+      }}
     />
   );
 
