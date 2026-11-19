@@ -177,6 +177,9 @@ export default async function CourseDetail({ params }: CourseDetailProps) {
             initialPage={reviews}
             totalCount={summary.reviewCount}
             loadFailed={reviewBundle === null}
+            showEligibilityNotice={
+              !canSave || reviewStatus?.reason === "NOT_ENROLLED"
+            }
           />
         </div>
 

@@ -91,9 +91,9 @@ export default function CourseDetailActions({
         {reviewStatus?.reason === "ALREADY_REVIEWED" ? (
           <span className="text-label text-fg-muted inline-flex h-10 items-center gap-1.5 px-2">
             <Check size={16} className="text-success" aria-hidden />
-            รีวิวแล้ว
+            คุณรีวิววิชานี้แล้ว
           </span>
-        ) : (
+        ) : reviewStatus?.reason === "NOT_ENROLLED" ? null : (
           <Button
             type="button"
             variant="secondary"
@@ -104,9 +104,7 @@ export default function CourseDetailActions({
                 ? undefined
                 : reviewStatus === null
                   ? "โหลดสถานะรีวิวไม่สำเร็จ กรุณาโหลดหน้าใหม่"
-                  : reviewStatus.reason === "NOT_ENROLLED"
-                    ? "รีวิวได้เฉพาะวิชาที่เคยเรียนจบเทอมแล้ว"
-                    : undefined
+                  : undefined
             }
             onClick={() => (canSave ? setReviewOpen(true) : goToLogin())}
           >
