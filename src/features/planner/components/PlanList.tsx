@@ -4,12 +4,17 @@ import CreatePlanTrigger from "./CreatePlanTrigger";
 import PlanCard from "./PlanCard";
 import PlanListHeader from "./PlanListHeader";
 
-export default async function PlanList() {
+type PlanListProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function PlanList({ searchParams }: PlanListProps) {
   // แผนเป็นข้อมูลของแต่ละ user และ "แก้ไขล่าสุด" ขึ้นกับเวลาปัจจุบัน → render ตอน request
   await connection();
-  const [planList, trackOptions] = await Promise.all([
+  const [planList, trackOptions, params] = await Promise.all([
     getPlans(),
     getTrackOptions(),
+    searchParams,
   ]);
 
   if (!planList) {
@@ -28,6 +33,16 @@ export default async function PlanList() {
 
   const { plans, maxPlans } = planList;
   const isFull = plans.length >= maxPlans;
+  const requestedTrackId =
+    typeof params.trackId === "string" ? Number(params.trackId) : NaN;
+  const initialTrackId =
+    Number.isSafeInteger(requestedTrackId) &&
+    requestedTrackId > 0 &&
+    trackOptions.some((track) => track.id === requestedTrackId)
+      ? requestedTrackId
+      : null;
+  const shouldOpenCreatePlan =
+    params.createPlan === "true" && initialTrackId !== null;
 
   return (
     <>
@@ -45,6 +60,8 @@ export default async function PlanList() {
                 planCount={plans.length}
                 maxPlans={maxPlans}
                 trackOptions={trackOptions}
+                autoOpen={shouldOpenCreatePlan}
+                initialTrackId={initialTrackId}
               />
             </div>
             {isFull && (

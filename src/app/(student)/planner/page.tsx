@@ -7,11 +7,15 @@ export const metadata: Metadata = {
   title: "แผนการเรียนของฉัน · planIT",
 };
 
-export default function PlansPage() {
+export default function PlansPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-8 sm:px-6 sm:py-10">
       <Suspense fallback={<PlanListSkeleton />}>
-        <PlanList />
+        <PlanList searchParams={searchParams} />
       </Suspense>
     </main>
   );
