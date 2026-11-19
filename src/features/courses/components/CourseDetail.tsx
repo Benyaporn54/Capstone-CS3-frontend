@@ -9,6 +9,7 @@ import { getCourseByCode } from "../api";
 import { getCourseReviews, getMyReviewStatus } from "@/features/reviews/api";
 import type { CourseReviewBundle, MyReviewStatus } from "@/types/review";
 import ReviewList from "@/features/reviews/components/ReviewList";
+import BackToCoursesLink from "./BackToCoursesLink";
 import CourseDetailActions from "./CourseDetailActions";
 import CourseInfoCard from "./CourseInfoCard";
 import CourseRatingPanel from "./CourseRatingPanel";
@@ -83,23 +84,26 @@ export default async function CourseDetail({ params }: CourseDetailProps) {
 
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-8">
-      <nav aria-label="breadcrumb" className="text-caption text-fg-muted">
-        <ol className="flex flex-wrap items-center gap-1.5">
-          <li>
-            <Link href="/courses" className="hover:text-fg">
-              รายวิชา
-            </Link>
-          </li>
-          {category && (
-            <>
-              <li aria-hidden>/</li>
-              <li>{category}</li>
-            </>
-          )}
-          <li aria-hidden>/</li>
-          <li className="text-fg">{course.courseCode}</li>
-        </ol>
-      </nav>
+      <div className="flex items-center gap-2">
+        <BackToCoursesLink />
+        <nav aria-label="breadcrumb" className="text-body text-fg-muted">
+          <ol className="flex flex-wrap items-center gap-1.5">
+            <li>
+              <Link href="/courses" className="hover:text-fg">
+                รายวิชา
+              </Link>
+            </li>
+            {category && (
+              <>
+                <li aria-hidden>/</li>
+                <li>{category}</li>
+              </>
+            )}
+            <li aria-hidden>/</li>
+            <li className="text-fg">{course.courseCode}</li>
+          </ol>
+        </nav>
+      </div>
 
       <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-col gap-1">

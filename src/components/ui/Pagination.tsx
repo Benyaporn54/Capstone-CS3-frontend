@@ -7,6 +7,8 @@ type PaginationProps = {
   totalPages: number;
   /** Page links become `${basePath}?page=N` */
   basePath: string;
+  /** Extra query params kept on every page link (e.g. search / filter) */
+  query?: Record<string, string | undefined>;
 };
 
 type PageItem = number | "ellipsis";
@@ -34,10 +36,18 @@ export default function Pagination({
   currentPage,
   totalPages,
   basePath,
+  query,
 }: PaginationProps) {
   if (totalPages <= 1) return null;
 
-  const href = (page: number) => `${basePath}?page=${page}`;
+  const href = (page: number) => {
+    const params = new URLSearchParams();
+    for (const [key, value] of Object.entries(query ?? {})) {
+      if (value) params.set(key, value);
+    }
+    params.set("page", String(page));
+    return `${basePath}?${params}`;
+  };
   const hasPrev = currentPage > 1;
   const hasNext = currentPage < totalPages;
 
