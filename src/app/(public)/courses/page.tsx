@@ -20,7 +20,6 @@ export default function CoursesPage({
         <p className="text-body text-fg-muted">วิชาในหลักสูตร IT 2567</p>
       </header>
 
-      {/* SCRUM-231: ค้นหา + กรองหมวด (ค่าอยู่ใน URL) */}
       <Suspense
         fallback={
           <div className="bg-surface h-10 w-full animate-pulse rounded-md" />
@@ -29,7 +28,6 @@ export default function CoursesPage({
         <CourseSearchFilterSection searchParams={searchParams} />
       </Suspense>
 
-      {/* The header is prerendered; the list streams in per request */}
       <Suspense fallback={<CourseListSkeleton />}>
         <CourseList searchParams={searchParams} />
       </Suspense>

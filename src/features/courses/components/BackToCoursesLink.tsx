@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { readLastCoursesHref } from "../lastCoursesHref";
 
-/** ปุ่มกลับหน้ารายวิชา — กลับไปพร้อมคำค้น / หมวด / หน้าที่ดูไว้ล่าสุด (ถ้ามี) */
 export default function BackToCoursesLink() {
   const router = useRouter();
 
@@ -13,7 +12,6 @@ export default function BackToCoursesLink() {
     <Link
       href="/courses"
       onClick={(event) => {
-        // คลิกปกติ → ไปหน้ารายวิชาที่ดูไว้ล่าสุด, เปิดแท็บใหม่ (cmd/ctrl-click) → /courses
         if (event.metaKey || event.ctrlKey || event.shiftKey) return;
         event.preventDefault();
         router.push(readLastCoursesHref());

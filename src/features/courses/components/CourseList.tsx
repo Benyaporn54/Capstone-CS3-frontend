@@ -12,7 +12,6 @@ type CourseListProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-/** "?page=" in the URL is 1-based; the API is 0-based. */
 function parsePage(value: string | string[] | undefined): number {
   const page = Number(Array.isArray(value) ? value[0] : value);
   return Number.isInteger(page) && page >= 1 ? page : 1;
@@ -21,7 +20,6 @@ function parsePage(value: string | string[] | undefined): number {
 export default async function CourseList({ searchParams }: CourseListProps) {
   const params = await searchParams;
   const currentPage = parsePage(params.page);
-  // SCRUM-231: คำค้น + หมวดวิชาจาก URL
   const q = parseCourseQuery(params.q);
   const categories = parseCourseCategories(params.category);
   const hasFilters = q !== "" || categories.length > 0;
@@ -35,7 +33,6 @@ export default async function CourseList({ searchParams }: CourseListProps) {
     );
   }
 
-  // e.g. ?page=99 when there are only 7 pages
   if (currentPage > data.totalPages) {
     redirect(buildCoursesHref({ q, categories, page: data.totalPages }));
   }

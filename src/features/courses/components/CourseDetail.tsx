@@ -59,7 +59,6 @@ export default async function CourseDetail({ params }: CourseDetailProps) {
     }
   }
 
-  // SCRUM-204: รีวิวจาก BE (หน้าแรก เรียงล่าสุด) + สิทธิ์เขียนรีวิวของผู้ใช้
   let reviewBundle: CourseReviewBundle | null = null;
   try {
     reviewBundle = await getCourseReviews(course.courseCode);

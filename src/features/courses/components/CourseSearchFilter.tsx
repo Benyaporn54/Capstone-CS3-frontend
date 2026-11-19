@@ -18,13 +18,11 @@ import { saveLastCoursesHref } from "../lastCoursesHref";
 const SEARCH_DEBOUNCE_MS = 300;
 
 type CourseSearchFilterProps = {
-  /** null = โหลดหมวดวิชาไม่สำเร็จ */
   categories: CourseCategory[] | null;
   initialQuery: string;
   initialCategories: string[];
 };
 
-/** SCRUM-231: ค้นหา (พิมพ์แล้วค้นอัตโนมัติ) + กรองหมวดวิชาบนหน้า /courses — เก็บค่าไว้ใน URL */
 export default function CourseSearchFilter({
   categories,
   initialQuery,
@@ -36,12 +34,9 @@ export default function CourseSearchFilter({
   const [filterOpen, setFilterOpen] = useState(false);
   const [pending, startTransition] = useTransition();
   const filterRef = useRef<HTMLDivElement>(null);
-  // ค่าที่อยู่ใน URL ล่าสุด — กันไม่ให้ debounce ยิง navigation ซ้ำ
   const appliedQuery = useRef(initialQuery.trim());
-  // URL ล่าสุดที่ component นี้เป็นคนเปลี่ยนเอง
   const lastNavigatedKey = useRef(filterKey(initialQuery, initialCategories));
 
-  // URL เปลี่ยนจากที่อื่น (กดเมนู "รายวิชา", ปุ่ม back/forward) → sync ช่องค้นหา + chip ตาม URL
   const searchParams = useSearchParams();
   const urlQuery = parseCourseQuery(searchParams.get("q") ?? undefined);
   const urlCategoriesParam = searchParams.get("category") ?? undefined;
@@ -52,10 +47,8 @@ export default function CourseSearchFilter({
     appliedQuery.current = urlQuery;
     setQuery(urlQuery);
     setSelected(parseCourseCategories(urlCategoriesParam));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlKey]);
 
-  // จำ URL ล่าสุด (รวม page) ให้ปุ่ม "กลับไปหน้ารายวิชา" ในหน้า detail
   const currentSearch = searchParams.toString();
   useEffect(() => {
     saveLastCoursesHref(currentSearch);
@@ -64,7 +57,6 @@ export default function CourseSearchFilter({
   const navigate = (nextQuery: string, nextCategories: string[]) => {
     appliedQuery.current = nextQuery.trim();
     lastNavigatedKey.current = filterKey(nextQuery, nextCategories);
-    // เปลี่ยนคำค้นหรือหมวด → กลับไปหน้า 1 (ไม่ส่ง page)
     startTransition(() => {
       router.replace(
         buildCoursesHref({ q: nextQuery, categories: nextCategories }),
@@ -73,7 +65,6 @@ export default function CourseSearchFilter({
     });
   };
 
-  // พิมพ์แล้วรอ 300ms ค่อยค้น
   useEffect(() => {
     if (query.trim() === appliedQuery.current) return;
     const timer = setTimeout(
@@ -81,8 +72,6 @@ export default function CourseSearchFilter({
       SEARCH_DEBOUNCE_MS,
     );
     return () => clearTimeout(timer);
-    // ยิงเฉพาะตอนคำค้นเปลี่ยน — หมวดวิชา navigate เองทันที
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   useEffect(() => {

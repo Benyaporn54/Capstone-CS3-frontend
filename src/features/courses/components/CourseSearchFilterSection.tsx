@@ -7,7 +7,6 @@ type CourseSearchFilterSectionProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-/** SCRUM-231: ดึงหมวดวิชา + ค่าจาก URL แล้วส่งให้ช่องค้นหา / ตัวกรอง (client) */
 export default async function CourseSearchFilterSection({
   searchParams,
 }: CourseSearchFilterSectionProps) {
