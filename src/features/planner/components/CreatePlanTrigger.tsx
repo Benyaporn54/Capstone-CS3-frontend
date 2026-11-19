@@ -27,8 +27,9 @@ export default function CreatePlanTrigger({
 }: CreatePlanTriggerProps) {
   const router = useRouter();
   const [open, setOpen] = useState(autoOpen);
-  const [trackForFirstModal, setTrackForFirstModal] =
-    useState<number | null>(autoOpen ? initialTrackId : null);
+  const [trackForFirstModal, setTrackForFirstModal] = useState<number | null>(
+    autoOpen ? initialTrackId : null,
+  );
   const shouldCleanQuery = useRef(autoOpen);
   const createdPlan = useRef(false);
   const close = useCallback(() => {
