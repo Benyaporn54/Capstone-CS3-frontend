@@ -60,7 +60,8 @@ export default async function PlanList({ searchParams }: PlanListProps) {
                 planCount={plans.length}
                 maxPlans={maxPlans}
                 trackOptions={trackOptions}
-                autoOpen={shouldOpenCreatePlan}
+                autoOpen={shouldOpenCreatePlan && !isFull}
+                fullPlanRequested={shouldOpenCreatePlan && isFull}
                 initialTrackId={initialTrackId}
               />
             </div>

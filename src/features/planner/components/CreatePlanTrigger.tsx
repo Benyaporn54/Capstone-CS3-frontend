@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, Plus } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { useToast } from "@/components/ui/Toast";
 import type { TrackListItem } from "@/types/track";
 import CreatePlanModal from "./CreatePlanModal";
 
@@ -13,6 +14,7 @@ type CreatePlanTriggerProps = {
   maxPlans: number;
   trackOptions: TrackListItem[];
   autoOpen?: boolean;
+  fullPlanRequested?: boolean;
   initialTrackId?: number | null;
 };
 
@@ -23,15 +25,25 @@ export default function CreatePlanTrigger({
   maxPlans,
   trackOptions,
   autoOpen = false,
+  fullPlanRequested = false,
   initialTrackId = null,
 }: CreatePlanTriggerProps) {
   const router = useRouter();
+  const { showToast } = useToast();
   const [open, setOpen] = useState(autoOpen);
   const [trackForFirstModal, setTrackForFirstModal] = useState<number | null>(
     autoOpen ? initialTrackId : null,
   );
   const shouldCleanQuery = useRef(autoOpen);
   const createdPlan = useRef(false);
+  const notifiedPlanLimit = useRef(false);
+  useEffect(() => {
+    if (!fullPlanRequested || notifiedPlanLimit.current) return;
+    notifiedPlanLimit.current = true;
+    showToast(`สร้างแผนได้ไม่เกิน ${maxPlans} แผน`, "error");
+    router.replace("/planner", { scroll: false });
+  }, [fullPlanRequested, maxPlans, router, showToast]);
+
   const close = useCallback(() => {
     setOpen(false);
     setTrackForFirstModal(null);
