@@ -238,7 +238,7 @@ export default function CourseSearchFilter({
               value,
               label,
             }))}
-            className="w-full font-medium sm:w-50"
+            className="hover:bg-hover focus:border-border w-full font-medium focus:ring-0 sm:w-50"
           />
         </div>
       </div>

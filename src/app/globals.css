@@ -137,3 +137,13 @@
     @apply bg-bg text-body text-fg;
   }
 }
+
+#course-sort:focus {
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+#course-sort option:checked {
+  background-color: var(--accent);
+  color: var(--accent-fg);
+}
