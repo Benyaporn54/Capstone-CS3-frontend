@@ -20,7 +20,6 @@ type MyReviewsPageProps = {
   searchParams: Promise<{ tab?: string | string[] }>;
 };
 
-/** SCRUM-244: หน้ารีวิวของฉัน — แท็บ "รอรีวิว" / "รีวิวแล้ว" (?tab=pending|done) */
 export default function MyReviewsPage({ searchParams }: MyReviewsPageProps) {
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-6 py-8">
@@ -60,7 +59,6 @@ async function MyReviewsContent({
 }: {
   searchParams: MyReviewsPageProps["searchParams"];
 }) {
-  // อ่าน session / searchParams ใน Suspense (cacheComponents)
   const [session, { tab }] = await Promise.all([auth(), searchParams]);
   const token = session?.backendToken;
   if (!token || session?.user?.role !== "student") redirect("/profile");
@@ -72,7 +70,6 @@ async function MyReviewsContent({
   );
   const pendingCount = data.reviewable?.length;
   const doneCount = data.reviewed?.length;
-  // ค่าเริ่มต้น: มีวิชารอรีวิว → แท็บรอรีวิว, ไม่มี → แท็บรีวิวแล้ว
   const active: Tab =
     requested === "pending" || requested === "done"
       ? requested

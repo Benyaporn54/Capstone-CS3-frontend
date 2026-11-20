@@ -15,10 +15,8 @@ import {
   type ReviewSort,
 } from "@/types/review";
 
-// USE_MOCK_API=true → ใช้ mock (src/mocks/reviews.json) แทน BE
 const USE_MOCK = process.env.USE_MOCK_API === "true";
 
-// ---- รูปแบบที่ BE ส่งมา (SCRUM-206 / SCRUM-203) ----
 type ApiReview = {
   reviewId: number;
   displayName: string | null;
@@ -46,7 +44,6 @@ type ApiMyReviewStatus = {
   myReview: ApiReview | null;
 };
 
-/** "Staru" → "ST", "นักศึกษา ปี 3" → "น3" */
 function initialsOf(name: string): string {
   const words = name.trim().split(/\s+/).filter(Boolean);
   if (words.length >= 2) {
@@ -62,7 +59,6 @@ function initialsOf(name: string): string {
     .toUpperCase();
 }
 
-/** "2026-11-08T..." → "8 พ.ย. 2569" */
 function formatThaiDate(iso: string): string {
   const written = new Date(iso);
   return Number.isNaN(written.getTime())
@@ -131,7 +127,6 @@ function mockCourseReviews(
   };
 }
 
-/** GET /v1/courses/{courseCode}/reviews — public (SCRUM-206) */
 export async function getCourseReviews(
   courseCode: string,
   { page = 0, sort = "latest" }: { page?: number; sort?: ReviewSort } = {},
@@ -152,7 +147,6 @@ export async function getCourseReviews(
   return { summary: data.summary, reviews };
 }
 
-/** GET /v1/courses/{courseCode}/reviews/me — ต้อง login (SCRUM-203) */
 export async function getMyReviewStatus(
   token: string,
   courseCode: string,
@@ -171,7 +165,6 @@ export async function getMyReviewStatus(
   };
 }
 
-/** POST /v1/courses/{courseCode}/reviews — ต้อง login (SCRUM-203) */
 export async function createReview(
   token: string,
   courseCode: string,
@@ -190,8 +183,6 @@ export async function createReview(
     { headers: authHeaders(token) },
   );
 }
-
-// ---------- หน้าโปรไฟล์ (SCRUM-244) ----------
 
 type ApiMyReview = {
   reviewId: number;
@@ -256,7 +247,6 @@ const MOCK_MY_REVIEWS: MyReview[] = [
   },
 ];
 
-/** GET /v1/me/reviewable-courses — วิชาที่เรียนจบเทอมแล้วและยังไม่รีวิว (ต้อง login) */
 export async function getReviewableCourses(
   token: string,
 ): Promise<ReviewableCourse[]> {
@@ -268,7 +258,6 @@ export async function getReviewableCourses(
   });
 }
 
-/** GET /v1/me/reviews — รีวิวของตัวเอง เรียงล่าสุดก่อน รวมที่ถูกซ่อน (ต้อง login) */
 export async function getMyReviews(token: string): Promise<MyReview[]> {
   if (USE_MOCK) return MOCK_MY_REVIEWS;
 

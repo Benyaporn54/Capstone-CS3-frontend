@@ -11,7 +11,6 @@ const roleLabel: Record<string, string> = {
   admin: "ผู้ดูแลระบบ",
 };
 
-/** การ์ดข้อมูลผู้ใช้ + ปุ่มออกจากระบบ (หน้าโปรไฟล์) */
 export default function ProfileCard() {
   const { data: session, status } = useSession();
   const user = session?.user;

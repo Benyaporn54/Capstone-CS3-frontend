@@ -3,10 +3,6 @@ import { ChevronRight, MessageSquareText } from "lucide-react";
 import { auth } from "@/auth";
 import { loadMyReviews } from "@/features/reviews/components/MyReviews";
 
-/**
- * SCRUM-244: ทางเข้าหน้า "รีวิวของฉัน" จากหน้าโปรไฟล์ — บอกจำนวนวิชาที่รอรีวิว
- * แสดงเฉพาะนักศึกษาที่ login แล้ว (อ่าน session ใน Suspense)
- */
 export default async function MyReviewsLinkCard() {
   const session = await auth();
   const token = session?.backendToken;

@@ -17,7 +17,6 @@ type CourseDetailActionsProps = {
   initialSaved: boolean;
   canSave: boolean;
   savedStatusAvailable: boolean;
-  /** null = ยังไม่ login หรือโหลดสถานะไม่สำเร็จ (SCRUM-204) */
   reviewStatus: Pick<MyReviewStatus, "canReview" | "reason"> | null;
 };
 
@@ -39,7 +38,6 @@ export default function CourseDetailActions({
       : "โหลดสถานะการบันทึกไม่สำเร็จ กรุณาโหลดหน้าใหม่",
   );
   const [pending, startTransition] = useTransition();
-  // SCRUM-244: มาจากปุ่ม "เขียนรีวิว" ในหน้าโปรไฟล์ (?review=write) → เปิดฟอร์มรีวิวให้ทันที
   const searchParams = useSearchParams();
   const autoOpenReview = searchParams.get("review") === "write";
   const [reviewOpen, setReviewOpen] = useState(
@@ -48,7 +46,6 @@ export default function CourseDetailActions({
 
   const closeReview = () => {
     setReviewOpen(false);
-    // เอา ?review=write ออก จะได้ไม่เปิดซ้ำตอนรีเฟรช (เก็บ ?from= ไว้ให้ปุ่มกลับ)
     if (autoOpenReview) {
       const params = new URLSearchParams(searchParams.toString());
       params.delete("review");
@@ -164,7 +161,7 @@ export default function CourseDetailActions({
         onSubmitted={() => {
           showToast(`ส่งรีวิว ${courseCode} แล้ว`);
           if (autoOpenReview) {
-            closeReview(); // router.replace โหลดข้อมูลหน้าใหม่ให้แล้ว
+            closeReview();
           } else {
             setReviewOpen(false);
             router.refresh();

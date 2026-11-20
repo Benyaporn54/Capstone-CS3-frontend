@@ -7,15 +7,10 @@ import type { MyReview, ReviewableCourse } from "@/types/review";
 import { getMyReviews, getReviewableCourses } from "../api";
 
 export type MyReviewsData = {
-  /** null = โหลดไม่สำเร็จ */
   reviewable: ReviewableCourse[] | null;
   reviewed: MyReview[] | null;
 };
 
-/**
- * SCRUM-244: โหลดวิชาที่รีวิวได้ + รีวิวของตัวเองพร้อมกัน
- * token หมดอายุ (401) → พาไปหน้า login แล้วกลับมาที่ callbackUrl
- */
 export async function loadMyReviews(
   token: string,
   callbackUrl: string,
