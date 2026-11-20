@@ -9,7 +9,9 @@ import {
   type CourseReviewBundle,
   type CourseReviewPage,
   type CreateReviewInput,
+  type MyReview,
   type MyReviewStatus,
+  type ReviewableCourse,
   type ReviewSort,
 } from "@/types/review";
 
@@ -60,20 +62,25 @@ function initialsOf(name: string): string {
     .toUpperCase();
 }
 
+/** "2026-11-08T..." → "8 พ.ย. 2569" */
+function formatThaiDate(iso: string): string {
+  const written = new Date(iso);
+  return Number.isNaN(written.getTime())
+    ? ""
+    : written.toLocaleDateString("th-TH", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+}
+
 function toCourseReview(review: ApiReview): CourseReview {
   const displayName = review.displayName?.trim() || "นักศึกษา";
-  const written = new Date(review.createdAt);
   return {
     id: review.reviewId,
     displayName,
     initials: initialsOf(displayName),
-    writtenAt: Number.isNaN(written.getTime())
-      ? ""
-      : written.toLocaleDateString("th-TH", {
-          day: "numeric",
-          month: "short",
-          year: "numeric",
-        }),
+    writtenAt: formatThaiDate(review.createdAt),
     relativeTime: formatRelativeTime(review.createdAt),
     rating: review.overallRating,
     comment: review.comment,
@@ -182,4 +189,103 @@ export async function createReview(
     },
     { headers: authHeaders(token) },
   );
+}
+
+// ---------- หน้าโปรไฟล์ (SCRUM-244) ----------
+
+type ApiMyReview = {
+  reviewId: number;
+  courseCode: string;
+  nameTh: string;
+  nameEn: string;
+  overallRating: number;
+  difficultyRating: number;
+  workloadRating: number;
+  comment: string | null;
+  status: MyReview["status"];
+  createdAt: string;
+};
+
+const MOCK_REVIEWABLE_COURSES: ReviewableCourse[] = [
+  {
+    courseId: 12,
+    courseCode: "INT102",
+    nameTh: "การเขียนโปรแกรมเว็บ",
+    nameEn: "Web Programming",
+    credits: 3,
+    academicYear: 2568,
+    studyYear: 2,
+    semester: 1,
+  },
+  {
+    courseId: 3,
+    courseCode: "GEN101",
+    nameTh: "พลานามัย",
+    nameEn: "Physical Education",
+    credits: 1,
+    academicYear: 2567,
+    studyYear: 1,
+    semester: 2,
+  },
+];
+
+const MOCK_MY_REVIEWS: MyReview[] = [
+  {
+    id: 101,
+    courseCode: "INT100",
+    nameTh: "พื้นฐานเทคโนโลยีสารสนเทศ",
+    nameEn: "Information Technology Fundamentals",
+    rating: 4,
+    difficulty: 2,
+    workload: 3,
+    comment: "เนื้อหาปูพื้นฐานดี งานไม่หนักมาก",
+    status: "visible",
+    writtenAt: "8 พ.ย. 2569",
+  },
+  {
+    id: 99,
+    courseCode: "LNG220",
+    nameTh: "การสื่อสารภาษาอังกฤษเชิงวิชาการ",
+    nameEn: "Academic Communication in English",
+    rating: 2,
+    difficulty: 4,
+    workload: 4,
+    comment: null,
+    status: "hidden",
+    writtenAt: "1 พ.ย. 2569",
+  },
+];
+
+/** GET /v1/me/reviewable-courses — วิชาที่เรียนจบเทอมแล้วและยังไม่รีวิว (ต้อง login) */
+export async function getReviewableCourses(
+  token: string,
+): Promise<ReviewableCourse[]> {
+  if (USE_MOCK) return MOCK_REVIEWABLE_COURSES;
+
+  return apiGet<ReviewableCourse[]>("/v1/me/reviewable-courses", undefined, {
+    headers: authHeaders(token),
+    cache: "no-store",
+  });
+}
+
+/** GET /v1/me/reviews — รีวิวของตัวเอง เรียงล่าสุดก่อน รวมที่ถูกซ่อน (ต้อง login) */
+export async function getMyReviews(token: string): Promise<MyReview[]> {
+  if (USE_MOCK) return MOCK_MY_REVIEWS;
+
+  const data = await apiGet<ApiMyReview[]>("/v1/me/reviews", undefined, {
+    headers: authHeaders(token),
+    cache: "no-store",
+  });
+  return data.map((review) => ({
+    id: review.reviewId,
+    courseCode: review.courseCode,
+    nameTh: review.nameTh,
+    nameEn: review.nameEn,
+    rating: review.overallRating,
+    difficulty: review.difficultyRating,
+    workload: review.workloadRating,
+    comment: review.comment,
+    status: review.status,
+    writtenAt: formatThaiDate(review.createdAt),
+  }));
 }

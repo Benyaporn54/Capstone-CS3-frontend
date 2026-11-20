@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Bookmark, Check, Plus, SquarePen } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { useToast } from "@/components/ui/Toast";
@@ -39,7 +39,26 @@ export default function CourseDetailActions({
       : "โหลดสถานะการบันทึกไม่สำเร็จ กรุณาโหลดหน้าใหม่",
   );
   const [pending, startTransition] = useTransition();
-  const [reviewOpen, setReviewOpen] = useState(false);
+  // SCRUM-244: มาจากปุ่ม "เขียนรีวิว" ในหน้าโปรไฟล์ (?review=write) → เปิดฟอร์มรีวิวให้ทันที
+  const searchParams = useSearchParams();
+  const autoOpenReview = searchParams.get("review") === "write";
+  const [reviewOpen, setReviewOpen] = useState(
+    () => autoOpenReview && canSave && reviewStatus?.canReview === true,
+  );
+
+  const closeReview = () => {
+    setReviewOpen(false);
+    // เอา ?review=write ออก จะได้ไม่เปิดซ้ำตอนรีเฟรช (เก็บ ?from= ไว้ให้ปุ่มกลับ)
+    if (autoOpenReview) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("review");
+      const query = params.toString();
+      router.replace(
+        `/courses/${encodeURIComponent(courseCode)}${query ? `?${query}` : ""}`,
+        { scroll: false },
+      );
+    }
+  };
   const [planOpen, setPlanOpen] = useState(false);
 
   const goToLogin = () =>
@@ -141,11 +160,15 @@ export default function CourseDetailActions({
         isOpen={reviewOpen}
         courseCode={courseCode}
         courseName={courseName}
-        onClose={() => setReviewOpen(false)}
+        onClose={closeReview}
         onSubmitted={() => {
-          setReviewOpen(false);
           showToast(`ส่งรีวิว ${courseCode} แล้ว`);
-          router.refresh();
+          if (autoOpenReview) {
+            closeReview(); // router.replace โหลดข้อมูลหน้าใหม่ให้แล้ว
+          } else {
+            setReviewOpen(false);
+            router.refresh();
+          }
         }}
         onSignInRequired={goToLogin}
       />
