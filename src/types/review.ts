@@ -4,7 +4,6 @@ export type CourseReview = {
   id: number;
   displayName: string;
   initials: string;
-  /** วันที่เขียน เช่น "8 พ.ย. 2569" */
   writtenAt: string;
   relativeTime: string;
   rating: number;
@@ -16,13 +15,11 @@ export type CourseReview = {
 export type CourseReviewSummary = {
   averageRating: number;
   reviewCount: number;
-  /** counts for stars 1–5 */
   ratingCounts: number[];
   averageDifficulty: number;
   averageWorkload: number;
 };
 
-/** รีวิว 1 หน้า (GET /v1/courses/{courseCode}/reviews — SCRUM-206) */
 export type CourseReviewPage = {
   reviews: CourseReview[];
   page: number;
@@ -35,11 +32,8 @@ export type CourseReviewBundle = {
   reviews: CourseReviewPage;
 };
 
-// --- เขียนรีวิว (SCRUM-203 / SCRUM-204) ---
-
 export type ReviewIneligibleReason = "NOT_ENROLLED" | "ALREADY_REVIEWED";
 
-/** GET /v1/courses/{courseCode}/reviews/me */
 export type MyReviewStatus = {
   canReview: boolean;
   reason: ReviewIneligibleReason | null;
@@ -61,3 +55,29 @@ export type LoadReviewsResult =
 
 export const REVIEW_COMMENT_MAX_LENGTH = 2000;
 export const REVIEW_PAGE_SIZE = 5;
+
+export type ReviewableCourse = {
+  courseId: number;
+  courseCode: string;
+  nameTh: string;
+  nameEn: string;
+  credits: number;
+  academicYear: number;
+  studyYear: number;
+  semester: number;
+};
+
+export type MyReviewStatusValue = "visible" | "hidden";
+
+export type MyReview = {
+  id: number;
+  courseCode: string;
+  nameTh: string;
+  nameEn: string;
+  rating: number;
+  difficulty: number;
+  workload: number;
+  comment: string | null;
+  status: MyReviewStatusValue;
+  writtenAt: string;
+};
