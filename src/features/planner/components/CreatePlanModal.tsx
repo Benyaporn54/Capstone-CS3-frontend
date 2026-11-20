@@ -14,6 +14,7 @@ type CreatePlanModalProps = {
   remaining: number;
   maxPlans: number;
   trackOptions: TrackListItem[];
+  initialTrackId?: number | null;
   onCreated?: (studyPlanId: number) => void;
 };
 
@@ -23,10 +24,11 @@ export default function CreatePlanModal({
   remaining,
   maxPlans,
   trackOptions,
+  initialTrackId = null,
   onCreated,
 }: CreatePlanModalProps) {
   const [planName, setPlanName] = useState("");
-  const [trackId, setTrackId] = useState<number | null>(null);
+  const [trackId, setTrackId] = useState<number | null>(initialTrackId);
   const [nameError, setNameError] = useState<string | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
@@ -167,7 +169,7 @@ export default function CreatePlanModal({
           </Button>
           <Button
             type="submit"
-            disabled={pending}
+            disabled={pending || remaining === 0}
             className={pending ? "gap-2 disabled:opacity-100" : "gap-2"}
           >
             {pending && (

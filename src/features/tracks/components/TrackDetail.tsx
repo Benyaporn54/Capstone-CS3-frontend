@@ -99,9 +99,12 @@ export default async function TrackDetail({ params }: TrackDetailProps) {
           </p>
         </div>
 
-        <button className="bg-accent hover:bg-accent/90 self-start rounded-lg px-5 py-2.5 font-medium text-white transition-colors">
+        <Link
+          href={`/planner?createPlan=true&trackId=${track.id}`}
+          className="bg-accent hover:bg-accent/90 self-start rounded-lg px-5 py-2.5 font-medium text-white transition-colors"
+        >
           ดูในแผนการเรียน
-        </button>
+        </Link>
       </header>
 
       {/* Grid Layout */}
