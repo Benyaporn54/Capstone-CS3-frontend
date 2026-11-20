@@ -1,17 +1,21 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChevronDown, Filter, Loader2, Search, X } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Checkbox from "@/components/ui/Checkbox";
+import Dropdown from "@/components/ui/Dropdown";
 import TextField from "@/components/ui/TextField";
 import type { CourseCategory } from "@/types/course";
 import {
   buildCoursesHref,
   COURSE_QUERY_MAX_LENGTH,
+  COURSE_SORT_OPTIONS,
   parseCourseCategories,
   parseCourseQuery,
+  parseCourseSort,
+  type CourseSort,
 } from "../searchParams";
 import { saveLastCoursesHref } from "../lastCoursesHref";
 
@@ -21,58 +25,76 @@ type CourseSearchFilterProps = {
   categories: CourseCategory[] | null;
   initialQuery: string;
   initialCategories: string[];
+  initialSort: CourseSort;
 };
 
 export default function CourseSearchFilter({
   categories,
   initialQuery,
   initialCategories,
+  initialSort,
 }: CourseSearchFilterProps) {
   const router = useRouter();
   const [query, setQuery] = useState(initialQuery);
   const [selected, setSelected] = useState<string[]>(initialCategories);
+  const [sort, setSort] = useState(initialSort);
   const [filterOpen, setFilterOpen] = useState(false);
   const [pending, startTransition] = useTransition();
   const filterRef = useRef<HTMLDivElement>(null);
   const appliedQuery = useRef(initialQuery.trim());
-  const lastNavigatedKey = useRef(filterKey(initialQuery, initialCategories));
+  const lastNavigatedKey = useRef(
+    filterKey(initialQuery, initialCategories, initialSort),
+  );
 
   const searchParams = useSearchParams();
   const urlQuery = parseCourseQuery(searchParams.get("q") ?? undefined);
   const urlCategoriesParam = searchParams.get("category") ?? undefined;
-  const urlKey = filterKey(urlQuery, parseCourseCategories(urlCategoriesParam));
+  const urlSort = parseCourseSort(searchParams.get("sort") ?? undefined);
+  const urlKey = filterKey(
+    urlQuery,
+    parseCourseCategories(urlCategoriesParam),
+    urlSort,
+  );
   useEffect(() => {
     if (urlKey === lastNavigatedKey.current) return;
     lastNavigatedKey.current = urlKey;
     appliedQuery.current = urlQuery;
     setQuery(urlQuery);
     setSelected(parseCourseCategories(urlCategoriesParam));
-  }, [urlKey]);
+    setSort(urlSort);
+  }, [urlKey, urlCategoriesParam, urlQuery, urlSort]);
 
   const currentSearch = searchParams.toString();
   useEffect(() => {
     saveLastCoursesHref(currentSearch);
   }, [currentSearch]);
 
-  const navigate = (nextQuery: string, nextCategories: string[]) => {
-    appliedQuery.current = nextQuery.trim();
-    lastNavigatedKey.current = filterKey(nextQuery, nextCategories);
-    startTransition(() => {
-      router.replace(
-        buildCoursesHref({ q: nextQuery, categories: nextCategories }),
-        { scroll: false },
-      );
-    });
-  };
+  const navigate = useCallback(
+    (nextQuery: string, nextCategories: string[], nextSort: CourseSort) => {
+      appliedQuery.current = nextQuery.trim();
+      lastNavigatedKey.current = filterKey(nextQuery, nextCategories, nextSort);
+      startTransition(() => {
+        router.replace(
+          buildCoursesHref({
+            q: nextQuery,
+            categories: nextCategories,
+            sort: nextSort,
+          }),
+          { scroll: false },
+        );
+      });
+    },
+    [router],
+  );
 
   useEffect(() => {
     if (query.trim() === appliedQuery.current) return;
     const timer = setTimeout(
-      () => navigate(query, selected),
+      () => navigate(query, selected, sort),
       SEARCH_DEBOUNCE_MS,
     );
     return () => clearTimeout(timer);
-  }, [query]);
+  }, [navigate, query, selected, sort]);
 
   useEffect(() => {
     if (!filterOpen) return;
@@ -93,7 +115,12 @@ export default function CourseSearchFilter({
 
   const updateCategories = (next: string[]) => {
     setSelected(next);
-    navigate(query, next);
+    navigate(query, next, sort);
+  };
+
+  const updateSort = (next: CourseSort) => {
+    setSort(next);
+    navigate(query, selected, next);
   };
 
   const toggleCategory = (code: string) =>
@@ -106,7 +133,7 @@ export default function CourseSearchFilter({
   const clearAll = () => {
     setQuery("");
     setSelected([]);
-    navigate("", []);
+    navigate("", [], sort);
   };
 
   const categoryName = (code: string) =>
@@ -116,23 +143,25 @@ export default function CourseSearchFilter({
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-start gap-2">
-        <TextField
-          type="search"
-          value={query}
-          maxLength={COURSE_QUERY_MAX_LENGTH}
-          onChange={(event) => setQuery(event.target.value)}
-          leftIcon={
-            pending ? (
-              <Loader2 size={16} className="animate-spin" aria-hidden />
-            ) : (
-              <Search size={16} aria-hidden />
-            )
-          }
-          placeholder="ค้นหาด้วยรหัสวิชา ชื่อไทย หรือชื่ออังกฤษ"
-          aria-label="ค้นหารายวิชา"
-        />
-        <div ref={filterRef} className="relative shrink-0">
+      <div className="grid grid-cols-2 items-start gap-2 sm:flex">
+        <div className="col-span-2 min-w-0 sm:flex-1">
+          <TextField
+            type="search"
+            value={query}
+            maxLength={COURSE_QUERY_MAX_LENGTH}
+            onChange={(event) => setQuery(event.target.value)}
+            leftIcon={
+              pending ? (
+                <Loader2 size={16} className="animate-spin" aria-hidden />
+              ) : (
+                <Search size={16} aria-hidden />
+              )
+            }
+            placeholder="ค้นหาด้วยรหัสวิชา ชื่อไทย หรือชื่ออังกฤษ"
+            aria-label="ค้นหารายวิชา"
+          />
+        </div>
+        <div ref={filterRef} className="relative min-w-0 sm:shrink-0">
           <Button
             type="button"
             variant="secondary"
@@ -144,10 +173,10 @@ export default function CourseSearchFilter({
             }
             aria-expanded={filterOpen}
             aria-controls="catalog-category-filter"
-            className="border-border h-10 gap-1.5"
+            className="border-border h-10 w-full justify-between gap-1.5 px-3 sm:w-44"
           >
             <Filter size={16} aria-hidden />
-            <span>
+            <span className="truncate">
               หมวดวิชา{selected.length > 0 ? ` (${selected.length})` : ""}
             </span>
             <ChevronDown size={14} aria-hidden />
@@ -197,6 +226,21 @@ export default function CourseSearchFilter({
             </div>
           )}
         </div>
+        <div className="flex min-w-0 flex-col gap-1 sm:w-44 sm:shrink-0 sm:flex-row sm:items-center sm:gap-0">
+          <Dropdown
+            id="course-sort"
+            aria-label="เรียงตาม"
+            value={sort}
+            onChange={(event) =>
+              updateSort(parseCourseSort(event.target.value))
+            }
+            options={COURSE_SORT_OPTIONS.map(({ value, label }) => ({
+              value,
+              label,
+            }))}
+            className="w-full font-medium sm:w-50"
+          />
+        </div>
       </div>
 
       {hasFilters && (
@@ -232,6 +276,10 @@ export default function CourseSearchFilter({
   );
 }
 
-function filterKey(query: string, categories: string[]): string {
-  return `${query.trim()}|${categories.join(",")}`;
+function filterKey(
+  query: string,
+  categories: string[],
+  sort: CourseSort,
+): string {
+  return `${query.trim()}|${categories.join(",")}|${sort}`;
 }

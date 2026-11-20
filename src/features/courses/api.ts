@@ -7,6 +7,7 @@ import type {
   CourseDetail,
   CourseListItem,
 } from "@/types/course";
+import { DEFAULT_COURSE_SORT, type CourseSort } from "./searchParams";
 
 const USE_MOCK = process.env.USE_MOCK_API === "true";
 
@@ -38,6 +39,7 @@ type GetCoursesParams = {
   size?: number;
   q?: string;
   categories?: string[];
+  sort?: CourseSort;
 };
 
 export async function getCourses({
@@ -45,19 +47,22 @@ export async function getCourses({
   size = COURSE_PAGE_SIZE,
   q,
   categories = [],
+  sort = DEFAULT_COURSE_SORT,
 }: GetCoursesParams): Promise<Page<CourseListItem>> {
   if (USE_MOCK) {
     const keyword = q?.trim().toLocaleLowerCase() ?? "";
-    const courses = mockCourses.filter(
-      (course) =>
-        [course.courseCode, course.nameTh, course.nameEn].some((value) =>
-          value.toLocaleLowerCase().includes(keyword),
-        ) &&
-        (categories.length === 0 ||
-          course.categories.some((category) =>
-            categories.includes(category.code),
-          )),
-    );
+    const courses = mockCourses
+      .filter(
+        (course) =>
+          [course.courseCode, course.nameTh, course.nameEn].some((value) =>
+            value.toLocaleLowerCase().includes(keyword),
+          ) &&
+          (categories.length === 0 ||
+            course.categories.some((category) =>
+              categories.includes(category.code),
+            )),
+      )
+      .sort((a, b) => compareCourses(a, b, sort));
     return paginateMock(courses, page, size);
   }
 
@@ -66,7 +71,7 @@ export async function getCourses({
     size,
     q: q?.trim() || undefined,
     category: categories.length > 0 ? categories.join(",") : undefined,
-    sort: "courseCode,asc",
+    sort,
   });
 }
 
@@ -119,4 +124,38 @@ function paginateMock<T>(items: T[], page: number, size: number): Page<T> {
     totalElements: items.length,
     totalPages: Math.ceil(items.length / size),
   };
+}
+
+function compareCourses(
+  a: CourseListItem,
+  b: CourseListItem,
+  sort: CourseSort,
+): number {
+  const byCourseCode = () => a.courseCode.localeCompare(b.courseCode);
+
+  switch (sort) {
+    case "courseCode,desc":
+      return byCourseCode() * -1;
+    case "rating,desc":
+      {
+        const aHasReviews = a.reviewCount > 0;
+        const bHasReviews = b.reviewCount > 0;
+        if (aHasReviews !== bHasReviews) {
+          return aHasReviews ? -1 : 1;
+        }
+      }
+      return (
+        b.averageRating - a.averageRating ||
+        b.reviewCount - a.reviewCount ||
+        byCourseCode()
+      );
+    case "reviewCount,desc":
+      return (
+        b.reviewCount - a.reviewCount ||
+        b.averageRating - a.averageRating ||
+        byCourseCode()
+      );
+    case "courseCode,asc":
+      return byCourseCode();
+  }
 }
