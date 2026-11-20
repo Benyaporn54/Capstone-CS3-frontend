@@ -1,5 +1,6 @@
 import { ApiError, apiGet } from "@/lib/api";
 import coursesMock from "@/mocks/courses.json";
+import reviewsMock from "@/mocks/reviews.json";
 import type { Page } from "@/types/common";
 import type {
   CourseCategory,
@@ -10,6 +11,26 @@ import type {
 const USE_MOCK = process.env.USE_MOCK_API === "true";
 
 export const COURSE_PAGE_SIZE = 24;
+
+type MockCourse = Omit<CourseListItem, "averageRating" | "reviewCount"> &
+  Partial<Pick<CourseListItem, "averageRating" | "reviewCount">>;
+type MockCourseSummary = Pick<CourseListItem, "averageRating" | "reviewCount">;
+
+const mockReviewSummaries = reviewsMock as Record<
+  string,
+  { summary: MockCourseSummary }
+>;
+const mockCourses: CourseListItem[] = (coursesMock as MockCourse[]).map(
+  (course) => {
+    const summary =
+      mockReviewSummaries[course.courseCode.toUpperCase()]?.summary;
+    return {
+      ...course,
+      averageRating: course.averageRating ?? summary?.averageRating ?? 0,
+      reviewCount: course.reviewCount ?? summary?.reviewCount ?? 0,
+    };
+  },
+);
 
 type GetCoursesParams = {
   /** 0-based, same as the API */
@@ -27,7 +48,7 @@ export async function getCourses({
 }: GetCoursesParams): Promise<Page<CourseListItem>> {
   if (USE_MOCK) {
     const keyword = q?.trim().toLocaleLowerCase() ?? "";
-    const courses = (coursesMock as CourseListItem[]).filter(
+    const courses = mockCourses.filter(
       (course) =>
         [course.courseCode, course.nameTh, course.nameEn].some((value) =>
           value.toLocaleLowerCase().includes(keyword),
@@ -53,7 +74,7 @@ export async function getCategories(): Promise<CourseCategory[]> {
   if (USE_MOCK) {
     return Array.from(
       new Map(
-        (coursesMock as CourseListItem[])
+        mockCourses
           .flatMap((course) => course.categories)
           .map((category) => [category.code, category]),
       ).values(),
@@ -69,7 +90,7 @@ export async function getCourseByCode(
   if (!code) return null;
 
   if (USE_MOCK) {
-    const found = (coursesMock as CourseListItem[]).find(
+    const found = mockCourses.find(
       (course) => course.courseCode.toUpperCase() === code.toUpperCase(),
     );
     if (!found) return null;

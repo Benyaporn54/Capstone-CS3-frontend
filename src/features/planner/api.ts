@@ -24,7 +24,6 @@ import type {
   RemovePlanCourseInput,
   RemovePlanCourseResult,
 } from "@/types/plan";
-import type { CourseListItem } from "@/types/course";
 import type { TrackListItem } from "@/types/track";
 import { countsCredits } from "./utils";
 
@@ -372,7 +371,7 @@ function addCourseToMockPlan(input: AddPlanCourseInput): AddPlanCourseResult {
     };
   }
 
-  const course = (coursesMock as CourseListItem[]).find(
+  const course = coursesMock.find(
     (item) => item.id === input.courseId && item.isActive,
   );
   if (!course) return { ok: false, message: "ไม่พบรายวิชาที่เลือก" };
