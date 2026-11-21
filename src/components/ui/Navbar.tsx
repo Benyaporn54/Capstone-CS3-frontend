@@ -18,7 +18,7 @@ function NavLinks() {
   ];
 
   return (
-    <div className="flex items-center gap-8">
+    <div className="flex items-center justify-center gap-2 sm:gap-8">
       {navItems.map((item) => {
         const isActive =
           pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -80,8 +80,8 @@ function UserMenu() {
 // 2. Component หลัก หุ้มด้วย Suspense
 function Navbar() {
   return (
-    <nav className="border-border bg-bg flex items-center gap-8 border-b-3 px-5 py-1">
-      <div className="flex items-center gap-8">
+    <nav className="border-border bg-bg flex flex-wrap items-center justify-between gap-x-3 border-b-3 px-4 py-1 sm:flex-nowrap sm:gap-8 sm:px-5">
+      <div className="contents sm:flex sm:items-center sm:gap-8">
         <Link href="/" className="flex items-center">
           <Image
             src="/logo.png"
@@ -94,12 +94,14 @@ function Navbar() {
         </Link>
 
         {/* หุ้ม NavLinks ด้วย Suspense เพื่อป้องกัน Build Error ในช่วง Prerender */}
-        <Suspense fallback={<div className="h-9 w-48" />}>
-          <NavLinks />
-        </Suspense>
+        <div className="order-3 w-full sm:order-none sm:w-auto">
+          <Suspense fallback={<div className="h-9 w-48" />}>
+            <NavLinks />
+          </Suspense>
+        </div>
       </div>
 
-      <div className="mx-15 ml-auto">
+      <div className="ml-auto sm:mx-15">
         <UserMenu />
       </div>
     </nav>
