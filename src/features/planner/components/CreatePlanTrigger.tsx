@@ -32,6 +32,7 @@ export default function CreatePlanTrigger({
   );
   const shouldCleanQuery = useRef(autoOpen);
   const createdPlan = useRef(false);
+
   const close = useCallback(() => {
     setOpen(false);
     setTrackForFirstModal(null);

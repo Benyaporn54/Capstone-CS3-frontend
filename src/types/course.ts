@@ -15,6 +15,8 @@ export type CourseListItem = {
   credits: number;
   isActive: boolean;
   tags: string[];
+  averageRating: number;
+  reviewCount: number;
   categories: CourseCategory[];
 };
 

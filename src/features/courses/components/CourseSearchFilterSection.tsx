@@ -1,5 +1,9 @@
 import { getCategories } from "../api";
-import { parseCourseCategories, parseCourseQuery } from "../searchParams";
+import {
+  parseCourseCategories,
+  parseCourseQuery,
+  parseCourseSort,
+} from "../searchParams";
 import type { CourseCategory } from "@/types/course";
 import CourseSearchFilter from "./CourseSearchFilter";
 
@@ -24,6 +28,7 @@ export default async function CourseSearchFilterSection({
       categories={categories}
       initialQuery={parseCourseQuery(params.q)}
       initialCategories={parseCourseCategories(params.category)}
+      initialSort={parseCourseSort(params.sort)}
     />
   );
 }

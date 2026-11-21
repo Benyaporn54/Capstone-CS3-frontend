@@ -5,6 +5,7 @@ import {
   buildCoursesHref,
   parseCourseCategories,
   parseCourseQuery,
+  parseCourseSort,
 } from "../searchParams";
 import CourseCard from "./CourseCard";
 
@@ -22,8 +23,9 @@ export default async function CourseList({ searchParams }: CourseListProps) {
   const currentPage = parsePage(params.page);
   const q = parseCourseQuery(params.q);
   const categories = parseCourseCategories(params.category);
+  const sort = parseCourseSort(params.sort);
   const hasFilters = q !== "" || categories.length > 0;
-  const data = await getCourses({ page: currentPage - 1, q, categories });
+  const data = await getCourses({ page: currentPage - 1, q, categories, sort });
 
   if (data.totalElements === 0) {
     return (
@@ -34,7 +36,7 @@ export default async function CourseList({ searchParams }: CourseListProps) {
   }
 
   if (currentPage > data.totalPages) {
-    redirect(buildCoursesHref({ q, categories, page: data.totalPages }));
+    redirect(buildCoursesHref({ q, categories, page: data.totalPages, sort }));
   }
 
   return (
@@ -56,6 +58,7 @@ export default async function CourseList({ searchParams }: CourseListProps) {
         query={{
           q: q || undefined,
           category: categories.length > 0 ? categories.join(",") : undefined,
+          sort,
         }}
       />
     </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Star } from "lucide-react";
 import type { CourseListItem } from "@/types/course";
 
 type CourseCardProps = {
@@ -39,6 +40,24 @@ export default function CourseCard({ course }: CourseCardProps) {
           ))}
         </ul>
       )}
+
+      <div className="border-border text-body mt-auto flex items-center gap-2 border-t pt-3">
+        {course.reviewCount > 0 ? (
+          <>
+            <span className="text-fg inline-flex items-center gap-1 font-semibold">
+              <Star
+                size={14}
+                className="text-signature fill-signature"
+                aria-hidden
+              />
+              {course.averageRating.toFixed(1)}
+            </span>
+            <span className="text-fg-muted">{course.reviewCount} รีวิว</span>
+          </>
+        ) : (
+          <span className="text-fg-muted">ยังไม่มีรีวิว</span>
+        )}
+      </div>
     </Link>
   );
 }
