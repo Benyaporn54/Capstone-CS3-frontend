@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Lock, Plus } from "lucide-react";
 import Button from "@/components/ui/Button";
 import type { TrackListItem } from "@/types/track";
@@ -12,8 +12,6 @@ type CreatePlanTriggerProps = {
   planCount: number;
   maxPlans: number;
   trackOptions: TrackListItem[];
-  autoOpen?: boolean;
-  initialTrackId?: number | null;
 };
 
 /** ปุ่ม "+ สร้างแผนใหม่" (หัวหน้า) หรือแถบเส้นประท้ายรายการ — เปิด modal สร้างแผน */
@@ -22,28 +20,34 @@ export default function CreatePlanTrigger({
   planCount,
   maxPlans,
   trackOptions,
-  autoOpen = false,
-  initialTrackId = null,
 }: CreatePlanTriggerProps) {
   const router = useRouter();
-  const [open, setOpen] = useState(autoOpen);
-  const [trackForFirstModal, setTrackForFirstModal] = useState<number | null>(
-    autoOpen ? initialTrackId : null,
-  );
-  const shouldCleanQuery = useRef(autoOpen);
+  const searchParams = useSearchParams();
+  const [manualOpen, setManualOpen] = useState(false);
   const createdPlan = useRef(false);
 
-  const close = useCallback(() => {
-    setOpen(false);
-    setTrackForFirstModal(null);
-    if (shouldCleanQuery.current && !createdPlan.current) {
-      router.replace("/planner", { scroll: false });
-    }
-    shouldCleanQuery.current = false;
-    createdPlan.current = false;
-  }, [router]);
   const remaining = Math.max(0, maxPlans - planCount);
   const isFull = remaining === 0;
+  const autoOpen =
+    variant === "button" &&
+    searchParams.get("createPlan") === "true" &&
+    !isFull;
+  const open = autoOpen || manualOpen;
+  const requestedTrackId = Number(searchParams.get("trackId"));
+  const initialTrackId =
+    Number.isSafeInteger(requestedTrackId) &&
+    requestedTrackId > 0 &&
+    trackOptions.some((track) => track.id === requestedTrackId)
+      ? requestedTrackId
+      : null;
+
+  const close = useCallback(() => {
+    setManualOpen(false);
+    if (autoOpen && !createdPlan.current) {
+      router.replace("/planner", { scroll: false });
+    }
+    createdPlan.current = false;
+  }, [autoOpen, router]);
 
   // mount เฉพาะตอนเปิด → ฟอร์มเริ่มใหม่ทุกครั้ง
   const modal = open && (
@@ -53,7 +57,7 @@ export default function CreatePlanTrigger({
       remaining={remaining}
       maxPlans={maxPlans}
       trackOptions={trackOptions}
-      initialTrackId={trackForFirstModal}
+      initialTrackId={autoOpen ? initialTrackId : null}
       onCreated={(id) => {
         createdPlan.current = true;
         router.push(`/planner/${id}`);
@@ -65,7 +69,7 @@ export default function CreatePlanTrigger({
     return (
       <>
         <Button
-          onClick={() => setOpen(true)}
+          onClick={() => setManualOpen(true)}
           disabled={isFull}
           className="h-11 gap-1.5 sm:h-9"
         >
@@ -90,7 +94,7 @@ export default function CreatePlanTrigger({
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => setManualOpen(true)}
         className="border-border-strong/60 text-body text-fg-muted hover:border-accent hover:bg-accent-soft hover:text-accent focus-visible:ring-accent flex h-14 w-full items-center justify-center gap-2 rounded-lg border border-dashed transition-colors focus-visible:ring-2 focus-visible:outline-none"
       >
         <Plus size={16} aria-hidden />
