@@ -1,7 +1,7 @@
 name: Frontend CD
 
 # Deploy ขึ้น SIT VM เมื่อ CI ผ่านบน main (ต้องกด Approve ที่ Environment "production")
-# หรือรันมือ (workflow_dispatch) เพื่อ rollback โดยระบุ image tag เช่น sha-abc1234
+# หรือรันมือ (workflow_dispatch) จาก main เพื่อ rollback โดยระบุ image tag เช่น sha-abc1234
 on:
   workflow_run:
     workflows: ["CI"]
@@ -26,10 +26,11 @@ env:
 
 jobs:
   build:
-    # รันเฉพาะเมื่อ CI ของ push บน main ผ่าน (ไม่รับ PR/fork) หรือสั่งมือ
+    # รันเฉพาะ CI ของ push บน main ที่ผ่านแล้ว หรือสั่งมือจาก main เท่านั้น (ไม่รับ PR/fork/branch อื่น)
     if: >-
-      github.event_name == 'workflow_dispatch' ||
-      (github.event.workflow_run.conclusion == 'success' &&
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success' &&
        github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
     permissions:
@@ -68,14 +69,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # push เฉพาะ tag แบบ sha — ไม่ push :latest ก่อนได้รับการอนุมัติ
+      # (VM จะ tag :latest ในเครื่องเองหลัง pull)
       - uses: docker/build-push-action@v6
         if: steps.vars.outputs.build == 'true'
         with:
           context: .
           push: true
-          tags: |
-            ${{ env.IMAGE }}:${{ steps.vars.outputs.tag }}
-            ${{ env.IMAGE }}:latest
+          tags: ${{ env.IMAGE }}:${{ steps.vars.outputs.tag }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -87,6 +88,13 @@ jobs:
     permissions:
       contents: read
       packages: read
+    env:
+      HOST: ${{ secrets.VM_HOST }}
+      USER_: ${{ secrets.VM_USER }}
+      PORT: ${{ secrets.VM_PORT || '22' }}
+      DEPLOY_PATH: ${{ vars.DEPLOY_PATH || '/opt/planit' }}
+      SERVICE: ${{ vars.FRONTEND_SERVICE || 'frontend' }}
+      TAG: ${{ needs.build.outputs.tag }}
     steps:
       - name: Setup SSH
         env:
@@ -98,14 +106,16 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
 
+      - name: Record previous image (for rollback)
+        id: prev
+        run: |
+          SSH="ssh -i ~/.ssh/deploy_key -p $PORT -o StrictHostKeyChecking=yes -o BatchMode=yes $USER_@$HOST"
+          prev=$($SSH "docker image inspect '$IMAGE:latest' --format '{{.Id}}' 2>/dev/null || true")
+          [[ -z "$prev" || "$prev" =~ ^sha256:[0-9a-f]{64}$ ]] || { echo "unexpected image id"; exit 1; }
+          echo "id=$prev" >> "$GITHUB_OUTPUT"
+
       - name: Deploy on VM
         env:
-          HOST: ${{ secrets.VM_HOST }}
-          USER_: ${{ secrets.VM_USER }}
-          PORT: ${{ secrets.VM_PORT || '22' }}
-          DEPLOY_PATH: ${{ vars.DEPLOY_PATH || '/opt/planit' }}
-          SERVICE: ${{ vars.FRONTEND_SERVICE || 'frontend' }}
-          TAG: ${{ needs.build.outputs.tag }}
           GH_USER: ${{ github.actor }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -114,22 +124,38 @@ jobs:
           printf '%s' "$GH_TOKEN" | $SSH "docker login ghcr.io -u '$GH_USER' --password-stdin"
           $SSH bash -s -- "$DEPLOY_PATH" "$SERVICE" "$IMAGE" "$TAG" <<'REMOTE'
           set -euo pipefail
+          trap 'docker logout ghcr.io >/dev/null 2>&1 || true' EXIT   # logout เสมอ แม้ pull ล้มเหลว
           path="$1"; svc="$2"; image="$3"; tag="$4"
           docker pull "$image:$tag"
           docker tag "$image:$tag" "$image:latest"
           cd "$path"
           docker compose up -d --no-deps --no-build "$svc"
           docker image prune -f >/dev/null
-          docker logout ghcr.io
           REMOTE
 
       - name: Health check
+        id: health
         env:
           URL: ${{ vars.FRONTEND_HEALTH_URL }}
         run: |
-          [ -n "$URL" ] || { echo "ไม่ได้ตั้งค่า health URL ข้าม"; exit 0; }
+          [ -n "$URL" ] || { echo "::error::ต้องตั้ง repository variable FRONTEND_HEALTH_URL"; exit 1; }
           for i in $(seq 1 20); do
             curl -fsS --max-time 10 "$URL" >/dev/null && { echo "healthy"; exit 0; }
             sleep 6
           done
-          echo "health check failed — พิจารณา rollback ด้วย workflow_dispatch (tag เดิม)"; exit 1
+          echo "::error::health check failed"; exit 1
+
+      - name: Roll back to previous image
+        if: failure() && steps.health.outcome == 'failure' && steps.prev.outputs.id != ''
+        env:
+          PREV_ID: ${{ steps.prev.outputs.id }}
+        run: |
+          SSH="ssh -i ~/.ssh/deploy_key -p $PORT -o StrictHostKeyChecking=yes -o BatchMode=yes $USER_@$HOST"
+          $SSH bash -s -- "$DEPLOY_PATH" "$SERVICE" "$IMAGE" "$PREV_ID" <<'REMOTE'
+          set -euo pipefail
+          path="$1"; svc="$2"; image="$3"; prev="$4"
+          docker tag "$prev" "$image:latest"
+          cd "$path"
+          docker compose up -d --no-deps --no-build "$svc"
+          REMOTE
+          echo "::warning::rolled back to previous image $PREV_ID"
